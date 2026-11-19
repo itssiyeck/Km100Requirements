@@ -31,43 +31,59 @@ _mock_interns = [
         "requirements": [
             {
                 "id": "req-1",
-                "requirement_name": "Diploma Degree / Academic Transcript",
+                "requirement_name": "Birth Certificate NSO/PSA (or Marriage Certificate)",
                 "status": "submitted",
-                "remarks": "Official transcript of records verified",
+                "remarks": "Official PSA Birth Certificate copy verified.",
                 "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
                 "scanned_at": "2026-11-10T08:00:00Z"
             },
             {
                 "id": "req-2",
-                "requirement_name": "NC11 / NC II National Certificate",
-                "status": "lacking",
-                "remarks": "Missing certified copy of National Certificate (NC11). Please submit to scanner.",
-                "document_url": None,
-                "scanned_at": None
+                "requirement_name": "Either: T.O.R / Diploma / ALS / Form 138 / Form 137",
+                "status": "submitted",
+                "remarks": "Official Transcript of Records (T.O.R) verified.",
+                "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                "scanned_at": "2026-11-11T09:00:00Z"
             },
             {
                 "id": "req-3",
-                "requirement_name": "Trainers Methodology (TM 1) Certificate",
+                "requirement_name": "Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)",
                 "status": "pending",
-                "remarks": "Scanned document received; pending Admin & Assessor signature verification.",
+                "remarks": "Submitted 4 pcs passport photos; under registrar review.",
                 "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
                 "scanned_at": "2026-11-15T14:30:00Z"
             },
             {
                 "id": "req-4",
-                "requirement_name": "National TVET Trainer Certificate (NTTC)",
+                "requirement_name": "1x1 Picture - 4pcs (White BG w/ Collar & Signature)",
+                "status": "submitted",
+                "remarks": "4 pcs 1x1 acid-based photos with nametag and signature verified.",
+                "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                "scanned_at": "2026-11-12T09:15:00Z"
+            },
+            {
+                "id": "req-5",
+                "requirement_name": "Barangay Certificate",
                 "status": "lacking",
-                "remarks": "Lacking NTTC credentials. Please upload or scan updated certificate.",
+                "remarks": "Valid Barangay Certificate/Clearance of residency required. Submit to scanner.",
                 "document_url": None,
                 "scanned_at": None
             },
             {
-                "id": "req-5",
-                "requirement_name": "Medical Physical & Drug Test Clearance",
+                "id": "req-6",
+                "requirement_name": "Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)",
                 "status": "submitted",
-                "remarks": "Approved valid medical clearance certificate",
-                "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
-                "scanned_at": "2026-11-12T09:15:00Z"
+                "remarks": "Medical Certificate & Chest X-RAY verified valid by school physician.",
+                "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                "scanned_at": "2026-11-14T10:00:00Z"
+            },
+            {
+                "id": "req-7",
+                "requirement_name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                "status": "lacking",
+                "remarks": "Physical filing supplies: 1pc Long Brown Envelope and 1pc Long White Folder required.",
+                "document_url": None,
+                "scanned_at": None
             }
         ]
     },
@@ -81,36 +97,60 @@ _mock_interns = [
         "overall_status": "pending",
         "requirements": [
             {
-                "id": "req-6",
-                "requirement_name": "OJT Endorsement Letter",
+                "id": "req-8",
+                "requirement_name": "Birth Certificate NSO/PSA (or Marriage Certificate)",
                 "status": "submitted",
-                "remarks": "Verified and Approved",
+                "remarks": "NSO/PSA copy verified.",
                 "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
                 "scanned_at": "2026-11-09T10:00:00Z"
             },
             {
-                "id": "req-7",
-                "requirement_name": "Medical Clearance Certificate",
+                "id": "req-9",
+                "requirement_name": "Either: T.O.R / Diploma / ALS / Form 138 / Form 137",
                 "status": "submitted",
-                "remarks": "Complete physical exam approved",
+                "remarks": "College Diploma verified.",
+                "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                "scanned_at": "2026-11-10T11:00:00Z"
+            },
+            {
+                "id": "req-10",
+                "requirement_name": "Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)",
+                "status": "submitted",
+                "remarks": "Photos complete and stamped.",
+                "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                "scanned_at": "2026-11-14T11:20:00Z"
+            },
+            {
+                "id": "req-11",
+                "requirement_name": "1x1 Picture - 4pcs (White BG w/ Collar & Signature)",
+                "status": "submitted",
+                "remarks": "1x1 photos complete.",
                 "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
                 "scanned_at": "2026-11-14T11:20:00Z"
             },
             {
-                "id": "req-8",
-                "requirement_name": "Parent / Guardian Waiver & Consent",
+                "id": "req-12",
+                "requirement_name": "Barangay Certificate",
                 "status": "pending",
-                "remarks": "Under review by OJT Coordinator",
-                "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                "remarks": "Submitted Barangay clearance under verification.",
+                "document_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
                 "scanned_at": "2026-11-16T15:00:00Z"
             },
             {
-                "id": "req-9",
-                "requirement_name": "Daily Time Record (DTR) - Week 1",
-                "status": "lacking",
-                "remarks": "Lacking weekly report submission. Please submit signed physical copy to scanner.",
+                "id": "req-13",
+                "requirement_name": "Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)",
+                "status": "pending",
+                "remarks": "Medical certificate received; awaiting clinic confirmation.",
+                "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                "scanned_at": "2026-11-16T15:00:00Z"
+            },
+            {
+                "id": "req-14",
+                "requirement_name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                "status": "submitted",
+                "remarks": "Filing supplies received and tagged.",
                 "document_url": None,
-                "scanned_at": None
+                "scanned_at": "2026-11-15T12:00:00Z"
             }
         ]
     },
@@ -124,36 +164,60 @@ _mock_interns = [
         "overall_status": "complete",
         "requirements": [
             {
-                "id": "req-10",
-                "requirement_name": "OJT Endorsement Letter",
+                "id": "req-15",
+                "requirement_name": "Birth Certificate NSO/PSA (or Marriage Certificate)",
                 "status": "submitted",
                 "remarks": "Complete and verified",
                 "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
                 "scanned_at": "2026-11-01T08:00:00Z"
             },
             {
-                "id": "req-11",
-                "requirement_name": "Medical Clearance Certificate",
+                "id": "req-16",
+                "requirement_name": "Either: T.O.R / Diploma / ALS / Form 138 / Form 137",
+                "status": "submitted",
+                "remarks": "Complete and verified",
+                "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                "scanned_at": "2026-11-01T08:00:00Z"
+            },
+            {
+                "id": "req-17",
+                "requirement_name": "Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)",
+                "status": "submitted",
+                "remarks": "Complete and verified",
+                "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                "scanned_at": "2026-11-02T09:30:00Z"
+            },
+            {
+                "id": "req-18",
+                "requirement_name": "1x1 Picture - 4pcs (White BG w/ Collar & Signature)",
                 "status": "submitted",
                 "remarks": "Complete and verified",
                 "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
                 "scanned_at": "2026-11-02T09:30:00Z"
             },
             {
-                "id": "req-12",
-                "requirement_name": "Parent / Guardian Waiver & Consent",
+                "id": "req-19",
+                "requirement_name": "Barangay Certificate",
                 "status": "submitted",
-                "remarks": "Complete and verified",
-                "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                "remarks": "Valid Barangay Certificate on record",
+                "document_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
                 "scanned_at": "2026-11-03T10:15:00Z"
             },
             {
-                "id": "req-13",
-                "requirement_name": "Daily Time Record (DTR) - Week 1",
+                "id": "req-20",
+                "requirement_name": "Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)",
                 "status": "submitted",
-                "remarks": "Verified 40 hours rendered",
-                "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
-                "scanned_at": "2026-11-10T16:00:00Z"
+                "remarks": "Full medical clearance approved",
+                "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                "scanned_at": "2026-11-04T10:15:00Z"
+            },
+            {
+                "id": "req-21",
+                "requirement_name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                "status": "submitted",
+                "remarks": "Filing materials archived",
+                "document_url": None,
+                "scanned_at": "2026-11-05T11:00:00Z"
             }
         ]
     }

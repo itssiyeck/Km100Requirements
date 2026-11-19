@@ -1383,7 +1383,7 @@
       }
     ];
 
-    // DATABASE SEED FOR DIPLOMA & NC11 TRAINER REQUIREMENTS
+    // DATABASE SEED FOR KM100 OFFICIAL PRESCRIBED REQUIREMENTS
     const INITIAL_INTERNS = [
       {
         id: "aaaaaaaa-1111-1111-1111-111111111111",
@@ -1396,43 +1396,59 @@
         requirements: [
           {
             id: "req-1",
-            name: "Diploma Degree / Academic Transcript",
+            name: "Birth Certificate NSO/PSA (or Marriage Certificate)",
             status: "submitted",
-            remarks: "Authenticated official transcript of records verified.",
+            remarks: "Official PSA Birth Certificate copy verified.",
             document_url: "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
             scanned_at: "Nov 10, 2026"
           },
           {
             id: "req-2",
-            name: "NC11 / NC II National Certificate",
-            status: "lacking",
-            remarks: "Missing certified copy of National Certificate (NC11). Please submit to scanner.",
-            document_url: null,
-            scanned_at: null
+            name: "Either: T.O.R / Diploma / ALS / Form 138 / Form 137",
+            status: "submitted",
+            remarks: "Official Transcript of Records (T.O.R) verified and authenticated.",
+            document_url: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+            scanned_at: "Nov 11, 2026"
           },
           {
             id: "req-3",
-            name: "Trainers Methodology (TM 1) Certificate",
+            name: "Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)",
             status: "pending",
-            remarks: "Scan received; pending Admin & Assessor signature verification.",
+            remarks: "Submitted 4 pcs passport photos; under registrar review.",
             document_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
             scanned_at: "Nov 15, 2026"
           },
           {
             id: "req-4",
-            name: "National TVET Trainer Certificate (NTTC)",
+            name: "1x1 Picture - 4pcs (White BG w/ Collar & Signature)",
+            status: "submitted",
+            remarks: "4 pcs 1x1 acid-based photos with nametag and signature verified.",
+            document_url: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+            scanned_at: "Nov 12, 2026"
+          },
+          {
+            id: "req-5",
+            name: "Barangay Certificate",
             status: "lacking",
-            remarks: "Lacking NTTC credentials. Please upload or scan updated certificate.",
+            remarks: "Valid Barangay Certificate/Clearance of residency required. Please submit to scanner.",
             document_url: null,
             scanned_at: null
           },
           {
-            id: "req-5",
-            name: "Medical Physical & Drug Test Clearance",
+            id: "req-6",
+            name: "Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)",
             status: "submitted",
-            remarks: "Approved valid medical clearance certificate.",
-            document_url: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
-            scanned_at: "Nov 12, 2026"
+            remarks: "Medical Certificate & Chest X-RAY verified valid by school physician.",
+            document_url: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+            scanned_at: "Nov 14, 2026"
+          },
+          {
+            id: "req-7",
+            name: "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+            status: "lacking",
+            remarks: "Physical filing supplies: 1pc Long Brown Envelope and 1pc Long White Folder required.",
+            document_url: null,
+            scanned_at: null
           }
         ]
       },
@@ -1446,36 +1462,60 @@
         overall_status: "pending",
         requirements: [
           {
-            id: "req-6",
-            name: "Diploma Degree / Academic Transcript",
+            id: "req-8",
+            name: "Birth Certificate NSO/PSA (or Marriage Certificate)",
             status: "submitted",
-            remarks: "Verified and approved.",
+            remarks: "NSO/PSA copy verified.",
             document_url: "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
             scanned_at: "Nov 09, 2026"
           },
           {
-            id: "req-7",
-            name: "NC11 / NC II National Certificate",
+            id: "req-9",
+            name: "Either: T.O.R / Diploma / ALS / Form 138 / Form 137",
             status: "submitted",
-            remarks: "Certified copy verified by assessment center.",
+            remarks: "College Diploma verified.",
+            document_url: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+            scanned_at: "Nov 10, 2026"
+          },
+          {
+            id: "req-10",
+            name: "Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)",
+            status: "submitted",
+            remarks: "Photos complete and stamped.",
+            document_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+            scanned_at: "Nov 14, 2026"
+          },
+          {
+            id: "req-11",
+            name: "1x1 Picture - 4pcs (White BG w/ Collar & Signature)",
+            status: "submitted",
+            remarks: "1x1 photos complete.",
             document_url: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
             scanned_at: "Nov 14, 2026"
           },
           {
-            id: "req-8",
-            name: "Trainers Methodology (TM 1) Certificate",
+            id: "req-12",
+            name: "Barangay Certificate",
             status: "pending",
-            remarks: "Under review by OJT / TVET Coordinator.",
-            document_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+            remarks: "Submitted Barangay clearance under verification.",
+            document_url: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
             scanned_at: "Nov 16, 2026"
           },
           {
-            id: "req-9",
-            name: "National TVET Trainer Certificate (NTTC)",
-            status: "lacking",
-            remarks: "Lacking NTTC endorsement. Submit physical copy to flatbed scanner.",
+            id: "req-13",
+            name: "Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)",
+            status: "pending",
+            remarks: "Medical certificate received; awaiting clinic confirmation.",
+            document_url: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+            scanned_at: "Nov 16, 2026"
+          },
+          {
+            id: "req-14",
+            name: "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+            status: "submitted",
+            remarks: "Filing supplies received and tagged.",
             document_url: null,
-            scanned_at: null
+            scanned_at: "Nov 15, 2026"
           }
         ]
       },
@@ -1489,36 +1529,60 @@
         overall_status: "complete",
         requirements: [
           {
-            id: "req-10",
-            name: "Diploma Degree / Academic Transcript",
+            id: "req-15",
+            name: "Birth Certificate NSO/PSA (or Marriage Certificate)",
             status: "submitted",
-            remarks: "Complete and verified.",
+            remarks: "Complete & Verified.",
             document_url: "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
             scanned_at: "Nov 01, 2026"
           },
           {
-            id: "req-11",
-            name: "NC11 / NC II National Certificate",
+            id: "req-16",
+            name: "Either: T.O.R / Diploma / ALS / Form 138 / Form 137",
             status: "submitted",
-            remarks: "Complete and verified.",
+            remarks: "Complete & Verified.",
+            document_url: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+            scanned_at: "Nov 01, 2026"
+          },
+          {
+            id: "req-17",
+            name: "Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)",
+            status: "submitted",
+            remarks: "Complete & Verified.",
+            document_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+            scanned_at: "Nov 02, 2026"
+          },
+          {
+            id: "req-18",
+            name: "1x1 Picture - 4pcs (White BG w/ Collar & Signature)",
+            status: "submitted",
+            remarks: "Complete & Verified.",
             document_url: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
             scanned_at: "Nov 02, 2026"
           },
           {
-            id: "req-12",
-            name: "Trainers Methodology (TM 1) Certificate",
+            id: "req-19",
+            name: "Barangay Certificate",
             status: "submitted",
-            remarks: "Complete and verified.",
-            document_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+            remarks: "Valid Barangay Certificate on record.",
+            document_url: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
             scanned_at: "Nov 03, 2026"
           },
           {
-            id: "req-13",
-            name: "National TVET Trainer Certificate (NTTC)",
+            id: "req-20",
+            name: "Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)",
             status: "submitted",
-            remarks: "Verified valid NTTC ID.",
-            document_url: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
-            scanned_at: "Nov 10, 2026"
+            remarks: "Full medical clearance approved.",
+            document_url: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+            scanned_at: "Nov 04, 2026"
+          },
+          {
+            id: "req-21",
+            name: "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+            status: "submitted",
+            remarks: "Filing materials archived.",
+            document_url: null,
+            scanned_at: "Nov 05, 2026"
           }
         ]
       }
@@ -2163,10 +2227,13 @@
 
                   if (internData?.id) {
                     const defaultReqs = [
-                      { intern_id: internData.id, requirement_name: 'Diploma Degree / Academic Transcript', status: 'lacking', remarks: 'Not yet submitted. Please submit certified copy.' },
-                      { intern_id: internData.id, requirement_name: 'NC11 / NC II National Certificate', status: 'lacking', remarks: 'Required for trainer compliance. Submit to scanner.' },
-                      { intern_id: internData.id, requirement_name: 'Trainers Methodology (TM 1) Certificate', status: 'pending', remarks: 'Registered candidate; under coordinator evaluation.' },
-                      { intern_id: internData.id, requirement_name: 'Medical Physical & Drug Test Clearance', status: 'lacking', remarks: 'Mandatory clinical health exam required.' }
+                      { intern_id: internData.id, requirement_name: 'Birth Certificate NSO/PSA (or Marriage Certificate)', status: 'lacking', remarks: 'Official NSO/PSA copy required. (For married women, submit Marriage Certificate)' },
+                      { intern_id: internData.id, requirement_name: 'Either: T.O.R / Diploma / ALS / Form 138 / Form 137', status: 'lacking', remarks: 'Submit either Transcript of Records (TOR), Diploma, ALS Certificate, Form 138, or Form 137.' },
+                      { intern_id: internData.id, requirement_name: 'Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)', status: 'lacking', remarks: '4 pcs passport-sized photos with white background, collar, nametag, and signature.' },
+                      { intern_id: internData.id, requirement_name: '1x1 Picture - 4pcs (White BG w/ Collar & Signature)', status: 'lacking', remarks: '4 pcs 1x1 photos on acid-based photo paper with white background, collar, nametag, and signature.' },
+                      { intern_id: internData.id, requirement_name: 'Barangay Certificate', status: 'lacking', remarks: 'Current valid Barangay Certificate/Clearance of residency required.' },
+                      { intern_id: internData.id, requirement_name: 'Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)', status: 'lacking', remarks: 'Medical Certificate required (includes Chest X-Ray for SMAW, or standard Medical for BPP, Driving & CSS NCII).' },
+                      { intern_id: internData.id, requirement_name: 'Long Brown Envelope (1pc) & Long White Folder (1pc)', status: 'lacking', remarks: 'Submit 1 pc Long Brown Envelope and 1 pc Long White Folder for document archiving.' }
                     ];
                     await sbClient.from('requirements').insert(defaultReqs);
                   }
@@ -2208,33 +2275,57 @@
             requirements: [
               {
                 id: 'req-' + Date.now() + '-1',
-                name: 'Diploma Degree / Academic Transcript',
+                name: 'Birth Certificate NSO/PSA (or Marriage Certificate)',
                 status: 'lacking',
-                remarks: 'Not yet submitted. Please submit certified copy.',
+                remarks: 'Official NSO/PSA copy required. (For married women, submit Marriage Certificate)',
                 document_url: null,
                 scanned_at: null
               },
               {
                 id: 'req-' + Date.now() + '-2',
-                name: 'NC11 / NC II National Certificate',
+                name: 'Either: T.O.R / Diploma / ALS / Form 138 / Form 137',
                 status: 'lacking',
-                remarks: 'Required for trainer compliance. Submit to scanner.',
+                remarks: 'Submit either Transcript of Records (TOR), Diploma, ALS Certificate, Form 138, or Form 137.',
                 document_url: null,
                 scanned_at: null
               },
               {
                 id: 'req-' + Date.now() + '-3',
-                name: 'Trainers Methodology (TM 1) Certificate',
-                status: 'pending',
-                remarks: 'Registered candidate; under coordinator evaluation.',
+                name: 'Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)',
+                status: 'lacking',
+                remarks: '4 pcs passport-sized photos with white background, collar, nametag, and signature.',
                 document_url: null,
                 scanned_at: null
               },
               {
                 id: 'req-' + Date.now() + '-4',
-                name: 'Medical Physical & Drug Test Clearance',
+                name: '1x1 Picture - 4pcs (White BG w/ Collar & Signature)',
                 status: 'lacking',
-                remarks: 'Mandatory clinical health exam required.',
+                remarks: '4 pcs 1x1 photos on acid-based photo paper with white background, collar, nametag, and signature.',
+                document_url: null,
+                scanned_at: null
+              },
+              {
+                id: 'req-' + Date.now() + '-5',
+                name: 'Barangay Certificate',
+                status: 'lacking',
+                remarks: 'Current valid Barangay Certificate/Clearance of residency required.',
+                document_url: null,
+                scanned_at: null
+              },
+              {
+                id: 'req-' + Date.now() + '-6',
+                name: 'Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)',
+                status: 'lacking',
+                remarks: 'Medical Certificate required (includes Chest X-Ray for SMAW, or standard Medical for BPP, Driving & CSS NCII).',
+                document_url: null,
+                scanned_at: null
+              },
+              {
+                id: 'req-' + Date.now() + '-7',
+                name: 'Long Brown Envelope (1pc) & Long White Folder (1pc)',
+                status: 'lacking',
+                remarks: 'Submit 1 pc Long Brown Envelope and 1 pc Long White Folder for document archiving.',
                 document_url: null,
                 scanned_at: null
               }
