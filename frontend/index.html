@@ -738,6 +738,18 @@
       color: #15803d !important;
     }
 
+    /* Sign-Up Brand Badge Adaptive Theme (Vibrant Emerald in Dark Mode, Bold Black in Light Mode) */
+    .signup-brand-badge {
+      color: #34d399 !important;
+      background-color: rgba(16, 185, 129, 0.12) !important;
+      border-color: rgba(16, 185, 129, 0.35) !important;
+    }
+    .light-theme .signup-brand-badge {
+      color: #000000 !important;
+      background-color: rgba(52, 211, 153, 0.35) !important;
+      border-color: rgba(16, 185, 129, 0.5) !important;
+    }
+
     /* Modals in Light Mode */
     .light-theme .fixed.inset-0.bg-black\/80 {
       background-color: rgba(15, 23, 42, 0.45) !important;
@@ -2437,7 +2449,11 @@
             <div className="w-full max-w-lg my-auto flex flex-col items-center relative z-10">
               {/* Portal Branding */}
               <div className="text-center mb-1 w-full">
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-black bg-emerald-400/40 border border-emerald-500/50 px-3 py-0.5 rounded-full inline-block shadow-sm">
+                <span className={`text-[10px] font-extrabold uppercase tracking-widest px-3 py-0.5 rounded-full inline-block shadow-sm transition-colors duration-200 border signup-brand-badge ${
+                  theme === 'light'
+                    ? 'text-black bg-emerald-300/40 border-emerald-500/50'
+                    : 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30'
+                }`}>
                   KM100 Skills & Training Center • Sign Up
                 </span>
               </div>
