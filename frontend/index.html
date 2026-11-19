@@ -882,10 +882,94 @@
       box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04) !important;
     }
 
-    .light-theme .user-capsule-glass {
-      background-color: #f8fafc !important;
-      border-color: #e2e8f0 !important;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    /* ========================================================================= */
+    /* USER PROFILE CAPSULE & ACTION BUTTONS (DARK & LIGHT THEMES)               */
+    /* ========================================================================= */
+    .user-profile-capsule {
+      background-color: rgba(2, 6, 23, 0.88);
+      border: 1px solid rgba(51, 65, 85, 0.7);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    }
+    .user-profile-name {
+      color: #f8fafc;
+    }
+    .user-profile-sub {
+      color: #94a3b8;
+    }
+    .user-profile-divider {
+      background-color: rgba(51, 65, 85, 0.6);
+    }
+    .btn-profile-reset {
+      background-color: rgba(14, 165, 233, 0.12);
+      border: 1px solid rgba(14, 165, 233, 0.35);
+      color: #38bdf8;
+    }
+    .btn-profile-reset:hover {
+      background-color: #0284c7;
+      border-color: #0284c7;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    .btn-profile-reset:hover svg {
+      color: #ffffff !important;
+    }
+    .btn-profile-logout {
+      background-color: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #f87171;
+    }
+    .btn-profile-logout:hover {
+      background-color: #dc2626;
+      border-color: #dc2626;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    .btn-profile-logout:hover svg {
+      color: #ffffff !important;
+    }
+
+    /* User Profile Capsule in Light Mode */
+    .light-theme .user-profile-capsule {
+      background-color: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      box-shadow: 0 2px 10px -2px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+    }
+    .light-theme .user-profile-name {
+      color: #0f172a !important;
+    }
+    .light-theme .user-profile-sub {
+      color: #64748b !important;
+    }
+    .light-theme .user-profile-divider {
+      background-color: #e2e8f0 !important;
+    }
+    .light-theme .btn-profile-reset {
+      background-color: #f0f9ff !important;
+      border: 1px solid #bae6fd !important;
+      color: #0369a1 !important;
+    }
+    .light-theme .btn-profile-reset:hover {
+      background-color: #0284c7 !important;
+      border-color: #0284c7 !important;
+      color: #ffffff !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+    }
+    .light-theme .btn-profile-reset:hover svg {
+      color: #ffffff !important;
+    }
+    .light-theme .btn-profile-logout {
+      background-color: #fff1f2 !important;
+      border: 1px solid #fecdd3 !important;
+      color: #be123c !important;
+    }
+    .light-theme .btn-profile-logout:hover {
+      background-color: #e11d48 !important;
+      border-color: #e11d48 !important;
+      color: #ffffff !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+    }
+    .light-theme .btn-profile-logout:hover svg {
+      color: #ffffff !important;
     }
 
     /* Scrollbars in Light Mode */
@@ -3026,52 +3110,60 @@
               </div>
 
               {/* LOGGED IN USER PROFILE BAR & LOGOUT */}
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <div className="flex items-center gap-2.5 bg-slate-950/90 px-3.5 py-1.5 rounded-xl border border-slate-800 shadow-sm backdrop-blur-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="relative flex h-2 w-2">
-                      <span className={`relative inline-flex rounded-full h-2 w-2 ${currentUser?.is_admin ? 'bg-emerald-500' : 'bg-sky-500'}`}></span>
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="user-profile-capsule flex items-center gap-2.5 sm:gap-3 px-3 sm:px-3.5 py-1.5 rounded-xl shadow-sm backdrop-blur-md transition-all duration-200">
+                  <div className="flex items-center gap-2.5">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${currentUser?.is_admin ? 'bg-emerald-400' : 'bg-sky-400'}`}></span>
+                      <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${currentUser?.is_admin ? 'bg-emerald-500' : 'bg-sky-500'}`}></span>
                     </span>
                     <div className="text-left text-xs">
-                      <span className="font-bold text-white flex items-center gap-1.5">
+                      <span className="user-profile-name font-bold flex items-center gap-1.5">
                         {currentUser?.is_admin ? (
                           <>
-                            <Icons.Shield className="w-3.5 h-3.5 text-emerald-400" />
+                            <Icons.Shield className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 flex-shrink-0" />
                             <span>Administrator</span>
                           </>
                         ) : (
                           <>
-                            <Icons.User className="w-3.5 h-3.5 text-sky-400" />
+                            <Icons.User className="w-3.5 h-3.5 text-sky-500 dark:text-sky-400 flex-shrink-0" />
                             <span>{currentUser?.name || 'Student'}</span>
                           </>
                         )}
                       </span>
-                      <span className="text-[10px] text-slate-400 font-mono block">
+                      <span className="user-profile-sub text-[10px] font-semibold uppercase tracking-wider block mt-0.5">
                         {currentUser?.is_admin ? 'Full Access' : 'View Only'}
                       </span>
                     </div>
                   </div>
-                  <button
-                    onClick={() => {
-                      setMyNewPassword('');
-                      setMyConfirmPassword('');
-                      setSavePasswordStatus('');
-                      setShowChangePasswordModal(true);
-                    }}
-                    className="ml-1 sm:ml-2 text-[11px] text-sky-400 hover:text-sky-300 font-semibold px-2.5 py-1 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/20 transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
-                    title="Reset Password"
-                  >
-                    <Icons.Key className="w-3 h-3" />
-                    <span className="hidden sm:inline">Reset Password</span>
-                  </button>
-                  <button
-                    onClick={handleLogout}
-                    className="text-[11px] text-red-400 hover:text-red-300 font-semibold px-2.5 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
-                    title="Exit and return to Login Gateway"
-                  >
-                    <Icons.LogOut className="w-3 h-3" />
-                    <span className="hidden sm:inline">Log Out</span>
-                  </button>
+
+                  <div className="user-profile-divider h-5 w-px hidden sm:block"></div>
+
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMyNewPassword('');
+                        setMyConfirmPassword('');
+                        setSavePasswordStatus('');
+                        setShowChangePasswordModal(true);
+                      }}
+                      className="btn-profile-reset text-xs font-semibold px-2.5 py-1.5 rounded-lg transition-all duration-150 flex items-center gap-1.5 shadow-sm active:scale-95"
+                      title="Reset Password"
+                    >
+                      <Icons.Key className="w-3.5 h-3.5 flex-shrink-0" />
+                      <span className="hidden sm:inline">Reset Password</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      className="btn-profile-logout text-xs font-semibold px-2.5 py-1.5 rounded-lg transition-all duration-150 flex items-center gap-1.5 shadow-sm active:scale-95"
+                      title="Exit and return to Login Gateway"
+                    >
+                      <Icons.LogOut className="w-3.5 h-3.5 flex-shrink-0" />
+                      <span className="hidden sm:inline">Log Out</span>
+                    </button>
+                  </div>
                 </div>
 
                 {/* Theme Toggle Button */}
