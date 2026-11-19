@@ -1,15 +1,15 @@
 -- =============================================================================
 -- KM100 Skills & Training Center, Inc.
--- Prescribed Official Requirements Seed & Automation Script for Supabase
+-- Prescribed Official Requirements Seed & Automation Script
 -- =============================================================================
--- Run this script in your Supabase Dashboard -> SQL Editor
+-- Run this script in your Database -> SQL Editor
 -- This script:
 -- 1. Sets up the 8 prescribed official requirements.
 -- 2. Seeds the sample candidates according to their specific courses:
 --    - SMAW Students: Medical Certificate & Chest X-RAY for SMAW
 --    - BPP, Driving & CSS NCII Students: Medical Certificate for BPP, Driving & CSS NCII
 -- 3. Installs an automated trigger so every new student registration automatically
---    gets their prescribed requirements initialized in Supabase based on their course!
+--    gets their prescribed requirements initialized based on their course!
 -- =============================================================================
 
 -- Step 1: Ensure interns exist with proper course departments
@@ -213,7 +213,7 @@ VALUES
     );
 
 -- Step 6: Automated Trigger Function
--- Ensures that when any new student is created in Supabase:
+-- Ensures that when any new student is created in the database:
 -- 1. All common requirements are created.
 -- 2. If their department/course is SMAW, "Medical Certificate & Chest X-RAY for SMAW" is assigned.
 -- 3. If their department is BPP, Driving, CSS NCII (or general), "Medical Certificate for BPP, Driving & CSS NCII" is assigned.
@@ -258,6 +258,6 @@ FOR EACH ROW
 EXECUTE FUNCTION public.handle_new_intern_requirements();
 
 -- Output status verification
-SELECT 'Official requirements successfully seeded into Supabase!' AS status,
+SELECT 'Official requirements successfully seeded!' AS status,
        COUNT(*) AS total_requirements_in_system
 FROM public.requirements;
