@@ -998,6 +998,97 @@
     }
 
     /* ========================================================================= */
+    /* GUARANTEED TEXT VISIBILITY: DARK & LIGHT THEME COMPLETE HARMONY          */
+    /* ========================================================================= */
+
+    /* 1. Auth Hero (Login / Sign Up) Screen sitting on dark photo background */
+    .auth-hero-scope,
+    .light-theme .auth-hero-scope,
+    .dark .auth-hero-scope {
+      color: #f8fafc;
+    }
+    .auth-hero-scope h1,
+    .auth-hero-scope .animate-heading,
+    .light-theme .auth-hero-scope h1,
+    .light-theme .auth-hero-scope .animate-heading {
+      color: #ffffff !important;
+    }
+    .auth-hero-scope .auth-nav-title,
+    .light-theme .auth-hero-scope .auth-nav-title {
+      color: #ffffff !important;
+    }
+    .auth-hero-scope p.animate-subtitle,
+    .auth-hero-scope .animate-subtitle,
+    .light-theme .auth-hero-scope p.animate-subtitle,
+    .light-theme .auth-hero-scope .animate-subtitle {
+      color: rgba(255, 255, 255, 0.88) !important;
+    }
+    .auth-hero-scope .auth-footer-text,
+    .light-theme .auth-hero-scope .auth-footer-text {
+      color: rgba(255, 255, 255, 0.75) !important;
+    }
+
+    /* 2. White Card on Auth Pages in Light Mode */
+    .light-theme .auth-card-glow {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+    }
+    .light-theme .auth-card-glow h2,
+    .light-theme .auth-card-glow h3,
+    .light-theme .auth-card-glow h4 {
+      color: #0f172a !important;
+    }
+    .light-theme .auth-card-glow label {
+      color: #0f172a !important;
+      font-weight: 700 !important;
+    }
+    .light-theme .auth-card-glow p,
+    .light-theme .auth-card-glow span.text-slate-500,
+    .light-theme .auth-card-glow span.text-slate-400 {
+      color: #475569 !important;
+    }
+
+    /* 3. Main Dashboard & Modals High Contrast in Light Mode */
+    .light-theme .main-portal-card h2,
+    .light-theme .main-portal-card h3,
+    .light-theme .main-portal-card h4 {
+      color: #0f172a !important;
+    }
+    .light-theme .main-portal-card p {
+      color: #334155 !important;
+    }
+    .light-theme .main-portal-card label {
+      color: #0f172a !important;
+      font-weight: 700 !important;
+    }
+
+    /* 4. Requirements Registry Table in Light Mode */
+    .light-theme .divide-y > div h5 {
+      color: #0f172a !important;
+    }
+    .light-theme .divide-y > div p {
+      color: #334155 !important;
+    }
+    .light-theme .divide-y > div p.text-red-700 {
+      color: #b91c1c !important;
+    }
+
+    /* 5. Modals High-Contrast Text in Light Mode */
+    .light-theme form[role="dialog"] h3,
+    .light-theme div[role="dialog"] h3 {
+      color: #0f172a !important;
+    }
+    .light-theme form[role="dialog"] label,
+    .light-theme div[role="dialog"] label {
+      color: #0f172a !important;
+      font-weight: 700 !important;
+    }
+    .light-theme form[role="dialog"] p,
+    .light-theme div[role="dialog"] p {
+      color: #334155 !important;
+    }
+
+    /* ========================================================================= */
     /* USER PROFILE CAPSULE & ACTION BUTTONS (DARK & LIGHT THEMES)               */
     /* ========================================================================= */
     .user-profile-capsule {
@@ -2938,7 +3029,7 @@
       // =====================================================================
       if (currentView === 'signup') {
         return (
-          <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-3 sm:p-4 md:p-6 relative overflow-y-auto">
+          <div className="auth-hero-scope min-h-screen bg-slate-950 flex flex-col justify-center items-center p-3 sm:p-4 md:p-6 relative overflow-y-auto">
             {/* Top Navigation */}
             <div className="absolute top-4 left-4 right-4 sm:top-5 sm:left-6 sm:right-6 z-30 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
@@ -2958,7 +3049,7 @@
                     decoding="async"
                   />
                 </div>
-                <span className="text-xs font-semibold text-white/80 dark:text-slate-300 tracking-wide">
+                <span className="auth-nav-title text-xs font-semibold text-white/90 tracking-wide">
                   KM100 Skills and Training Center, Inc.
                 </span>
               </div>
@@ -3220,7 +3311,7 @@
       // =====================================================================
       if (currentView === 'login' || !currentUser) {
         return (
-          <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-3 sm:p-4 md:p-6 relative overflow-y-auto">
+          <div className="auth-hero-scope min-h-screen bg-slate-950 flex flex-col justify-center items-center p-3 sm:p-4 md:p-6 relative overflow-y-auto">
             {/* Top Navigation */}
             <div className="absolute top-4 left-4 right-4 sm:top-5 sm:left-6 sm:right-6 z-30 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
@@ -3240,7 +3331,7 @@
                     decoding="async"
                   />
                 </div>
-                <span className="text-xs font-semibold text-white/80 dark:text-slate-300 tracking-wide">
+                <span className="auth-nav-title text-xs font-semibold text-white/90 tracking-wide">
                   KM100 Skills and Training Center, Inc.
                 </span>
               </div>
@@ -3412,7 +3503,7 @@
                 </form>
               </div>
 
-              <p className="text-[11px] text-white/50 dark:text-slate-400 mt-3 text-center animate-subtitle">
+              <p className="auth-footer-text text-[11px] text-white/70 mt-3 text-center animate-subtitle">
                 Secured by Supabase Authentication &amp; Role-Based Access Control
               </p>
             </div>
