@@ -308,7 +308,7 @@ export default function App() {
             <View style={styles.authLogo}>
               <Text style={[styles.authLogoText, { fontSize: 16, fontWeight: 'bold', color: '#38bdf8' }]}>KM100</Text>
             </View>
-            <Text style={styles.authTitle}>Diploma, NC11 Trainer Portal</Text>
+            <Text style={styles.authTitle}>Diploma, NC II Trainee Portal</Text>
             <Text style={styles.authSubtitle}>Please log in or create an account to access the portal.</Text>
           </View>
 
@@ -462,7 +462,7 @@ export default function App() {
       {/* HEADER */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Text style={styles.headerTitle}>Diploma, NC11 Trainer Portal</Text>
+          <Text style={styles.headerTitle}>Diploma, NC II Trainee Portal</Text>
           <Text style={styles.headerSubtitle}>Requirements Clearance • Supabase Backend</Text>
         </View>
 
@@ -495,7 +495,7 @@ export default function App() {
         <View style={styles.searchCard}>
           <View style={styles.searchHeader}>
             <Text style={styles.portalTag}>VERIFICATION PORTAL</Text>
-            <Text style={styles.searchTitle}>Check your Diploma, NC11 Trainer Requirements</Text>
+            <Text style={styles.searchTitle}>Check your Diploma, NC II Trainee Requirements</Text>
             <Text style={styles.searchSubtitle}>
               Enter your Batch Number and Full Name to check if you have any lacking or pending requirements.
             </Text>

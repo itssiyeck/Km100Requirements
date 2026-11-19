@@ -26,38 +26,38 @@ _mock_interns = [
         "batch_number": "Batch 2026-A",
         "student_id": "2026-001",
         "email": "juan.delacruz@school.edu",
-        "department": "Information Technology",
+        "department": "SMAW",
         "overall_status": "incomplete",
         "requirements": [
             {
                 "id": "req-1",
-                "requirement_name": "Birth Certificate NSO/PSA (or Marriage Certificate)",
+                "requirement_name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
                 "status": "submitted",
-                "remarks": "Official PSA Birth Certificate copy verified.",
+                "remarks": "Official PSA Birth Certificate copy submitted and verified.",
                 "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
                 "scanned_at": "2026-11-10T08:00:00Z"
             },
             {
                 "id": "req-2",
-                "requirement_name": "Either: T.O.R / Diploma / ALS / Form 138 / Form 137",
+                "requirement_name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
                 "status": "submitted",
-                "remarks": "Official Transcript of Records (T.O.R) verified.",
+                "remarks": "Official Transcript of Records (T.O.R) verified and authenticated.",
                 "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
                 "scanned_at": "2026-11-11T09:00:00Z"
             },
             {
                 "id": "req-3",
-                "requirement_name": "Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)",
+                "requirement_name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
                 "status": "pending",
-                "remarks": "Submitted 4 pcs passport photos; under registrar review.",
+                "remarks": "4 pcs passport photos with nametag and signature submitted; under registrar review.",
                 "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
                 "scanned_at": "2026-11-15T14:30:00Z"
             },
             {
                 "id": "req-4",
-                "requirement_name": "1x1 Picture - 4pcs (White BG w/ Collar & Signature)",
+                "requirement_name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
                 "status": "submitted",
-                "remarks": "4 pcs 1x1 acid-based photos with nametag and signature verified.",
+                "remarks": "4 pcs 1x1 acid-base photos with nametag and signature verified.",
                 "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
                 "scanned_at": "2026-11-12T09:15:00Z"
             },
@@ -65,15 +65,15 @@ _mock_interns = [
                 "id": "req-5",
                 "requirement_name": "Barangay Certificate",
                 "status": "lacking",
-                "remarks": "Valid Barangay Certificate/Clearance of residency required. Submit to scanner.",
+                "remarks": "Valid Barangay Certificate/Clearance of residency required. Please submit to scanner.",
                 "document_url": None,
                 "scanned_at": None
             },
             {
                 "id": "req-6",
-                "requirement_name": "Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)",
+                "requirement_name": "Medical Certificate & Chest X-RAY for SMAW",
                 "status": "submitted",
-                "remarks": "Medical Certificate & Chest X-RAY verified valid by school physician.",
+                "remarks": "Medical Certificate & Chest X-RAY verified valid for SMAW trainee.",
                 "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
                 "scanned_at": "2026-11-14T10:00:00Z"
             },
@@ -81,7 +81,7 @@ _mock_interns = [
                 "id": "req-7",
                 "requirement_name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
                 "status": "lacking",
-                "remarks": "Physical filing supplies: 1pc Long Brown Envelope and 1pc Long White Folder required.",
+                "remarks": "Physical filing materials: 1pc Long Brown Envelope and 1pc Long White Folder needed.",
                 "document_url": None,
                 "scanned_at": None
             }
@@ -93,12 +93,12 @@ _mock_interns = [
         "batch_number": "Batch 2026-A",
         "student_id": "2026-002",
         "email": "maria.clara@school.edu",
-        "department": "Computer Science",
+        "department": "BPP (Bread & Pastry Production)",
         "overall_status": "pending",
         "requirements": [
             {
                 "id": "req-8",
-                "requirement_name": "Birth Certificate NSO/PSA (or Marriage Certificate)",
+                "requirement_name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
                 "status": "submitted",
                 "remarks": "NSO/PSA copy verified.",
                 "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
@@ -106,7 +106,7 @@ _mock_interns = [
             },
             {
                 "id": "req-9",
-                "requirement_name": "Either: T.O.R / Diploma / ALS / Form 138 / Form 137",
+                "requirement_name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
                 "status": "submitted",
                 "remarks": "College Diploma verified.",
                 "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
@@ -114,7 +114,7 @@ _mock_interns = [
             },
             {
                 "id": "req-10",
-                "requirement_name": "Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)",
+                "requirement_name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
                 "status": "submitted",
                 "remarks": "Photos complete and stamped.",
                 "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
@@ -122,7 +122,7 @@ _mock_interns = [
             },
             {
                 "id": "req-11",
-                "requirement_name": "1x1 Picture - 4pcs (White BG w/ Collar & Signature)",
+                "requirement_name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
                 "status": "submitted",
                 "remarks": "1x1 photos complete.",
                 "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
@@ -138,9 +138,9 @@ _mock_interns = [
             },
             {
                 "id": "req-13",
-                "requirement_name": "Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)",
+                "requirement_name": "Medical Certificate for BPP, Driving & CSS NCII",
                 "status": "pending",
-                "remarks": "Medical certificate received; awaiting clinic confirmation.",
+                "remarks": "Standard Medical Certificate received; awaiting clinic confirmation.",
                 "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
                 "scanned_at": "2026-11-16T15:00:00Z"
             },
@@ -160,38 +160,38 @@ _mock_interns = [
         "batch_number": "Batch 2026-B",
         "student_id": "2026-003",
         "email": "c.ibarra@school.edu",
-        "department": "Information Systems",
+        "department": "Driving & CSS NCII",
         "overall_status": "complete",
         "requirements": [
             {
                 "id": "req-15",
-                "requirement_name": "Birth Certificate NSO/PSA (or Marriage Certificate)",
+                "requirement_name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
                 "status": "submitted",
-                "remarks": "Complete and verified",
+                "remarks": "Complete & Verified.",
                 "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
                 "scanned_at": "2026-11-01T08:00:00Z"
             },
             {
                 "id": "req-16",
-                "requirement_name": "Either: T.O.R / Diploma / ALS / Form 138 / Form 137",
+                "requirement_name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
                 "status": "submitted",
-                "remarks": "Complete and verified",
+                "remarks": "Complete & Verified.",
                 "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
                 "scanned_at": "2026-11-01T08:00:00Z"
             },
             {
                 "id": "req-17",
-                "requirement_name": "Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)",
+                "requirement_name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
                 "status": "submitted",
-                "remarks": "Complete and verified",
+                "remarks": "Complete & Verified.",
                 "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
                 "scanned_at": "2026-11-02T09:30:00Z"
             },
             {
                 "id": "req-18",
-                "requirement_name": "1x1 Picture - 4pcs (White BG w/ Collar & Signature)",
+                "requirement_name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
                 "status": "submitted",
-                "remarks": "Complete and verified",
+                "remarks": "Complete & Verified.",
                 "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
                 "scanned_at": "2026-11-02T09:30:00Z"
             },
@@ -199,15 +199,15 @@ _mock_interns = [
                 "id": "req-19",
                 "requirement_name": "Barangay Certificate",
                 "status": "submitted",
-                "remarks": "Valid Barangay Certificate on record",
+                "remarks": "Valid Barangay Certificate on record.",
                 "document_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
                 "scanned_at": "2026-11-03T10:15:00Z"
             },
             {
                 "id": "req-20",
-                "requirement_name": "Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)",
+                "requirement_name": "Medical Certificate for BPP, Driving & CSS NCII",
                 "status": "submitted",
-                "remarks": "Full medical clearance approved",
+                "remarks": "Medical Certificate verified valid for Driving & CSS NCII trainee.",
                 "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
                 "scanned_at": "2026-11-04T10:15:00Z"
             },
@@ -215,7 +215,7 @@ _mock_interns = [
                 "id": "req-21",
                 "requirement_name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
                 "status": "submitted",
-                "remarks": "Filing materials archived",
+                "remarks": "Filing materials archived.",
                 "document_url": None,
                 "scanned_at": "2026-11-05T11:00:00Z"
             }

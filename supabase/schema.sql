@@ -98,60 +98,72 @@ DECLARE
 BEGIN
     INSERT INTO public.interns (id, full_name, batch_number, student_id, email, department, overall_status)
     VALUES
-        (intern1_id, 'Juan Dela Cruz', 'Batch 2026-A', '2026-001', 'juan.delacruz@school.edu', 'Information Technology', 'incomplete'),
-        (intern2_id, 'Maria Clara', 'Batch 2026-A', '2026-002', 'maria.clara@school.edu', 'Computer Science', 'pending'),
-        (intern3_id, 'Crisostomo Ibarra', 'Batch 2026-B', '2026-003', 'c.ibarra@school.edu', 'Information Systems', 'complete')
+        (intern1_id, 'Juan Dela Cruz', 'Batch 2026-A', '2026-001', 'juan.delacruz@school.edu', 'SMAW', 'incomplete'),
+        (intern2_id, 'Maria Clara', 'Batch 2026-A', '2026-002', 'maria.clara@school.edu', 'BPP (Bread & Pastry Production)', 'pending'),
+        (intern3_id, 'Crisostomo Ibarra', 'Batch 2026-B', '2026-003', 'c.ibarra@school.edu', 'Driving & CSS NCII', 'complete')
     ON CONFLICT (id) DO NOTHING;
 
-    -- Juan Dela Cruz requirements (Official KM100 System Requirements)
+    -- Juan Dela Cruz requirements (SMAW Candidate: Medical Certificate & Chest X-RAY)
     INSERT INTO public.requirements (intern_id, requirement_name, status, remarks, document_url, scanned_at)
     VALUES
-        (intern1_id, 'Birth Certificate NSO/PSA (or Marriage Certificate)', 'submitted', 'Official PSA Birth Certificate copy verified.', 'https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80', NOW() - INTERVAL '5 days'),
-        (intern1_id, 'Either: T.O.R / Diploma / ALS / Form 138 / Form 137', 'submitted', 'Official Transcript of Records (T.O.R) verified.', 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80', NOW() - INTERVAL '4 days'),
-        (intern1_id, 'Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)', 'pending', 'Submitted 4 pcs passport photos; under registrar review.', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80', NOW() - INTERVAL '2 days'),
-        (intern1_id, '1x1 Picture - 4pcs (White BG w/ Collar & Signature)', 'submitted', '4 pcs 1x1 acid-based photos with nametag and signature verified.', 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80', NOW() - INTERVAL '3 days'),
-        (intern1_id, 'Barangay Certificate', 'lacking', 'Valid Barangay Certificate/Clearance of residency required. Submit to scanner.', NULL, NULL),
-        (intern1_id, 'Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)', 'submitted', 'Medical Certificate & Chest X-RAY verified valid.', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80', NOW() - INTERVAL '1 day'),
-        (intern1_id, 'Long Brown Envelope (1pc) & Long White Folder (1pc)', 'lacking', 'Physical filing supplies: 1pc Long Brown Envelope and 1pc Long White Folder required.', NULL, NULL)
+        (intern1_id, 'Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)', 'submitted', 'Official PSA Birth Certificate copy submitted and verified.', 'https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80', NOW() - INTERVAL '5 days'),
+        (intern1_id, 'Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137', 'submitted', 'Official Transcript of Records (T.O.R) verified and authenticated.', 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80', NOW() - INTERVAL '4 days'),
+        (intern1_id, 'Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)', 'pending', '4 pcs passport photos with nametag and signature submitted; under registrar review.', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80', NOW() - INTERVAL '2 days'),
+        (intern1_id, 'Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)', 'submitted', '4 pcs 1x1 acid-base photos with nametag and signature verified.', 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80', NOW() - INTERVAL '3 days'),
+        (intern1_id, 'Barangay Certificate', 'lacking', 'Valid Barangay Certificate/Clearance of residency required. Please submit to scanner.', NULL, NULL),
+        (intern1_id, 'Medical Certificate & Chest X-RAY for SMAW', 'submitted', 'Medical Certificate & Chest X-RAY verified valid for SMAW trainee.', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80', NOW() - INTERVAL '1 day'),
+        (intern1_id, 'Long Brown Envelope (1pc) & Long White Folder (1pc)', 'lacking', 'Physical filing materials: 1pc Long Brown Envelope and 1pc Long White Folder needed.', NULL, NULL)
     ON CONFLICT DO NOTHING;
 
-    -- Maria Clara requirements
+    -- Maria Clara requirements (BPP Candidate: Medical Certificate for BPP, Driving & CSS NCII)
     INSERT INTO public.requirements (intern_id, requirement_name, status, remarks, document_url, scanned_at)
     VALUES
-        (intern2_id, 'Birth Certificate NSO/PSA (or Marriage Certificate)', 'submitted', 'NSO/PSA copy verified.', 'https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80', NOW() - INTERVAL '7 days'),
-        (intern2_id, 'Either: T.O.R / Diploma / ALS / Form 138 / Form 137', 'submitted', 'College Diploma verified.', 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80', NOW() - INTERVAL '6 days'),
-        (intern2_id, 'Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)', 'submitted', 'Photos complete and stamped.', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80', NOW() - INTERVAL '5 days'),
-        (intern2_id, '1x1 Picture - 4pcs (White BG w/ Collar & Signature)', 'submitted', '1x1 photos complete.', 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80', NOW() - INTERVAL '5 days'),
+        (intern2_id, 'Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)', 'submitted', 'NSO/PSA copy verified.', 'https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80', NOW() - INTERVAL '7 days'),
+        (intern2_id, 'Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137', 'submitted', 'College Diploma verified.', 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80', NOW() - INTERVAL '6 days'),
+        (intern2_id, 'Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)', 'submitted', 'Photos complete and stamped.', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80', NOW() - INTERVAL '5 days'),
+        (intern2_id, 'Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)', 'submitted', '1x1 photos complete.', 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80', NOW() - INTERVAL '5 days'),
         (intern2_id, 'Barangay Certificate', 'pending', 'Submitted Barangay clearance under verification.', 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80', NOW() - INTERVAL '1 day'),
-        (intern2_id, 'Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)', 'pending', 'Medical certificate received; awaiting clinic confirmation.', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80', NOW() - INTERVAL '1 day'),
+        (intern2_id, 'Medical Certificate for BPP, Driving & CSS NCII', 'pending', 'Standard Medical Certificate received; awaiting clinic confirmation.', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80', NOW() - INTERVAL '1 day'),
         (intern2_id, 'Long Brown Envelope (1pc) & Long White Folder (1pc)', 'submitted', 'Filing supplies received and tagged.', NULL, NOW() - INTERVAL '2 days')
     ON CONFLICT DO NOTHING;
 
-    -- Crisostomo Ibarra (Complete)
+    -- Crisostomo Ibarra (Driving & CSS NCII Candidate: Complete)
     INSERT INTO public.requirements (intern_id, requirement_name, status, remarks, document_url, scanned_at)
     VALUES
-        (intern3_id, 'Birth Certificate NSO/PSA (or Marriage Certificate)', 'submitted', 'Complete & Verified.', 'https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80', NOW() - INTERVAL '10 days'),
-        (intern3_id, 'Either: T.O.R / Diploma / ALS / Form 138 / Form 137', 'submitted', 'Complete & Verified.', 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80', NOW() - INTERVAL '10 days'),
-        (intern3_id, 'Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)', 'submitted', 'Complete & Verified.', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80', NOW() - INTERVAL '10 days'),
-        (intern3_id, '1x1 Picture - 4pcs (White BG w/ Collar & Signature)', 'submitted', 'Complete & Verified.', 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80', NOW() - INTERVAL '10 days'),
+        (intern3_id, 'Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)', 'submitted', 'Complete & Verified.', 'https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80', NOW() - INTERVAL '10 days'),
+        (intern3_id, 'Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137', 'submitted', 'Complete & Verified.', 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80', NOW() - INTERVAL '10 days'),
+        (intern3_id, 'Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)', 'submitted', 'Complete & Verified.', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80', NOW() - INTERVAL '10 days'),
+        (intern3_id, 'Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)', 'submitted', 'Complete & Verified.', 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80', NOW() - INTERVAL '10 days'),
         (intern3_id, 'Barangay Certificate', 'submitted', 'Valid Barangay Certificate on record.', 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80', NOW() - INTERVAL '10 days'),
-        (intern3_id, 'Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)', 'submitted', 'Full medical clearance approved.', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80', NOW() - INTERVAL '10 days'),
+        (intern3_id, 'Medical Certificate for BPP, Driving & CSS NCII', 'submitted', 'Medical Certificate verified valid for Driving & CSS NCII trainee.', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80', NOW() - INTERVAL '10 days'),
         (intern3_id, 'Long Brown Envelope (1pc) & Long White Folder (1pc)', 'submitted', 'Filing materials archived.', NULL, NOW() - INTERVAL '10 days')
     ON CONFLICT DO NOTHING;
 END $$;
 
--- Automated Trigger: New students automatically get all 7 official requirements
+-- Automated Trigger: New students automatically get prescribed official requirements
+-- Course-aware: SMAW students receive Chest X-RAY; BPP, Driving & CSS NCII receive standard Medical
 CREATE OR REPLACE FUNCTION public.handle_new_intern_requirements()
 RETURNS TRIGGER AS $$
+DECLARE
+    medical_req_name TEXT;
+    medical_req_desc TEXT;
 BEGIN
+    IF NEW.department IS NOT NULL AND NEW.department ILIKE '%SMAW%' THEN
+        medical_req_name := 'Medical Certificate & Chest X-RAY for SMAW';
+        medical_req_desc := 'Medical Certificate and Chest X-RAY are mandatory for SMAW welding trainees. Submit clinic findings.';
+    ELSE
+        medical_req_name := 'Medical Certificate for BPP, Driving & CSS NCII';
+        medical_req_desc := 'Standard Medical Certificate required for BPP, Driving, and CSS NCII trainees. Submit physician clearance.';
+    END IF;
+
     INSERT INTO public.requirements (intern_id, requirement_name, status, remarks)
     VALUES
-        (NEW.id, 'Birth Certificate NSO/PSA (or Marriage Certificate)', 'lacking', 'Official NSO/PSA copy required. (For married women, submit Marriage Certificate)'),
-        (NEW.id, 'Either: T.O.R / Diploma / ALS / Form 138 / Form 137', 'lacking', 'Submit either Transcript of Records (TOR), Diploma, ALS Certificate, Form 138, or Form 137.'),
-        (NEW.id, 'Passport Size Pictures - 4pcs (White BG w/ Collar & Signature)', 'lacking', '4 pcs passport-sized photos with white background, collar, nametag, and signature.'),
-        (NEW.id, '1x1 Picture - 4pcs (White BG w/ Collar & Signature)', 'lacking', '4 pcs 1x1 photos on acid-based photo paper with white background, collar, nametag, and signature.'),
+        (NEW.id, 'Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)', 'lacking', 'Official NSO/PSA copy required. (For married women, submit Marriage Certificate)'),
+        (NEW.id, 'Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137', 'lacking', 'Submit either Transcript of Records (TOR), Diploma, ALS Certificate, Form 138, or Form 137.'),
+        (NEW.id, 'Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)', 'lacking', '4 pcs passport-sized photos with white background, collar, nametag, and signature.'),
+        (NEW.id, 'Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)', 'lacking', '4 pcs 1x1 photos on acid-based photo paper with white background, collar, nametag, and signature.'),
         (NEW.id, 'Barangay Certificate', 'lacking', 'Current valid Barangay Certificate/Clearance of residency required.'),
-        (NEW.id, 'Medical Certificate (w/ Chest X-RAY for SMAW / Medical for BPP, Driving & CSS NCII)', 'lacking', 'Medical Certificate required (includes Chest X-Ray for SMAW, or standard Medical for BPP, Driving & CSS NCII).'),
+        (NEW.id, medical_req_name, 'lacking', medical_req_desc),
         (NEW.id, 'Long Brown Envelope (1pc) & Long White Folder (1pc)', 'lacking', 'Submit 1 pc Long Brown Envelope and 1 pc Long White Folder for document archiving.');
     RETURN NEW;
 END;

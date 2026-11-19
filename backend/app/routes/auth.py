@@ -116,11 +116,18 @@ def register(req: SignUpRequest):
                 
                 if intern_res.data and len(intern_res.data) > 0:
                     intern_id = intern_res.data[0]["id"]
+                    is_smaw = "smaw" in (req.department or "").lower()
+                    med_name = "Medical Certificate & Chest X-RAY for SMAW" if is_smaw else "Medical Certificate for BPP, Driving & CSS NCII"
+                    med_remarks = "Medical Certificate and Chest X-RAY are mandatory for SMAW welding trainees. Submit clinic findings." if is_smaw else "Standard Medical Certificate required for BPP, Driving, and CSS NCII trainees. Submit physician clearance."
+                    
                     supabase_client.table("requirements").insert([
-                        {"intern_id": intern_id, "requirement_name": "Diploma Degree / Academic Transcript", "status": "lacking", "remarks": "Not yet submitted. Please submit certified copy."},
-                        {"intern_id": intern_id, "requirement_name": "NC11 / NC II National Certificate", "status": "lacking", "remarks": "Required for trainer compliance. Submit to scanner."},
-                        {"intern_id": intern_id, "requirement_name": "Trainers Methodology (TM 1) Certificate", "status": "pending", "remarks": "Registered candidate; under coordinator evaluation."},
-                        {"intern_id": intern_id, "requirement_name": "Medical Physical & Drug Test Clearance", "status": "lacking", "remarks": "Mandatory clinical health exam required."}
+                        {"intern_id": intern_id, "requirement_name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)", "status": "lacking", "remarks": "Official NSO/PSA copy required. (For married women, submit Marriage Certificate)"},
+                        {"intern_id": intern_id, "requirement_name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137", "status": "lacking", "remarks": "Submit either Transcript of Records (TOR), Diploma, ALS Certificate, Form 138, or Form 137."},
+                        {"intern_id": intern_id, "requirement_name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)", "status": "lacking", "remarks": "4 pcs passport-sized photos with white background, collar, nametag, and signature."},
+                        {"intern_id": intern_id, "requirement_name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)", "status": "lacking", "remarks": "4 pcs 1x1 photos on acid-based photo paper with white background, collar, nametag, and signature."},
+                        {"intern_id": intern_id, "requirement_name": "Barangay Certificate", "status": "lacking", "remarks": "Current valid Barangay Certificate/Clearance of residency required."},
+                        {"intern_id": intern_id, "requirement_name": med_name, "status": "lacking", "remarks": med_remarks},
+                        {"intern_id": intern_id, "requirement_name": "Long Brown Envelope (1pc) & Long White Folder (1pc)", "status": "lacking", "remarks": "Submit 1 pc Long Brown Envelope and 1 pc Long White Folder for document archiving."}
                     ]).execute()
         except Exception as e:
             pass
