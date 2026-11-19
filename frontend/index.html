@@ -1189,20 +1189,9 @@
       }
     }
   </style>
-
-  <script>
-    (function () {
-      try {
-        var t = localStorage.getItem('portal_theme') || 'dark';
-        if (t === 'light') {
-          document.documentElement.classList.add('light-theme');
-        }
-      } catch (e) {}
-    })();
-  </script>
 </head>
 
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen antialiased flex flex-col">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans min-h-screen antialiased flex flex-col transition-colors duration-200">
   <div id="root" class="flex-1 flex flex-col"></div>
 
   <script type="text/babel">
@@ -1973,8 +1962,8 @@
                 setIsSbConnected(true);
                 setShowSbModal(false);
                 alert("Connected to Supabase! URL validated and synced.");
-              }} className="bg-slate-900 border-2 border-sky-500 rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-lg w-full max-h-[calc(100vh-1.5rem)] overflow-y-auto m-auto shadow-2xl space-y-4 animate-modal-pop">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              }} className="bg-white dark:bg-slate-900 border-2 border-sky-500 rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-lg w-full max-h-[calc(100vh-1.5rem)] overflow-y-auto m-auto shadow-2xl space-y-4 animate-modal-pop">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
                   <div className="flex items-center gap-2.5">
                     <button
                       type="button"
@@ -1988,8 +1977,8 @@
                       <Icons.Shield className="w-4 h-4" />
                     </div>
                     <div>
-                      <h3 id="supabase-modal-title" className="text-lg font-bold text-white">Connect Supabase Database & Auth</h3>
-                      <p className="text-xs text-slate-400">Sync with live PostgreSQL & Supabase Auth</p>
+                      <h3 id="supabase-modal-title" className="text-lg font-bold text-slate-900 dark:text-white">Connect Supabase Database & Auth</h3>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">Sync with live PostgreSQL & Supabase Auth</p>
                     </div>
                   </div>
                   <button type="button" onClick={() => setShowSbModal(false)} aria-label="Close Supabase modal" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-slate-700 dark:hover:text-white text-base font-bold">✕</button>
@@ -3915,7 +3904,7 @@
                                 className={`px-2.5 py-1 rounded-md text-xs font-semibold transition ${
                                   activeFilter === tab.id
                                     ? 'bg-sky-600 text-white shadow-sm'
-                                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800/60'
                                 }`}
                               >
                                 {tab.label}
@@ -3936,7 +3925,7 @@
                               key={req.id}
                               className="p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-3.5 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors duration-150"
                             >
-                              <div className="flex items-start gap-3">
+                              <div className="flex items-start gap-3 flex-1 min-w-0">
                                 <div className="mt-0.5 flex-shrink-0">
                                   {isLacking ? (
                                     <Icons.XCircle className="w-4 h-4 text-red-500" />
@@ -3946,7 +3935,7 @@
                                     <Icons.CheckCircle className="w-4 h-4 text-emerald-500" />
                                   )}
                                 </div>
-                                <div className="space-y-1">
+                                <div className="flex-1 min-w-0 space-y-1">
                                   <div className="flex flex-wrap items-center gap-2">
                                     <h5 className="text-sm font-semibold text-slate-900 dark:text-white">
                                       {req.name}
@@ -4004,6 +3993,20 @@
                             </div>
                           );
                         })}
+
+                        {filteredRequirements.length === 0 && (
+                          <div className="p-8 sm:p-12 text-center space-y-2">
+                            <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto text-slate-400">
+                              <Icons.FileText className="w-5 h-5" />
+                            </div>
+                            <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                              No requirements match the current filter
+                            </p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">
+                              No documents marked as "{activeFilter}". Switch to "All" to view all prescribed requirements.
+                            </p>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -4113,7 +4116,7 @@
                       </div>
                     </div>
 
-                    <div className="pt-2 border-t border-slate-800 space-y-1.5">
+                    <div className="pt-2 border-t border-slate-200 dark:border-slate-800 space-y-1.5">
                       <div className="flex items-center justify-between">
                         <label htmlFor="edit-password" className="block text-xs font-semibold text-slate-700 dark:text-slate-300">
                           Student Account Password
@@ -4200,8 +4203,8 @@
                     </div>
 
                     <div>
-                      <span className="text-xs text-slate-400">Requirement Name:</span>
-                      <div className="text-sm font-bold text-white mt-0.5">{editingReq.name}</div>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">Requirement Name:</span>
+                      <div className="text-sm font-bold text-slate-900 dark:text-white mt-0.5">{editingReq.name}</div>
                     </div>
 
                     <div>
@@ -4400,7 +4403,7 @@
                         <button
                           onClick={() => setSelectedDocument(null)}
                           aria-label="Back and return to registry"
-                          className="text-xs text-sky-400 hover:text-sky-300 font-semibold px-2.5 py-1 rounded-lg bg-sky-500/10 border border-sky-500/30 hover:bg-sky-500/20 flex items-center gap-1 transition"
+                          className="text-xs text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center gap-1 transition"
                         >
                           <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
                         </button>
