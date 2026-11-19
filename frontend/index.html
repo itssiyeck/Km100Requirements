@@ -403,13 +403,15 @@
       align-items: center !important;
       justify-content: center !important;
       padding: 1rem !important;
-      background-color: rgba(0, 0, 0, 0.78) !important;
-      backdrop-filter: blur(5px) !important;
-      -webkit-backdrop-filter: blur(5px) !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      background-color: rgba(2, 6, 23, 0.8) !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
     }
 
     .light-theme .fixed-modal-overlay {
-      background-color: rgba(15, 23, 42, 0.45) !important;
+      background-color: rgba(15, 23, 42, 0.5) !important;
     }
 
     @keyframes modalPopIn {
@@ -1233,6 +1235,13 @@
       return show ? <Icons.Eye className={className} /> : <Icons.EyeOff className={className} />;
     }
 
+    // MODAL PORTAL: Mounts modals directly to document.body
+    // Guarantees true viewport centering immune to any ancestor transform, overflow, or scroll offsets
+    function ModalPortal({ children }) {
+      if (typeof document === 'undefined') return null;
+      return ReactDOM.createPortal(children, document.body);
+    }
+
     // Default Supabase Cloud Backend Configuration
     const DEFAULT_SUPABASE_URL = 'https://huhdxgzwtazqxjirwgby.supabase.co';
     const DEFAULT_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1aGR4Z3p3dGF6cXhqaXJ3Z2J5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4OTUwNzYsImV4cCI6MjExMDQ3MTA3Nn0.fZECAjsLcqc2i7GME8cSaKBURqY9zSsxrf3p3RQBxvg';
@@ -1477,39 +1486,40 @@
       const renderSupabaseModal = () => {
         if (!showSbModal) return null;
         return (
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <form role="dialog" aria-modal="true" aria-labelledby="supabase-modal-title" onSubmit={(e) => {
-              e.preventDefault();
-              const urlClean = sanitizeSupabaseUrl(sbUrl);
-              const keyClean = (sbKey && sbKey.trim()) || DEFAULT_SUPABASE_ANON_KEY;
-              localStorage.setItem('sb_project_url', urlClean);
-              localStorage.setItem('sb_anon_key', keyClean);
-              setSbUrl(urlClean);
-              setSbKey(keyClean);
-              setIsSbConnected(true);
-              setShowSbModal(false);
-              alert("Connected to Supabase! URL validated and synced.");
-            }} className="bg-slate-900 border-2 border-sky-500 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-5 animate-modal-pop">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                <div className="flex items-center gap-2.5">
-                  <button
-                    type="button"
-                    onClick={() => setShowSbModal(false)}
-                    aria-label="Back and close Supabase dialog"
-                    className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
-                  >
-                    <span>←</span> Back
-                  </button>
-                  <div className="w-7 h-7 rounded-lg bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400">
-                    <Icons.Shield className="w-4 h-4" />
+          <ModalPortal>
+            <div className="fixed-modal-overlay">
+              <form role="dialog" aria-modal="true" aria-labelledby="supabase-modal-title" onSubmit={(e) => {
+                e.preventDefault();
+                const urlClean = sanitizeSupabaseUrl(sbUrl);
+                const keyClean = (sbKey && sbKey.trim()) || DEFAULT_SUPABASE_ANON_KEY;
+                localStorage.setItem('sb_project_url', urlClean);
+                localStorage.setItem('sb_anon_key', keyClean);
+                setSbUrl(urlClean);
+                setSbKey(keyClean);
+                setIsSbConnected(true);
+                setShowSbModal(false);
+                alert("Connected to Supabase! URL validated and synced.");
+              }} className="bg-slate-900 border-2 border-sky-500 rounded-3xl p-6 sm:p-8 max-w-lg w-full max-h-[calc(100vh-2.5rem)] overflow-y-auto my-auto shadow-2xl space-y-5 animate-modal-pop">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                  <div className="flex items-center gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => setShowSbModal(false)}
+                      aria-label="Back and close Supabase dialog"
+                      className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                    >
+                      <span>←</span> Back
+                    </button>
+                    <div className="w-7 h-7 rounded-lg bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400">
+                      <Icons.Shield className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h3 id="supabase-modal-title" className="text-lg font-bold text-white">Connect Supabase Database & Auth</h3>
+                      <p className="text-xs text-slate-400">Sync with live PostgreSQL & Supabase Auth</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 id="supabase-modal-title" className="text-lg font-bold text-white">Connect Supabase Database & Auth</h3>
-                    <p className="text-xs text-slate-400">Sync with live PostgreSQL & Supabase Auth</p>
-                  </div>
+                  <button type="button" onClick={() => setShowSbModal(false)} aria-label="Close Supabase modal" className="text-slate-400 hover:text-white text-lg font-bold">✕</button>
                 </div>
-                <button type="button" onClick={() => setShowSbModal(false)} aria-label="Close Supabase modal" className="text-slate-400 hover:text-white text-lg font-bold">✕</button>
-              </div>
 
               <div className="space-y-4">
                 <div>
@@ -1568,8 +1578,9 @@
               </div>
             </form>
           </div>
-        );
-      };
+        </ModalPortal>
+      );
+    };
 
       // When user logs in as a student, automatically show their own records!
       useEffect(() => {
@@ -3151,325 +3162,333 @@
             {/* MODALS (ADMIN EDIT, UPDATE REQ, ADD REQ, VIEW DOC)             */}
             {/* ============================================================== */}
             {showEditInternModal && (
-              <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <form role="dialog" aria-modal="true" aria-labelledby="edit-intern-title" onSubmit={handleSaveInternCredentials} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-lg w-full shadow-2xl space-y-4 animate-modal-pop">
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                    <div className="flex items-center gap-2.5">
+              <ModalPortal>
+                <div className="fixed-modal-overlay">
+                  <form role="dialog" aria-modal="true" aria-labelledby="edit-intern-title" onSubmit={handleSaveInternCredentials} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-lg w-full max-h-[calc(100vh-2.5rem)] overflow-y-auto my-auto shadow-2xl space-y-4 animate-modal-pop">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <button
+                          type="button"
+                          onClick={() => setShowEditInternModal(false)}
+                          aria-label="Back and close edit student dialog"
+                          className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                        >
+                          <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
+                        </button>
+                        <div>
+                          <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
+                          <h3 id="edit-intern-title" className="text-base sm:text-lg font-bold text-white mt-0.5">Edit Student Credentials</h3>
+                        </div>
+                      </div>
+                      <button type="button" onClick={() => setShowEditInternModal(false)} aria-label="Close dialog" className="text-slate-400 hover:text-white p-1">✕</button>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Full Name</label>
+                        <input
+                          type="text"
+                          value={editName}
+                          onChange={(e) => setEditName(e.target.value)}
+                          className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Batch Number</label>
+                        <input
+                          type="text"
+                          value={editBatch}
+                          onChange={(e) => setEditBatch(e.target.value)}
+                          className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Student ID / Trainer No.</label>
+                        <input
+                          type="text"
+                          value={editStudentId}
+                          onChange={(e) => setEditStudentId(e.target.value)}
+                          className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Department</label>
+                        <input
+                          type="text"
+                          value={editDept}
+                          onChange={(e) => setEditDept(e.target.value)}
+                          className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
+                      <input
+                        type="email"
+                        value={editEmail}
+                        onChange={(e) => setEditEmail(e.target.value)}
+                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Overall Clearance Status</label>
+                      <select
+                        value={editOverallStatus}
+                        onChange={(e) => setEditOverallStatus(e.target.value)}
+                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                      >
+                        <option value="incomplete">Incomplete (Lacking Documents)</option>
+                        <option value="pending">Pending (Under Review)</option>
+                        <option value="complete">Complete (Fully Cleared)</option>
+                      </select>
+                    </div>
+
+                    <div className="flex gap-3 pt-2">
                       <button
                         type="button"
                         onClick={() => setShowEditInternModal(false)}
-                        aria-label="Back and close edit student dialog"
-                        className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                        className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition"
                       >
-                        <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
+                        Cancel
                       </button>
-                      <div>
-                        <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
-                        <h3 id="edit-intern-title" className="text-base sm:text-lg font-bold text-white mt-0.5">Edit Student Credentials</h3>
-                      </div>
+                      <button
+                        type="submit"
+                        className="flex-1 py-2 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition active:scale-95 flex items-center justify-center gap-1.5"
+                      >
+                        <span>Save Credentials</span>
+                      </button>
                     </div>
-                    <button type="button" onClick={() => setShowEditInternModal(false)} aria-label="Close dialog" className="text-slate-400 hover:text-white p-1">✕</button>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Full Name</label>
-                      <input
-                        type="text"
-                        value={editName}
-                        onChange={(e) => setEditName(e.target.value)}
-                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Batch Number</label>
-                      <input
-                        type="text"
-                        value={editBatch}
-                        onChange={(e) => setEditBatch(e.target.value)}
-                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Student ID / Trainer No.</label>
-                      <input
-                        type="text"
-                        value={editStudentId}
-                        onChange={(e) => setEditStudentId(e.target.value)}
-                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Department</label>
-                      <input
-                        type="text"
-                        value={editDept}
-                        onChange={(e) => setEditDept(e.target.value)}
-                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
-                    <input
-                      type="email"
-                      value={editEmail}
-                      onChange={(e) => setEditEmail(e.target.value)}
-                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">Overall Clearance Status</label>
-                    <select
-                      value={editOverallStatus}
-                      onChange={(e) => setEditOverallStatus(e.target.value)}
-                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
-                    >
-                      <option value="incomplete">Incomplete (Lacking Documents)</option>
-                      <option value="pending">Pending (Under Review)</option>
-                      <option value="complete">Complete (Fully Cleared)</option>
-                    </select>
-                  </div>
-
-                  <div className="flex gap-3 pt-2">
-                    <button
-                      type="button"
-                      onClick={() => setShowEditInternModal(false)}
-                      className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="flex-1 py-2 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition active:scale-95 flex items-center justify-center gap-1.5"
-                    >
-                      <span>Save Credentials</span>
-                    </button>
-                  </div>
-                </form>
-              </div>
+                  </form>
+                </div>
+              </ModalPortal>
             )}
 
             {/* ADMIN UPDATE REQ MODAL */}
             {showEditReqModal && editingReq && (
-              <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <form role="dialog" aria-modal="true" aria-labelledby="edit-req-title" onSubmit={handleSaveRequirementUpdate} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-md w-full shadow-2xl space-y-4 animate-modal-pop">
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                    <div className="flex items-center gap-2.5">
+              <ModalPortal>
+                <div className="fixed-modal-overlay">
+                  <form role="dialog" aria-modal="true" aria-labelledby="edit-req-title" onSubmit={handleSaveRequirementUpdate} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-md w-full max-h-[calc(100vh-2.5rem)] overflow-y-auto my-auto shadow-2xl space-y-4 animate-modal-pop">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <button
+                          type="button"
+                          onClick={() => setShowEditReqModal(false)}
+                          aria-label="Back and close update requirement dialog"
+                          className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                        >
+                          <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
+                        </button>
+                        <div>
+                          <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
+                          <h3 id="edit-req-title" className="text-base font-bold text-white mt-0.5">Update Requirement Status</h3>
+                        </div>
+                      </div>
+                      <button type="button" onClick={() => setShowEditReqModal(false)} aria-label="Close dialog" className="text-slate-400 hover:text-white p-1">✕</button>
+                    </div>
+
+                    <div>
+                      <span className="text-xs text-slate-400">Requirement Name:</span>
+                      <div className="text-sm font-bold text-white mt-0.5">{editingReq.name}</div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">Compliance Status</label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {[
+                          { id: 'lacking', label: 'Lacking', icon: <Icons.XCircle className="w-3.5 h-3.5 text-red-500" />, color: 'border-red-500/40 text-red-400 bg-red-500/10' },
+                          { id: 'pending', label: 'Pending', icon: <Icons.Clock className="w-3.5 h-3.5 text-amber-500" />, color: 'border-amber-500/40 text-amber-400 bg-amber-500/10' },
+                          { id: 'submitted', label: 'Submitted', icon: <Icons.CheckCircle className="w-3.5 h-3.5 text-emerald-500" />, color: 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10' }
+                        ].map(st => (
+                          <button
+                            type="button"
+                            key={st.id}
+                            onClick={() => setEditReqStatus(st.id)}
+                            className={`py-2 rounded-xl text-xs font-semibold border transition flex items-center justify-center gap-1.5 ${
+                              editReqStatus === st.id ? st.color : 'bg-slate-950 border-slate-800 text-slate-400'
+                            }`}
+                          >
+                            {st.icon}
+                            <span>{st.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Admin Remarks / Verification Notes</label>
+                      <textarea
+                        rows="3"
+                        value={editReqRemarks}
+                        onChange={(e) => setEditReqRemarks(e.target.value)}
+                        placeholder="e.g. Official transcript verified. / Missing page 2 stamp."
+                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                      ></textarea>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Scanned Document URL (Optional)</label>
+                      <input
+                        type="url"
+                        value={editReqDocUrl}
+                        onChange={(e) => setEditReqDocUrl(e.target.value)}
+                        placeholder="https://... image or PDF URL"
+                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono"
+                      />
+                    </div>
+
+                    <div className="flex gap-3 pt-2">
                       <button
                         type="button"
                         onClick={() => setShowEditReqModal(false)}
-                        aria-label="Back and close update requirement dialog"
-                        className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                        className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition"
                       >
-                        <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
+                        Cancel
                       </button>
-                      <div>
-                        <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
-                        <h3 id="edit-req-title" className="text-base font-bold text-white mt-0.5">Update Requirement Status</h3>
-                      </div>
+                      <button
+                        type="submit"
+                        className="flex-1 py-2 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition active:scale-95"
+                      >
+                        Update Status
+                      </button>
                     </div>
-                    <button type="button" onClick={() => setShowEditReqModal(false)} aria-label="Close dialog" className="text-slate-400 hover:text-white p-1">✕</button>
-                  </div>
-
-                  <div>
-                    <span className="text-xs text-slate-400">Requirement Name:</span>
-                    <div className="text-sm font-bold text-white mt-0.5">{editingReq.name}</div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">Compliance Status</label>
-                    <div className="grid grid-cols-3 gap-2">
-                      {[
-                        { id: 'lacking', label: 'Lacking', icon: <Icons.XCircle className="w-3.5 h-3.5 text-red-500" />, color: 'border-red-500/40 text-red-400 bg-red-500/10' },
-                        { id: 'pending', label: 'Pending', icon: <Icons.Clock className="w-3.5 h-3.5 text-amber-500" />, color: 'border-amber-500/40 text-amber-400 bg-amber-500/10' },
-                        { id: 'submitted', label: 'Submitted', icon: <Icons.CheckCircle className="w-3.5 h-3.5 text-emerald-500" />, color: 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10' }
-                      ].map(st => (
-                        <button
-                          type="button"
-                          key={st.id}
-                          onClick={() => setEditReqStatus(st.id)}
-                          className={`py-2 rounded-xl text-xs font-semibold border transition flex items-center justify-center gap-1.5 ${
-                            editReqStatus === st.id ? st.color : 'bg-slate-950 border-slate-800 text-slate-400'
-                          }`}
-                        >
-                          {st.icon}
-                          <span>{st.label}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">Admin Remarks / Verification Notes</label>
-                    <textarea
-                      rows="3"
-                      value={editReqRemarks}
-                      onChange={(e) => setEditReqRemarks(e.target.value)}
-                      placeholder="e.g. Official transcript verified. / Missing page 2 stamp."
-                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
-                    ></textarea>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">Scanned Document URL (Optional)</label>
-                    <input
-                      type="url"
-                      value={editReqDocUrl}
-                      onChange={(e) => setEditReqDocUrl(e.target.value)}
-                      placeholder="https://... image or PDF URL"
-                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono"
-                    />
-                  </div>
-
-                  <div className="flex gap-3 pt-2">
-                    <button
-                      type="button"
-                      onClick={() => setShowEditReqModal(false)}
-                      className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="flex-1 py-2 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition active:scale-95"
-                    >
-                      Update Status
-                    </button>
-                  </div>
-                </form>
-              </div>
+                  </form>
+                </div>
+              </ModalPortal>
             )}
 
             {/* ADMIN ADD REQ MODAL */}
             {showAddReqModal && (
-              <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <form role="dialog" aria-modal="true" aria-labelledby="add-req-title" onSubmit={handleSaveAddRequirement} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-md w-full shadow-2xl space-y-4 animate-modal-pop">
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                    <div className="flex items-center gap-2.5">
+              <ModalPortal>
+                <div className="fixed-modal-overlay">
+                  <form role="dialog" aria-modal="true" aria-labelledby="add-req-title" onSubmit={handleSaveAddRequirement} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-md w-full max-h-[calc(100vh-2.5rem)] overflow-y-auto my-auto shadow-2xl space-y-4 animate-modal-pop">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <button
+                          type="button"
+                          onClick={() => setShowAddReqModal(false)}
+                          aria-label="Back and close add requirement dialog"
+                          className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                        >
+                          <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
+                        </button>
+                        <div>
+                          <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
+                          <h3 id="add-req-title" className="text-base font-bold text-white mt-0.5">Add Prescribed Requirement</h3>
+                        </div>
+                      </div>
+                      <button type="button" onClick={() => setShowAddReqModal(false)} aria-label="Close dialog" className="text-slate-400 hover:text-white p-1">✕</button>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Requirement Title</label>
+                      <input
+                        type="text"
+                        value={newReqName}
+                        onChange={(e) => setNewReqName(e.target.value)}
+                        placeholder="e.g. Industry Immersion Assessment"
+                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Initial Status</label>
+                      <select
+                        value={newReqStatus}
+                        onChange={(e) => setNewReqStatus(e.target.value)}
+                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                      >
+                        <option value="lacking">Lacking (Missing document)</option>
+                        <option value="pending">Pending (Awaiting review)</option>
+                        <option value="submitted">Submitted (Verified)</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Remarks / Submission Instructions</label>
+                      <textarea
+                        rows="2"
+                        value={newReqRemarks}
+                        onChange={(e) => setNewReqRemarks(e.target.value)}
+                        placeholder="e.g. Must be stamped by authorized supervisor."
+                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                      ></textarea>
+                    </div>
+
+                    <div className="flex gap-3 pt-2">
                       <button
                         type="button"
                         onClick={() => setShowAddReqModal(false)}
-                        aria-label="Back and close add requirement dialog"
-                        className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                        className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition"
                       >
-                        <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
+                        Cancel
                       </button>
-                      <div>
-                        <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
-                        <h3 id="add-req-title" className="text-base font-bold text-white mt-0.5">Add Prescribed Requirement</h3>
-                      </div>
+                      <button
+                        type="submit"
+                        className="flex-1 py-2 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition active:scale-95 flex items-center justify-center gap-1.5"
+                      >
+                        <Icons.Plus className="w-3.5 h-3.5" />
+                        <span>Add to Registry</span>
+                      </button>
                     </div>
-                    <button type="button" onClick={() => setShowAddReqModal(false)} aria-label="Close dialog" className="text-slate-400 hover:text-white p-1">✕</button>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">Requirement Title</label>
-                    <input
-                      type="text"
-                      value={newReqName}
-                      onChange={(e) => setNewReqName(e.target.value)}
-                      placeholder="e.g. Industry Immersion Assessment"
-                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">Initial Status</label>
-                    <select
-                      value={newReqStatus}
-                      onChange={(e) => setNewReqStatus(e.target.value)}
-                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
-                    >
-                      <option value="lacking">Lacking (Missing document)</option>
-                      <option value="pending">Pending (Awaiting review)</option>
-                      <option value="submitted">Submitted (Verified)</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">Remarks / Submission Instructions</label>
-                    <textarea
-                      rows="2"
-                      value={newReqRemarks}
-                      onChange={(e) => setNewReqRemarks(e.target.value)}
-                      placeholder="e.g. Must be stamped by authorized supervisor."
-                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
-                    ></textarea>
-                  </div>
-
-                  <div className="flex gap-3 pt-2">
-                    <button
-                      type="button"
-                      onClick={() => setShowAddReqModal(false)}
-                      className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="flex-1 py-2 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition active:scale-95 flex items-center justify-center gap-1.5"
-                    >
-                      <Icons.Plus className="w-3.5 h-3.5" />
-                      <span>Add to Registry</span>
-                    </button>
-                  </div>
-                </form>
-              </div>
+                  </form>
+                </div>
+              </ModalPortal>
             )}
 
             {/* VIEW DOCUMENT MODAL */}
             {selectedDocument && (
-              <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <div role="dialog" aria-modal="true" aria-labelledby="view-doc-title" className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-4 animate-modal-pop">
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                    <div className="flex items-center gap-2.5">
+              <ModalPortal>
+                <div className="fixed-modal-overlay">
+                  <div role="dialog" aria-modal="true" aria-labelledby="view-doc-title" className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 max-w-2xl w-full max-h-[calc(100vh-2.5rem)] overflow-y-auto my-auto shadow-2xl space-y-4 animate-modal-pop">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                      <div className="flex items-center gap-2.5">
+                        <button
+                          onClick={() => setSelectedDocument(null)}
+                          aria-label="Back and return to registry"
+                          className="text-xs text-sky-400 hover:text-sky-300 font-semibold px-2.5 py-1 rounded-lg bg-sky-500/10 border border-sky-500/30 hover:bg-sky-500/20 flex items-center gap-1 transition"
+                        >
+                          <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
+                        </button>
+                        <div>
+                          <span className="text-[10px] font-bold text-sky-400 uppercase tracking-wider">Scanned Document In System</span>
+                          <h3 id="view-doc-title" className="text-base sm:text-lg font-bold text-white mt-0.5">{selectedDocument.name}</h3>
+                        </div>
+                      </div>
+                      <button onClick={() => setSelectedDocument(null)} aria-label="Close document viewer" className="text-slate-400 hover:text-white p-1">✕</button>
+                    </div>
+
+                    <div className="h-96 rounded-xl overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center">
+                      <img src={selectedDocument.document_url} alt="Scanned Document" className="max-h-full max-w-full object-contain" />
+                    </div>
+
+                    <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 text-xs space-y-1">
+                      <p className="text-slate-300"><span className="text-slate-400">Document Status:</span> <span className="text-emerald-400 font-bold uppercase">{selectedDocument.status}</span></p>
+                      <p className="text-slate-300"><span className="text-slate-400">Remarks:</span> {selectedDocument.remarks}</p>
+                      <p className="text-slate-300"><span className="text-slate-400">Verified Timestamp:</span> {selectedDocument.scanned_at || "Verified"}</p>
+                    </div>
+
+                    <div className="pt-2">
                       <button
                         onClick={() => setSelectedDocument(null)}
-                        aria-label="Back and return to registry"
-                        className="text-xs text-sky-400 hover:text-sky-300 font-semibold px-2.5 py-1 rounded-lg bg-sky-500/10 border border-sky-500/30 hover:bg-sky-500/20 flex items-center gap-1 transition"
+                        className="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition flex items-center justify-center gap-1.5"
                       >
-                        <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
+                        <Icons.ArrowLeft className="w-3.5 h-3.5" />
+                        <span>Return to Registry</span>
                       </button>
-                      <div>
-                        <span className="text-[10px] font-bold text-sky-400 uppercase tracking-wider">Scanned Document In System</span>
-                        <h3 id="view-doc-title" className="text-base sm:text-lg font-bold text-white mt-0.5">{selectedDocument.name}</h3>
-                      </div>
                     </div>
-                    <button onClick={() => setSelectedDocument(null)} aria-label="Close document viewer" className="text-slate-400 hover:text-white p-1">✕</button>
-                  </div>
-
-                  <div className="h-96 rounded-xl overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center">
-                    <img src={selectedDocument.document_url} alt="Scanned Document" className="max-h-full max-w-full object-contain" />
-                  </div>
-
-                  <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 text-xs space-y-1">
-                    <p className="text-slate-300"><span className="text-slate-400">Document Status:</span> <span className="text-emerald-400 font-bold uppercase">{selectedDocument.status}</span></p>
-                    <p className="text-slate-300"><span className="text-slate-400">Remarks:</span> {selectedDocument.remarks}</p>
-                    <p className="text-slate-300"><span className="text-slate-400">Verified Timestamp:</span> {selectedDocument.scanned_at || "Verified"}</p>
-                  </div>
-
-                  <div className="pt-2">
-                    <button
-                      onClick={() => setSelectedDocument(null)}
-                      className="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition flex items-center justify-center gap-1.5"
-                    >
-                      <Icons.ArrowLeft className="w-3.5 h-3.5" />
-                      <span>Return to Registry</span>
-                    </button>
                   </div>
                 </div>
-              </div>
+              </ModalPortal>
             )}
 
           </div>
