@@ -82,7 +82,11 @@
     }
 
     .auth-card-glow {
-      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      box-shadow: 
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 20px 45px -10px rgba(0, 0, 0, 0.7),
+        0 10px 20px -5px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
       animation: cardEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
@@ -100,8 +104,8 @@
 
     .btn-shimmer:hover {
       background-position: right center;
-      transform: translateY(-1.5px) scale(1.02);
-      box-shadow: 0 12px 25px -5px rgba(14, 165, 233, 0.4), 0 0 18px rgba(99, 102, 241, 0.3);
+      transform: translateY(-1.5px) scale(1.01);
+      box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.5), 0 4px 10px -2px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
     .btn-shimmer:active {
@@ -145,7 +149,7 @@
       transform: translateY(-1.5px) scale(1.015);
       border-color: rgba(16, 185, 129, 0.6);
       background-color: rgba(16, 185, 129, 0.18);
-      box-shadow: 0 10px 24px -5px rgba(16, 185, 129, 0.35), inset 0 0 15px rgba(16, 185, 129, 0.12);
+      box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(16, 185, 129, 0.3);
     }
 
     .btn-demo-admin:active {
@@ -162,7 +166,7 @@
       transform: translateY(-1.5px) scale(1.015);
       border-color: rgba(56, 189, 248, 0.6);
       background-color: rgba(56, 189, 248, 0.18);
-      box-shadow: 0 10px 24px -5px rgba(56, 189, 248, 0.35), inset 0 0 15px rgba(56, 189, 248, 0.12);
+      box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(56, 189, 248, 0.3);
     }
 
     .btn-demo-user:active {
@@ -177,7 +181,7 @@
 
     .input-animated:focus {
       border-color: #38bdf8;
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2), 0 0 20px rgba(56, 189, 248, 0.18);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2), 0 4px 12px -2px rgba(0, 0, 0, 0.4);
       transform: translateY(-1px);
     }
 
@@ -198,7 +202,7 @@
       width: calc(50% - 4px);
       border-radius: 12px;
       background: linear-gradient(90deg, #0284c7, #4f46e5);
-      box-shadow: 0 4px 18px rgba(2, 132, 199, 0.4);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -829,21 +833,35 @@
       background: #94a3b8 !important;
     }
 
-    /* Accessibility: Reduced Motion */
+    /* Accessibility: Respect Reduced Motion without breaking UI feedback */
     @media (prefers-reduced-motion: reduce) {
-
       *,
       ::before,
       ::after {
-        animation-duration: 0.001ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.001ms !important;
+        animation-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      /* Retain soft non-vestibular transitions for interactive feedback */
+      button, input, select, textarea, a, .tab-slider-bg {
+        transition-duration: 150ms !important;
+        transition-property: opacity, background-color, border-color, color !important;
+        transform: none !important;
       }
 
       .particle-canvas,
       .orb-1,
       .orb-2,
-      .orb-3 {
+      .orb-3,
+      .light-wave-overlay,
+      .card-float-loop,
+      .animate-logo {
+        animation: none !important;
+        transform: none !important;
+      }
+
+      .particle-canvas {
         display: none !important;
       }
     }
@@ -1192,6 +1210,7 @@
         <button
           type="button"
           onClick={() => setTheme(isLight ? 'dark' : 'light')}
+          aria-label={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
           className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all duration-200 flex items-center gap-1.5 shadow-sm active:scale-95 ${
             isLight
               ? 'bg-white text-slate-800 border-slate-200 hover:bg-slate-100 shadow-sm'
@@ -1459,7 +1478,7 @@
         if (!showSbModal) return null;
         return (
           <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <form onSubmit={(e) => {
+            <form role="dialog" aria-modal="true" aria-labelledby="supabase-modal-title" onSubmit={(e) => {
               e.preventDefault();
               const urlClean = sanitizeSupabaseUrl(sbUrl);
               const keyClean = (sbKey && sbKey.trim()) || DEFAULT_SUPABASE_ANON_KEY;
@@ -1476,6 +1495,7 @@
                   <button
                     type="button"
                     onClick={() => setShowSbModal(false)}
+                    aria-label="Back and close Supabase dialog"
                     className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
                   >
                     <span>←</span> Back
@@ -1484,11 +1504,11 @@
                     <Icons.Shield className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white">Connect Supabase Database & Auth</h3>
+                    <h3 id="supabase-modal-title" className="text-lg font-bold text-white">Connect Supabase Database & Auth</h3>
                     <p className="text-xs text-slate-400">Sync with live PostgreSQL & Supabase Auth</p>
                   </div>
                 </div>
-                <button type="button" onClick={() => setShowSbModal(false)} className="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+                <button type="button" onClick={() => setShowSbModal(false)} aria-label="Close Supabase modal" className="text-slate-400 hover:text-white text-lg font-bold">✕</button>
               </div>
 
               <div className="space-y-4">
@@ -1499,7 +1519,7 @@
                     placeholder="https://your-project-id.supabase.co"
                     value={sbUrl}
                     onChange={(e) => setSbUrl(e.target.value)}
-                    className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 font-mono"
+                    className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 font-mono"
                     required
                   />
                 </div>
@@ -1511,7 +1531,7 @@
                     placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                     value={sbKey}
                     onChange={(e) => setSbKey(e.target.value)}
-                    className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 font-mono"
+                    className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 font-mono"
                     required
                   ></textarea>
                 </div>
@@ -2149,7 +2169,7 @@
                   <div className="bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-400 h-full rounded-full animate-redirect-progress"></div>
                 </div>
 
-                <p className="text-[11px] text-slate-500">
+                <p className="text-[11px] text-slate-400">
                   Redirecting you to the Main Clearance Portal...
                 </p>
 
@@ -2311,7 +2331,7 @@
                       placeholder="e.g. Sarah Jenkins"
                       value={signupName}
                       onChange={(e) => setSignupName(e.target.value)}
-                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none shadow-sm transition-all"
+                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none shadow-sm transition-all"
                       required
                     />
                   </div>
@@ -2323,7 +2343,7 @@
                       placeholder="e.g. sarah.jenkins@school.edu"
                       value={authEmail}
                       onChange={(e) => setAuthEmail(e.target.value)}
-                      className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none shadow-sm transition-all"
+                      className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none shadow-sm transition-all"
                       required
                     />
                   </div>
@@ -2336,13 +2356,14 @@
                         placeholder="Minimum 6 characters"
                         value={authPassword}
                         onChange={(e) => setAuthPassword(e.target.value)}
-                        className="w-full input-animated border border-slate-800 rounded-xl pl-4 pr-10 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none shadow-sm transition-all"
+                        className="w-full input-animated border border-slate-800 rounded-xl pl-4 pr-12 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none shadow-sm transition-all"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-sky-400 text-xs p-1.5 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95 flex items-center justify-center"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                        className="absolute right-1 top-1/2 -translate-y-1/2 w-11 h-11 text-slate-400 hover:text-sky-400 rounded-lg transition-all duration-200 hover:scale-105 active:scale-95 flex items-center justify-center"
                         title={showPassword ? "Hide password" : "Show password"}
                       >
                         <PasswordEyeIcon show={showPassword} className="w-4 h-4 text-slate-400 hover:text-white transition-colors" />
@@ -2363,7 +2384,7 @@
                           placeholder="e.g. Batch 2026-A"
                           value={signupBatch}
                           onChange={(e) => setSignupBatch(e.target.value)}
-                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none shadow-sm transition-all"
+                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none shadow-sm transition-all"
                           required
                         />
                       </div>
@@ -2377,7 +2398,7 @@
                           placeholder="e.g. 2026-004"
                           value={signupStudentId}
                           onChange={(e) => setSignupStudentId(e.target.value)}
-                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none shadow-sm transition-all"
+                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none shadow-sm transition-all"
                         />
                       </div>
                     </div>
@@ -2392,7 +2413,7 @@
                         placeholder="Enter admin passcode (demo: admin123)"
                         value={adminPasscode}
                         onChange={(e) => setAdminPasscode(e.target.value)}
-                        className="w-full input-animated border border-emerald-500/50 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400 shadow-sm transition-all"
+                        className="w-full input-animated border border-emerald-500/50 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-emerald-400 shadow-sm transition-all"
                         required
                       />
                     </div>
@@ -2434,7 +2455,7 @@
               </div>
             </div>
 
-            <p className="text-[11px] text-slate-500 mt-4 text-center relative z-10 animate-subtitle">
+            <p className="text-[11px] text-slate-400 mt-4 text-center relative z-10 animate-subtitle">
               Secured by Supabase Authentication & Role-Based Access Control
             </p>
           </div>
@@ -2562,7 +2583,7 @@
                       value={authEmail}
                       onChange={(e) => setAuthEmail(e.target.value)}
                       placeholder="e.g. admin@system.local or juan.delacruz@school.edu"
-                      className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none shadow-sm transition-all"
+                      className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none shadow-sm transition-all"
                       required
                     />
                   </div>
@@ -2575,13 +2596,14 @@
                         value={authPassword}
                         onChange={(e) => setAuthPassword(e.target.value)}
                         placeholder="Enter your account password"
-                        className="w-full input-animated border border-slate-800 rounded-xl pl-4 pr-10 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none shadow-sm transition-all"
+                        className="w-full input-animated border border-slate-800 rounded-xl pl-4 pr-12 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none shadow-sm transition-all"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-sky-400 text-xs p-1.5 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95 flex items-center justify-center"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                        className="absolute right-1 top-1/2 -translate-y-1/2 w-11 h-11 text-slate-400 hover:text-sky-400 rounded-lg transition-all duration-200 hover:scale-105 active:scale-95 flex items-center justify-center"
                         title={showPassword ? "Hide password" : "Show password"}
                       >
                         <PasswordEyeIcon show={showPassword} className="w-4 h-4 text-slate-400 hover:text-white transition-colors" />
@@ -2625,7 +2647,7 @@
               </div>
             </div>
 
-            <p className="text-[11px] text-slate-500 mt-4 text-center relative z-10 animate-subtitle">
+            <p className="text-[11px] text-slate-400 mt-4 text-center relative z-10 animate-subtitle">
               Secured by Supabase Authentication & Role-Based Access Control
             </p>
           </div>
@@ -2761,7 +2783,7 @@
                           placeholder="e.g. Batch 2026-A"
                           value={batchNumber}
                           onChange={(e) => setBatchNumber(e.target.value)}
-                          className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none transition-all shadow-sm"
+                          className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none transition-all shadow-sm"
                           required
                         />
                       </div>
@@ -2775,7 +2797,7 @@
                           placeholder="e.g. Juan Dela Cruz"
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
-                          className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none transition-all shadow-sm"
+                          className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none transition-all shadow-sm"
                           required
                         />
                       </div>
@@ -2890,7 +2912,7 @@
                               <span>{searchResult.department}</span>
                             </div>
                             {searchResult.email && (
-                              <p className="text-xs text-slate-500 font-mono mt-0.5">{searchResult.email}</p>
+                              <p className="text-xs text-slate-400 font-mono mt-0.5">{searchResult.email}</p>
                             )}
                           </div>
                         </div>
@@ -3093,7 +3115,7 @@
                                     {req.remarks}
                                   </p>
                                   {req.scanned_at && (
-                                    <p className="text-[11px] text-slate-500 flex items-center gap-1 font-mono">
+                                    <p className="text-[11px] text-slate-400 flex items-center gap-1 font-mono">
                                       <Icons.Calendar className="w-3 h-3" />
                                       <span>Scanned: {req.scanned_at}</span>
                                     </p>
@@ -3144,22 +3166,23 @@
             {/* ============================================================== */}
             {showEditInternModal && (
               <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <form onSubmit={handleSaveInternCredentials} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-lg w-full shadow-2xl space-y-4 animate-modal-pop">
+                <form role="dialog" aria-modal="true" aria-labelledby="edit-intern-title" onSubmit={handleSaveInternCredentials} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-lg w-full shadow-2xl space-y-4 animate-modal-pop">
                   <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                     <div className="flex items-center gap-2.5">
                       <button
                         type="button"
                         onClick={() => setShowEditInternModal(false)}
+                        aria-label="Back and close edit student dialog"
                         className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
                       >
                         <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
                       </button>
                       <div>
                         <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
-                        <h3 className="text-base sm:text-lg font-bold text-white mt-0.5">Edit Student Credentials</h3>
+                        <h3 id="edit-intern-title" className="text-base sm:text-lg font-bold text-white mt-0.5">Edit Student Credentials</h3>
                       </div>
                     </div>
-                    <button type="button" onClick={() => setShowEditInternModal(false)} className="text-slate-400 hover:text-white p-1">✕</button>
+                    <button type="button" onClick={() => setShowEditInternModal(false)} aria-label="Close dialog" className="text-slate-400 hover:text-white p-1">✕</button>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -3253,22 +3276,23 @@
             {/* ADMIN UPDATE REQ MODAL */}
             {showEditReqModal && editingReq && (
               <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <form onSubmit={handleSaveRequirementUpdate} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-md w-full shadow-2xl space-y-4 animate-modal-pop">
+                <form role="dialog" aria-modal="true" aria-labelledby="edit-req-title" onSubmit={handleSaveRequirementUpdate} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-md w-full shadow-2xl space-y-4 animate-modal-pop">
                   <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                     <div className="flex items-center gap-2.5">
                       <button
                         type="button"
                         onClick={() => setShowEditReqModal(false)}
+                        aria-label="Back and close update requirement dialog"
                         className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
                       >
                         <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
                       </button>
                       <div>
                         <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
-                        <h3 className="text-base font-bold text-white mt-0.5">Update Requirement Status</h3>
+                        <h3 id="edit-req-title" className="text-base font-bold text-white mt-0.5">Update Requirement Status</h3>
                       </div>
                     </div>
-                    <button type="button" onClick={() => setShowEditReqModal(false)} className="text-slate-400 hover:text-white p-1">✕</button>
+                    <button type="button" onClick={() => setShowEditReqModal(false)} aria-label="Close dialog" className="text-slate-400 hover:text-white p-1">✕</button>
                   </div>
 
                   <div>
@@ -3343,22 +3367,23 @@
             {/* ADMIN ADD REQ MODAL */}
             {showAddReqModal && (
               <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <form onSubmit={handleSaveAddRequirement} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-md w-full shadow-2xl space-y-4 animate-modal-pop">
+                <form role="dialog" aria-modal="true" aria-labelledby="add-req-title" onSubmit={handleSaveAddRequirement} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-md w-full shadow-2xl space-y-4 animate-modal-pop">
                   <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                     <div className="flex items-center gap-2.5">
                       <button
                         type="button"
                         onClick={() => setShowAddReqModal(false)}
+                        aria-label="Back and close add requirement dialog"
                         className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
                       >
                         <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
                       </button>
                       <div>
                         <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
-                        <h3 className="text-base font-bold text-white mt-0.5">Add Prescribed Requirement</h3>
+                        <h3 id="add-req-title" className="text-base font-bold text-white mt-0.5">Add Prescribed Requirement</h3>
                       </div>
                     </div>
-                    <button type="button" onClick={() => setShowAddReqModal(false)} className="text-slate-400 hover:text-white p-1">✕</button>
+                    <button type="button" onClick={() => setShowAddReqModal(false)} aria-label="Close dialog" className="text-slate-400 hover:text-white p-1">✕</button>
                   </div>
 
                   <div>
@@ -3420,21 +3445,22 @@
             {/* VIEW DOCUMENT MODAL */}
             {selectedDocument && (
               <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-4 animate-modal-pop">
+                <div role="dialog" aria-modal="true" aria-labelledby="view-doc-title" className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-4 animate-modal-pop">
                   <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                     <div className="flex items-center gap-2.5">
                       <button
                         onClick={() => setSelectedDocument(null)}
+                        aria-label="Back and return to registry"
                         className="text-xs text-sky-400 hover:text-sky-300 font-semibold px-2.5 py-1 rounded-lg bg-sky-500/10 border border-sky-500/30 hover:bg-sky-500/20 flex items-center gap-1 transition"
                       >
                         <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
                       </button>
                       <div>
                         <span className="text-[10px] font-bold text-sky-400 uppercase tracking-wider">Scanned Document In System</span>
-                        <h3 className="text-base sm:text-lg font-bold text-white mt-0.5">{selectedDocument.name}</h3>
+                        <h3 id="view-doc-title" className="text-base sm:text-lg font-bold text-white mt-0.5">{selectedDocument.name}</h3>
                       </div>
                     </div>
-                    <button onClick={() => setSelectedDocument(null)} className="text-slate-400 hover:text-white p-1">✕</button>
+                    <button onClick={() => setSelectedDocument(null)} aria-label="Close document viewer" className="text-slate-400 hover:text-white p-1">✕</button>
                   </div>
 
                   <div className="h-96 rounded-xl overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center">
@@ -3442,9 +3468,9 @@
                   </div>
 
                   <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 text-xs space-y-1">
-                    <p className="text-slate-300"><span className="text-slate-500">Document Status:</span> <span className="text-emerald-400 font-bold uppercase">{selectedDocument.status}</span></p>
-                    <p className="text-slate-300"><span className="text-slate-500">Remarks:</span> {selectedDocument.remarks}</p>
-                    <p className="text-slate-300"><span className="text-slate-500">Verified Timestamp:</span> {selectedDocument.scanned_at || "Verified"}</p>
+                    <p className="text-slate-300"><span className="text-slate-400">Document Status:</span> <span className="text-emerald-400 font-bold uppercase">{selectedDocument.status}</span></p>
+                    <p className="text-slate-300"><span className="text-slate-400">Remarks:</span> {selectedDocument.remarks}</p>
+                    <p className="text-slate-300"><span className="text-slate-400">Verified Timestamp:</span> {selectedDocument.scanned_at || "Verified"}</p>
                   </div>
 
                   <div className="pt-2">
