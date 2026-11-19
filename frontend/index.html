@@ -13,13 +13,15 @@
   <link rel="preconnect" href="https://unpkg.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
-  <!-- Tailwind CSS with class-based Dark Mode -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind CSS Configuration (Configured before CDN script so compiler receives options without overwrite) -->
   <script>
-    tailwind = {
-      darkMode: 'class'
+    window.tailwind = {
+      config: {
+        darkMode: 'class'
+      }
     };
   </script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <!-- Supabase JS Client for Live Database Connection -->
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <!-- Production React & Babel Standalone -->
@@ -75,6 +77,17 @@
       background-color: #f8fafc !important;
       color: #0f172a !important;
     }
+
+    /* Defensive image sizing to prevent raw unstyled blowout */
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    img.w-6 { width: 1.5rem !important; height: 1.5rem !important; }
+    img.w-7 { width: 1.75rem !important; height: 1.75rem !important; }
+    img.w-8 { width: 2rem !important; height: 2rem !important; }
+    img.w-10 { width: 2.5rem !important; height: 2.5rem !important; }
+    img.w-14 { width: 3.5rem !important; height: 3.5rem !important; }
 
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
