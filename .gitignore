@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Expo / React Native
+.expo/
+dist/
+web-build/
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+*.log
+.vscode/

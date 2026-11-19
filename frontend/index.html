@@ -1,0 +1,3472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diploma, NC11 Trainer Portal - Authentication Gate</title>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Supabase JS Client for Live Database Connection -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <!-- React & Babel for zero-install direct browser preview -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('portal_theme') || 'dark';
+        if (t === 'light') {
+          document.documentElement.classList.add('light-theme');
+        } else {
+          document.documentElement.classList.add('dark-theme');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: #020617;
+      color: #f8fafc;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    body.light-theme,
+    html.light-theme body {
+      background-color: #f8fafc !important;
+      color: #0f172a !important;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+
+    /* Smooth global transitions */
+    * {
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* 1. Card & Form Animations (Smooth & subtle) */
+    @keyframes cardEntrance {
+      0% {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .auth-card-glow {
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      animation: cardEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .light-theme .auth-card-glow {
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.06);
+    }
+
+    /* 3. Button Animations & Gradient Shimmer */
+    .btn-shimmer {
+      background-size: 200% auto;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-shimmer:hover {
+      background-position: right center;
+      transform: translateY(-1.5px) scale(1.02);
+      box-shadow: 0 12px 25px -5px rgba(14, 165, 233, 0.4), 0 0 18px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-shimmer:active {
+      transform: translateY(0.5px) scale(0.97);
+    }
+
+    .btn-shimmer::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+      transform: skewX(-20deg);
+      transition: none;
+    }
+
+    .btn-shimmer:hover::after {
+      animation: btnSheen 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes btnSheen {
+      0% {
+        left: -100%;
+      }
+
+      100% {
+        left: 200%;
+      }
+    }
+
+    /* Demo login buttons */
+    .btn-demo-admin {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-demo-admin:hover {
+      transform: translateY(-1.5px) scale(1.015);
+      border-color: rgba(16, 185, 129, 0.6);
+      background-color: rgba(16, 185, 129, 0.18);
+      box-shadow: 0 10px 24px -5px rgba(16, 185, 129, 0.35), inset 0 0 15px rgba(16, 185, 129, 0.12);
+    }
+
+    .btn-demo-admin:active {
+      transform: scale(0.98);
+    }
+
+    .btn-demo-user {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-demo-user:hover {
+      transform: translateY(-1.5px) scale(1.015);
+      border-color: rgba(56, 189, 248, 0.6);
+      background-color: rgba(56, 189, 248, 0.18);
+      box-shadow: 0 10px 24px -5px rgba(56, 189, 248, 0.35), inset 0 0 15px rgba(56, 189, 248, 0.12);
+    }
+
+    .btn-demo-user:active {
+      transform: scale(0.98);
+    }
+
+    /* 4. Input Field Animations & Focus Glow */
+    .input-animated {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      background-color: rgba(2, 6, 23, 0.9);
+    }
+
+    .input-animated:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2), 0 0 20px rgba(56, 189, 248, 0.18);
+      transform: translateY(-1px);
+    }
+
+    .input-animated::placeholder {
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .input-animated:focus::placeholder {
+      opacity: 0.35;
+      transform: translateX(4px);
+    }
+
+    /* 5. Login/Signup Tab Slider & Form Field Staggering */
+    .tab-slider-bg {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      width: calc(50% - 4px);
+      border-radius: 12px;
+      background: linear-gradient(90deg, #0284c7, #4f46e5);
+      box-shadow: 0 4px 18px rgba(2, 132, 199, 0.4);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tab-slider-login {
+      transform: translateX(4px);
+    }
+
+    .tab-slider-signup {
+      transform: translateX(calc(100% + 4px));
+    }
+
+    @keyframes formSlideFade {
+      0% {
+        opacity: 0;
+        transform: translateX(10px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .animate-form-enter {
+      animation: formSlideFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes fieldSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .stagger-1 {
+      animation: fieldSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.04s both;
+    }
+
+    .stagger-2 {
+      animation: fieldSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+    }
+
+    .stagger-3 {
+      animation: fieldSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+    }
+
+    .stagger-4 {
+      animation: fieldSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.16s both;
+    }
+
+    .stagger-5 {
+      animation: fieldSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.20s both;
+    }
+
+    .stagger-6 {
+      animation: fieldSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
+    }
+
+    /* Typography Entrance */
+    @keyframes textFadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-heading {
+      animation: textFadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+    }
+
+    .animate-subtitle {
+      animation: textFadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+    }
+
+    /* 7. Success & Error Animations */
+    @keyframes errorShakeAnim {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      15% {
+        transform: translateX(-6px);
+      }
+
+      30% {
+        transform: translateX(6px);
+      }
+
+      45% {
+        transform: translateX(-4px);
+      }
+
+      60% {
+        transform: translateX(4px);
+      }
+
+      75% {
+        transform: translateX(-2px);
+      }
+    }
+
+    .shake-error {
+      animation: errorShakeAnim 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    @keyframes iconBounce {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.25) rotate(-6deg);
+      }
+    }
+
+    .animate-icon-bounce {
+      display: inline-block;
+      animation: iconBounce 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes successSlide {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.97);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .animate-success-slide {
+      animation: successSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes redirectProgress {
+      0% {
+        width: 0%;
+      }
+      40% {
+        width: 60%;
+      }
+      80% {
+        width: 88%;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+
+    .animate-redirect-progress {
+      animation: redirectProgress 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* 8. Dashboard & Modals Animations */
+    @keyframes dashboardEntrance {
+      0% {
+        opacity: 0;
+        transform: translateY(16px) scale(0.99);
+      }
+
+      100% {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .animate-dashboard-in {
+      animation: dashboardEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Fixed Viewport Modal Overlay - Centered in Screen Regardless of Scroll Position */
+    .fixed-modal-overlay {
+      position: fixed !important;
+      inset: 0 !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 99999 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 1rem !important;
+      background-color: rgba(0, 0, 0, 0.78) !important;
+      backdrop-filter: blur(5px) !important;
+      -webkit-backdrop-filter: blur(5px) !important;
+    }
+
+    .light-theme .fixed-modal-overlay {
+      background-color: rgba(15, 23, 42, 0.45) !important;
+    }
+
+    @keyframes modalPopIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.94) translateY(10px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .animate-modal-pop {
+      animation: modalPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    /* ========================================================================= */
+    /* 1. DARK MODE SYSTEM STYLING (DEFAULT THEME)                               */
+    /* ========================================================================= */
+    body,
+    html.dark-theme body,
+    body.dark-theme {
+      background-color: #020617;
+      color: #f8fafc;
+    }
+
+    /* Dark Mode Banner & Overlay */
+    .dark-theme .home-bg-banner img,
+    .home-bg-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(1.2) contrast(1.05) brightness(0.9);
+      opacity: 0.94;
+      transform: scale(1.01);
+      transition: opacity 0.3s ease, filter 0.3s ease;
+    }
+
+    .dark-theme .home-bg-overlay,
+    .home-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(2, 6, 23, 0.48) 0%, rgba(2, 6, 23, 0.78) 100%);
+      pointer-events: none;
+    }
+
+    .dark-theme .portal-bg-banner img,
+    .portal-bg-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.16;
+      filter: saturate(1.1);
+    }
+
+    .dark-theme .portal-bg-overlay,
+    .portal-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.82) 0%, rgba(2, 6, 23, 0.96) 100%);
+    }
+
+    /* ========================================================================= */
+    /* 2. LIGHT MODE SYSTEM STYLING (TRUE LIGHT THEME WITH HIGH CONTRAST)        */
+    /* ========================================================================= */
+    html.light-theme,
+    html.light-theme body,
+    body.light-theme {
+      background-color: #f8fafc !important;
+      color: #0f172a !important;
+    }
+
+    /* Full Page Background in Light Mode */
+    .light-theme .bg-slate-950,
+    .light-theme .min-h-screen.bg-slate-950,
+    .light-theme div.bg-slate-950 {
+      background-color: #f8fafc !important;
+    }
+
+    /* Light Theme Banner & Overlay: Bright, Vibrant and Clearly Visible */
+    .light-theme .home-bg-banner img {
+      filter: saturate(1.18) contrast(1.04) brightness(1.02);
+      opacity: 0.88;
+    }
+
+    .light-theme .home-bg-overlay {
+      background: radial-gradient(circle at 50% 50%, rgba(248, 250, 252, 0.68) 0%, rgba(241, 245, 249, 0.44) 100%) !important;
+      pointer-events: none;
+    }
+
+    .light-theme .portal-bg-banner img {
+      opacity: 0.14;
+      filter: saturate(1.15) brightness(1.05);
+    }
+
+    .light-theme .portal-bg-overlay {
+      background: linear-gradient(to bottom, rgba(248, 250, 252, 0.88) 0%, rgba(241, 245, 249, 0.96) 100%) !important;
+    }
+
+    /* Header in Light Mode */
+    .light-theme .header-glass,
+    .light-theme header.bg-slate-900\/90 {
+      background-color: rgba(255, 255, 255, 0.96) !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    /* Cards, Containers & Modals in Light Mode */
+    .light-theme .bg-slate-900,
+    .light-theme .main-portal-card,
+    .light-theme .auth-card-glow {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      color: #0f172a !important;
+      box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.04) !important;
+    }
+
+    .light-theme .bg-slate-900\/90,
+    .light-theme .bg-slate-900\/80,
+    .light-theme .bg-slate-900\/60 {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+    }
+
+    .light-theme .bg-slate-950\/90,
+    .light-theme .bg-slate-950\/80,
+    .light-theme .bg-slate-950\/60,
+    .light-theme .bg-slate-950\/40 {
+      background-color: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    /* Borders */
+    .light-theme .border-slate-800,
+    .light-theme .border-slate-800\/80,
+    .light-theme .border-slate-800\/60,
+    .light-theme .border-slate-700,
+    .light-theme .border-slate-700\/80 {
+      border-color: #e2e8f0 !important;
+    }
+
+    .light-theme .divide-slate-800\/80 > :not([hidden]) ~ :not([hidden]) {
+      border-color: #e2e8f0 !important;
+    }
+
+    .light-theme .hover\:bg-slate-800\/30:hover {
+      background-color: #f8fafc !important;
+    }
+
+    /* Typography & Text Visibility in Light Mode */
+    .light-theme h1,
+    .light-theme h2,
+    .light-theme h3,
+    .light-theme h4,
+    .light-theme h5 {
+      color: #0f172a !important;
+    }
+
+    .light-theme .text-white {
+      color: #0f172a !important;
+    }
+
+    .light-theme .text-slate-100 {
+      color: #0f172a !important;
+    }
+
+    .light-theme .text-slate-200 {
+      color: #1e293b !important;
+    }
+
+    .light-theme .text-slate-300 {
+      color: #334155 !important;
+    }
+
+    .light-theme .text-slate-400 {
+      color: #475569 !important;
+    }
+
+    .light-theme .text-slate-500 {
+      color: #64748b !important;
+    }
+
+    .light-theme label {
+      color: #1e293b !important;
+      font-weight: 700;
+    }
+
+    /* CRITICAL EXCEPTION: Primary Colored Buttons & Badges MUST KEEP PURE WHITE TEXT! */
+    .light-theme .btn-shimmer,
+    .light-theme .btn-shimmer *,
+    .light-theme button[type="submit"],
+    .light-theme button[type="submit"] *,
+    .light-theme .bg-sky-600,
+    .light-theme .bg-sky-600 *,
+    .light-theme .bg-emerald-600,
+    .light-theme .bg-emerald-600 *,
+    .light-theme .bg-red-600,
+    .light-theme .bg-red-600 *,
+    .light-theme .bg-gradient-to-r,
+    .light-theme .bg-gradient-to-r *,
+    .light-theme .bg-gradient-to-tr,
+    .light-theme .bg-gradient-to-tr * {
+      color: #ffffff !important;
+    }
+
+    /* Form Inputs in Light Mode */
+    .light-theme input,
+    .light-theme select,
+    .light-theme textarea,
+    .light-theme .input-animated {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    .light-theme input:focus,
+    .light-theme select:focus,
+    .light-theme textarea:focus,
+    .light-theme .input-animated:focus {
+      border-color: #0284c7 !important;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18) !important;
+    }
+
+    .light-theme input::placeholder,
+    .light-theme textarea::placeholder,
+    .light-theme .input-animated::placeholder {
+      color: #94a3b8 !important;
+    }
+
+    .light-theme select option {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+    }
+
+    /* Secondary Action / Utility Buttons in Light Mode */
+    .light-theme button.bg-slate-950,
+    .light-theme button.bg-slate-900,
+    .light-theme button.bg-slate-800 {
+      background-color: #f1f5f9 !important;
+      color: #1e293b !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    .light-theme button.bg-slate-950:hover,
+    .light-theme button.bg-slate-900:hover,
+    .light-theme button.bg-slate-800:hover {
+      background-color: #e2e8f0 !important;
+      color: #0f172a !important;
+    }
+
+    /* Admin Banner in Light Mode */
+    .light-theme .bg-emerald-950\/30 {
+      background-color: #ecfdf5 !important;
+      border-color: #a7f3d0 !important;
+    }
+    .light-theme .bg-emerald-950\/30 h3 {
+      color: #047857 !important;
+    }
+    .light-theme .bg-emerald-950\/30 p {
+      color: #065f46 !important;
+    }
+
+    /* Alert / Warning Boxes in Light Mode */
+    .light-theme .bg-red-950\/30 {
+      background-color: #fef2f2 !important;
+      border-color: #fecaca !important;
+    }
+    .light-theme .bg-red-950\/30 h4,
+    .light-theme .bg-red-950\/30 .text-red-200 {
+      color: #991b1b !important;
+    }
+    .light-theme .bg-red-950\/30 p,
+    .light-theme .bg-red-950\/30 .text-red-300\/80 {
+      color: #b91c1c !important;
+    }
+
+    /* KPI Stat Cards in Light Mode */
+    .light-theme .bg-red-500\/5 {
+      background-color: #fef2f2 !important;
+      border-color: #fecdd3 !important;
+    }
+    .light-theme .bg-red-500\/5 .text-red-400 {
+      color: #dc2626 !important;
+    }
+    .light-theme .bg-red-500\/5 .text-red-200 {
+      color: #991b1b !important;
+      font-weight: 700;
+    }
+    .light-theme .bg-red-500\/5 .text-red-400\/80 {
+      color: #b91c1c !important;
+    }
+
+    .light-theme .bg-amber-500\/5 {
+      background-color: #fffbeb !important;
+      border-color: #fde68a !important;
+    }
+    .light-theme .bg-amber-500\/5 .text-amber-400 {
+      color: #d97706 !important;
+    }
+    .light-theme .bg-amber-500\/5 .text-amber-200 {
+      color: #92400e !important;
+      font-weight: 700;
+    }
+    .light-theme .bg-amber-500\/5 .text-amber-400\/80 {
+      color: #b45309 !important;
+    }
+
+    .light-theme .bg-emerald-500\/5 {
+      background-color: #f0fdf4 !important;
+      border-color: #bbf7d0 !important;
+    }
+    .light-theme .bg-emerald-500\/5 .text-emerald-400 {
+      color: #059669 !important;
+    }
+    .light-theme .bg-emerald-500\/5 .text-emerald-200 {
+      color: #166534 !important;
+      font-weight: 700;
+    }
+    .light-theme .bg-emerald-500\/5 .text-emerald-400\/80 {
+      color: #15803d !important;
+    }
+
+    /* Modals in Light Mode */
+    .light-theme .fixed.inset-0.bg-black\/80 {
+      background-color: rgba(15, 23, 42, 0.45) !important;
+      backdrop-filter: blur(4px) !important;
+    }
+
+    .light-theme .animate-modal-pop {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      color: #0f172a !important;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.25) !important;
+    }
+      pointer-events: none;
+    }
+
+    /* Portal Dashboard Ambient Background */
+    .portal-bg-banner {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .portal-bg-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.16;
+      filter: saturate(1.1);
+    }
+
+    .portal-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.82) 0%, rgba(2, 6, 23, 0.95) 100%);
+    }
+
+    .light-theme .portal-bg-banner img {
+      opacity: 0.14;
+      filter: saturate(1.1);
+    }
+
+    .light-theme .portal-bg-overlay {
+      background: linear-gradient(to bottom, rgba(248, 250, 252, 0.88) 0%, rgba(241, 245, 249, 0.96) 100%);
+    }
+
+    /* Refined Main Portal Glass Styling */
+    .main-portal-card {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .light-theme .main-portal-card {
+      background-color: rgba(255, 255, 255, 0.96) !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.03) !important;
+    }
+
+    .light-theme .admin-banner-card {
+      background: linear-gradient(135deg, rgba(236, 253, 245, 0.95), rgba(240, 253, 250, 0.9)) !important;
+      border-color: #a7f3d0 !important;
+      box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.1) !important;
+    }
+
+    .light-theme .student-banner-card {
+      background: linear-gradient(135deg, rgba(240, 249, 255, 0.95), rgba(245, 243, 255, 0.9)) !important;
+      border-color: #bae6fd !important;
+      box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.1) !important;
+    }
+
+    .light-theme .header-glass {
+      background-color: rgba(255, 255, 255, 0.92) !important;
+      border-bottom-color: #e2e8f0 !important;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04) !important;
+    }
+
+    .light-theme .user-capsule-glass {
+      background-color: #f8fafc !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    /* Scrollbars in Light Mode */
+    .light-theme::-webkit-scrollbar-track,
+    .light-theme ::-webkit-scrollbar-track {
+      background: #f1f5f9 !important;
+    }
+    .light-theme::-webkit-scrollbar-thumb,
+    .light-theme ::-webkit-scrollbar-thumb {
+      background: #cbd5e1 !important;
+    }
+    .light-theme::-webkit-scrollbar-thumb:hover,
+    .light-theme ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8 !important;
+    }
+
+    /* Accessibility: Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      ::before,
+      ::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+
+      .particle-canvas,
+      .orb-1,
+      .orb-2,
+      .orb-3 {
+        display: none !important;
+      }
+    }
+  </style>
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('portal_theme') || 'dark';
+        if (t === 'light') {
+          document.documentElement.classList.add('light-theme');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen antialiased flex flex-col">
+  <div id="root" class="flex-1 flex flex-col"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    // =========================================================================
+    // LUCIDE SVG ICONS SUITE (Zero external dependency, instant rendering, theme-adaptive)
+    // =========================================================================
+    const Icons = {
+      Search: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      ),
+      CheckCircle: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      ),
+      AlertCircle: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      ),
+      Clock: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      ),
+      XCircle: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="15" y1="9" x2="9" y2="15"></line>
+          <line x1="9" y1="9" x2="15" y2="15"></line>
+        </svg>
+      ),
+      Shield: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+      ),
+      User: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      ),
+      ArrowLeft: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      ),
+      ArrowRight: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      ),
+      LogOut: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+      ),
+      Edit: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+        </svg>
+      ),
+      Plus: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      ),
+      Eye: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      ),
+      EyeOff: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+          <line x1="1" y1="1" x2="23" y2="23"></line>
+        </svg>
+      ),
+      Sun: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      ),
+      Moon: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      ),
+      Calendar: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+      ),
+      Lock: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      ),
+      FileText: ({ className = "w-4 h-4" }) => (
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+      )
+    };
+
+    // Clean background placeholder (random animations removed as requested)
+    function ParticleCanvas() {
+      return null;
+    }
+
+    // PRE-CONFIGURED LOGIN ACCOUNTS
+    const INITIAL_AUTH_USERS = [
+      {
+        id: "admin-1",
+        email: "admin@system.local",
+        password: "admin123",
+        role: "admin",
+        name: "System Administrator",
+        title: "OJT / TVET Head Coordinator"
+      },
+      {
+        id: "user-1",
+        email: "juan.delacruz@school.edu",
+        password: "user123",
+        role: "user",
+        name: "Juan Dela Cruz",
+        batch: "Batch 2026-A",
+        student_id: "2026-001"
+      },
+      {
+        id: "user-2",
+        email: "maria.clara@school.edu",
+        password: "user123",
+        role: "user",
+        name: "Maria Clara",
+        batch: "Batch 2026-A",
+        student_id: "2026-002"
+      },
+      {
+        id: "user-3",
+        email: "c.ibarra@school.edu",
+        password: "user123",
+        role: "user",
+        name: "Crisostomo Ibarra",
+        batch: "Batch 2026-B",
+        student_id: "2026-003"
+      }
+    ];
+
+    // DATABASE SEED FOR DIPLOMA & NC11 TRAINER REQUIREMENTS
+    const INITIAL_INTERNS = [
+      {
+        id: "aaaaaaaa-1111-1111-1111-111111111111",
+        full_name: "Juan Dela Cruz",
+        batch_number: "Batch 2026-A",
+        student_id: "2026-001",
+        email: "juan.delacruz@school.edu",
+        department: "Information Technology",
+        overall_status: "incomplete",
+        requirements: [
+          {
+            id: "req-1",
+            name: "Diploma Degree / Academic Transcript",
+            status: "submitted",
+            remarks: "Authenticated official transcript of records verified.",
+            document_url: "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+            scanned_at: "Nov 10, 2026"
+          },
+          {
+            id: "req-2",
+            name: "NC11 / NC II National Certificate",
+            status: "lacking",
+            remarks: "Missing certified copy of National Certificate (NC11). Please submit to scanner.",
+            document_url: null,
+            scanned_at: null
+          },
+          {
+            id: "req-3",
+            name: "Trainers Methodology (TM 1) Certificate",
+            status: "pending",
+            remarks: "Scan received; pending Admin & Assessor signature verification.",
+            document_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+            scanned_at: "Nov 15, 2026"
+          },
+          {
+            id: "req-4",
+            name: "National TVET Trainer Certificate (NTTC)",
+            status: "lacking",
+            remarks: "Lacking NTTC credentials. Please upload or scan updated certificate.",
+            document_url: null,
+            scanned_at: null
+          },
+          {
+            id: "req-5",
+            name: "Medical Physical & Drug Test Clearance",
+            status: "submitted",
+            remarks: "Approved valid medical clearance certificate.",
+            document_url: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+            scanned_at: "Nov 12, 2026"
+          }
+        ]
+      },
+      {
+        id: "bbbbbbbb-2222-2222-2222-222222222222",
+        full_name: "Maria Clara",
+        batch_number: "Batch 2026-A",
+        student_id: "2026-002",
+        email: "maria.clara@school.edu",
+        department: "Computer Science",
+        overall_status: "pending",
+        requirements: [
+          {
+            id: "req-6",
+            name: "Diploma Degree / Academic Transcript",
+            status: "submitted",
+            remarks: "Verified and approved.",
+            document_url: "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+            scanned_at: "Nov 09, 2026"
+          },
+          {
+            id: "req-7",
+            name: "NC11 / NC II National Certificate",
+            status: "submitted",
+            remarks: "Certified copy verified by assessment center.",
+            document_url: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+            scanned_at: "Nov 14, 2026"
+          },
+          {
+            id: "req-8",
+            name: "Trainers Methodology (TM 1) Certificate",
+            status: "pending",
+            remarks: "Under review by OJT / TVET Coordinator.",
+            document_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+            scanned_at: "Nov 16, 2026"
+          },
+          {
+            id: "req-9",
+            name: "National TVET Trainer Certificate (NTTC)",
+            status: "lacking",
+            remarks: "Lacking NTTC endorsement. Submit physical copy to flatbed scanner.",
+            document_url: null,
+            scanned_at: null
+          }
+        ]
+      },
+      {
+        id: "cccccccc-3333-3333-3333-333333333333",
+        full_name: "Crisostomo Ibarra",
+        batch_number: "Batch 2026-B",
+        student_id: "2026-003",
+        email: "c.ibarra@school.edu",
+        department: "Information Systems",
+        overall_status: "complete",
+        requirements: [
+          {
+            id: "req-10",
+            name: "Diploma Degree / Academic Transcript",
+            status: "submitted",
+            remarks: "Complete and verified.",
+            document_url: "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+            scanned_at: "Nov 01, 2026"
+          },
+          {
+            id: "req-11",
+            name: "NC11 / NC II National Certificate",
+            status: "submitted",
+            remarks: "Complete and verified.",
+            document_url: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+            scanned_at: "Nov 02, 2026"
+          },
+          {
+            id: "req-12",
+            name: "Trainers Methodology (TM 1) Certificate",
+            status: "submitted",
+            remarks: "Complete and verified.",
+            document_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+            scanned_at: "Nov 03, 2026"
+          },
+          {
+            id: "req-13",
+            name: "National TVET Trainer Certificate (NTTC)",
+            status: "submitted",
+            remarks: "Verified valid NTTC ID.",
+            document_url: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+            scanned_at: "Nov 10, 2026"
+          }
+        ]
+      }
+    ];
+
+    // THEME TOGGLE BUTTON COMPONENT (Lucide Sun/Moon)
+    function ThemeToggle({ theme, setTheme, className = "" }) {
+      const isLight = theme === 'light';
+      return (
+        <button
+          type="button"
+          onClick={() => setTheme(isLight ? 'dark' : 'light')}
+          className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all duration-200 flex items-center gap-1.5 shadow-sm active:scale-95 ${
+            isLight
+              ? 'bg-white text-slate-800 border-slate-200 hover:bg-slate-100 shadow-sm'
+              : 'bg-slate-900 text-slate-200 border-slate-800 hover:bg-slate-800 shadow-sm'
+          } ${className}`}
+          title={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
+        >
+          {isLight ? (
+            <Icons.Sun className="w-3.5 h-3.5 text-amber-500" />
+          ) : (
+            <Icons.Moon className="w-3.5 h-3.5 text-indigo-400" />
+          )}
+          <span>{isLight ? 'Light' : 'Dark'}</span>
+        </button>
+      );
+    }
+
+    // PASSWORD VISIBILITY TOGGLE EYE ICON (Lucide Eye / EyeOff)
+    function PasswordEyeIcon({ show, className = "w-4 h-4" }) {
+      return show ? <Icons.Eye className={className} /> : <Icons.EyeOff className={className} />;
+    }
+
+    // Default Supabase Cloud Backend Configuration
+    const DEFAULT_SUPABASE_URL = 'https://huhdxgzwtazqxjirwgby.supabase.co';
+    const DEFAULT_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1aGR4Z3p3dGF6cXhqaXJ3Z2J5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4OTUwNzYsImV4cCI6MjExMDQ3MTA3Nn0.fZECAjsLcqc2i7GME8cSaKBURqY9zSsxrf3p3RQBxvg';
+    const DEFAULT_SUPABASE_PUB_KEY = 'sb_publishable_lN2qNPC4zS4HbK6SX_cUog_P44kkLdi';
+
+    // Auto-sanitizer for Supabase URL: ensures strict origin URL without paths or query parameters
+    function sanitizeSupabaseUrl(rawUrl) {
+      if (!rawUrl || typeof rawUrl !== 'string') return DEFAULT_SUPABASE_URL;
+      let clean = rawUrl.trim();
+      const dashMatch = clean.match(/supabase\.com\/dashboard\/project\/([a-zA-Z0-9_-]+)/i);
+      if (dashMatch) {
+        return `https://${dashMatch[1]}.supabase.co`;
+      }
+      try {
+        const urlObj = new URL(clean.startsWith('http') ? clean : 'https://' + clean);
+        return urlObj.origin;
+      } catch (e) {
+        return DEFAULT_SUPABASE_URL;
+      }
+    }
+
+    function App() {
+      // THEME STATE: 'dark' | 'light'
+      const [theme, setTheme] = useState(() => {
+        return localStorage.getItem('portal_theme') || 'dark';
+      });
+
+      useEffect(() => {
+        localStorage.setItem('portal_theme', theme);
+        if (theme === 'light') {
+          document.documentElement.classList.add('light-theme');
+          document.body.classList.add('light-theme');
+          document.documentElement.classList.remove('dark-theme');
+          document.body.classList.remove('dark-theme');
+        } else {
+          document.documentElement.classList.add('dark-theme');
+          document.body.classList.add('dark-theme');
+          document.documentElement.classList.remove('light-theme');
+          document.body.classList.remove('light-theme');
+        }
+      }, [theme]);
+
+      // PAGE NAVIGATION / ROUTING STATE: 'login' | 'signup' | 'redirecting' | 'main'
+      // Always starts at the Login Page (or Sign Up Page) before the user is redirected to the main page!
+      const [currentView, setCurrentView] = useState(() => {
+        const hash = window.location.hash.toLowerCase();
+        if (hash === '#signup') return 'signup';
+        if (hash === '#main') {
+          const saved = localStorage.getItem('auth_user_session');
+          if (saved) return 'main';
+        }
+        return 'login';
+      });
+
+      // PERSISTENT AUTHENTICATION STATE
+      const [currentUser, setCurrentUser] = useState(() => {
+        const hash = window.location.hash.toLowerCase();
+        if (hash === '#main') {
+          const saved = localStorage.getItem('auth_user_session');
+          return saved ? JSON.parse(saved) : null;
+        }
+        return null; // Ensure user starts at login / signup page!
+      });
+
+      // Cached saved session from previous login (for quick 1-click continue banner on login page)
+      const [savedSession] = useState(() => {
+        const saved = localStorage.getItem('auth_user_session');
+        return saved ? JSON.parse(saved) : null;
+      });
+
+      // User object during redirecting transition
+      const [redirectingUser, setRedirectingUser] = useState(null);
+
+      // Dedicated Navigation Helper
+      const navigateTo = (view) => {
+        setAuthError('');
+        setAuthSuccess('');
+        setCurrentView(view);
+        if (view === 'login') window.location.hash = '#login';
+        else if (view === 'signup') window.location.hash = '#signup';
+        else if (view === 'main') window.location.hash = '#main';
+        else if (view === 'redirecting') window.location.hash = '#redirecting';
+      };
+
+      // Hash change listener for browser history (Back / Forward buttons)
+      useEffect(() => {
+        const handleHashChange = () => {
+          const hash = window.location.hash.toLowerCase();
+          if (hash === '#signup') {
+            setCurrentView('signup');
+          } else if (hash === '#login') {
+            setCurrentView('login');
+          } else if (hash === '#main') {
+            const saved = localStorage.getItem('auth_user_session');
+            if (saved) {
+              setCurrentUser(JSON.parse(saved));
+              setCurrentView('main');
+            } else {
+              setCurrentView('login');
+              window.location.hash = '#login';
+            }
+          }
+        };
+        window.addEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('hashchange', handleHashChange);
+      }, []);
+
+      // Form Credentials & Roles
+      const [authEmail, setAuthEmail] = useState('');
+      const [authPassword, setAuthPassword] = useState('');
+      const [authError, setAuthError] = useState('');
+      const [authSuccess, setAuthSuccess] = useState('');
+
+      // Sign-Up Specific Fields
+      const [signupName, setSignupName] = useState('');
+      const [signupRole, setSignupRole] = useState('user');
+      const [signupBatch, setSignupBatch] = useState('Batch 2026-A');
+      const [signupStudentId, setSignupStudentId] = useState('');
+      const [signupDept, setSignupDept] = useState('Technical Vocational');
+      const [adminPasscode, setAdminPasscode] = useState('');
+
+      // Animation & Interactive States
+      const [isAuthenticating, setIsAuthenticating] = useState(false);
+      const [showPassword, setShowPassword] = useState(false);
+      const [shakeError, setShakeError] = useState(false);
+      const [cardTilt, setCardTilt] = useState({ x: 0, y: 0 });
+
+      const handleCardMouseMove = (e) => {
+        if (window.innerWidth < 768) return;
+        const card = e.currentTarget;
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        setCardTilt({ x: x * 6, y: -y * 6 });
+      };
+      const handleCardMouseLeave = () => {
+        setCardTilt({ x: 0, y: 0 });
+      };
+
+      // In-Memory Database & Registered Users
+      const [registeredUsers, setRegisteredUsers] = useState(() => {
+        const saved = localStorage.getItem('registered_users');
+        return saved ? JSON.parse(saved) : INITIAL_AUTH_USERS;
+      });
+
+      const [internDatabase, setInternDatabase] = useState(() => {
+        const saved = localStorage.getItem('intern_database');
+        return saved ? JSON.parse(saved) : INITIAL_INTERNS;
+      });
+
+      // Main Portal State
+      const [batchNumber, setBatchNumber] = useState('');
+      const [fullName, setFullName] = useState('');
+      const [isSearching, setIsSearching] = useState(false);
+      const [hasSearched, setHasSearched] = useState(false);
+      const [searchResult, setSearchResult] = useState(null);
+      const [selectedDocument, setSelectedDocument] = useState(null);
+      const [activeFilter, setActiveFilter] = useState('all');
+
+      // Admin Modals
+      const [showEditInternModal, setShowEditInternModal] = useState(false);
+      const [editName, setEditName] = useState('');
+      const [editBatch, setEditBatch] = useState('');
+      const [editStudentId, setEditStudentId] = useState('');
+      const [editDept, setEditDept] = useState('');
+      const [editEmail, setEditEmail] = useState('');
+      const [editOverallStatus, setEditOverallStatus] = useState('incomplete');
+
+      const [showEditReqModal, setShowEditReqModal] = useState(false);
+      const [editingReq, setEditingReq] = useState(null);
+      const [editReqStatus, setEditReqStatus] = useState('lacking');
+      const [editReqRemarks, setEditReqRemarks] = useState('');
+      const [editReqDocUrl, setEditReqDocUrl] = useState('');
+
+      const [showAddReqModal, setShowAddReqModal] = useState(false);
+      const [newReqName, setNewReqName] = useState('');
+      const [newReqStatus, setNewReqStatus] = useState('lacking');
+      const [newReqRemarks, setNewReqRemarks] = useState('');
+
+      // Supabase State: Auto-sanitized and pre-configured with project defaults
+      const [sbUrl, setSbUrl] = useState(() => {
+        const stored = localStorage.getItem('sb_project_url');
+        return sanitizeSupabaseUrl(stored || DEFAULT_SUPABASE_URL);
+      });
+      const [sbKey, setSbKey] = useState(() => {
+        const stored = localStorage.getItem('sb_anon_key');
+        return (stored && stored.trim()) || DEFAULT_SUPABASE_ANON_KEY;
+      });
+      const [isSbConnected, setIsSbConnected] = useState(true);
+      const [showSbModal, setShowSbModal] = useState(false);
+
+      // Auto-heal localStorage on mount to clear any previously saved malformed URLs or keys
+      useEffect(() => {
+        try {
+          const rawUrl = localStorage.getItem('sb_project_url');
+          const cleanUrl = sanitizeSupabaseUrl(rawUrl || DEFAULT_SUPABASE_URL);
+          localStorage.setItem('sb_project_url', cleanUrl);
+          setSbUrl(cleanUrl);
+
+          const rawKey = localStorage.getItem('sb_anon_key');
+          if (!rawKey || !rawKey.startsWith('eyJ')) {
+            localStorage.setItem('sb_anon_key', DEFAULT_SUPABASE_ANON_KEY);
+            setSbKey(DEFAULT_SUPABASE_ANON_KEY);
+          } else {
+            setSbKey(rawKey.trim());
+          }
+          setIsSbConnected(true);
+        } catch (e) {
+          console.warn("Storage sync:", e);
+        }
+      }, []);
+
+      // Lock background scrolling and keep viewport centered whenever any modal opens
+      useEffect(() => {
+        const isAnyModalOpen = Boolean(
+          showEditInternModal || showEditReqModal || showAddReqModal || selectedDocument || showSbModal
+        );
+        if (isAnyModalOpen) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
+        return () => {
+          document.body.style.overflow = '';
+        };
+      }, [showEditInternModal, showEditReqModal, showAddReqModal, selectedDocument, showSbModal]);
+
+      const getSupabaseClient = () => {
+        const cleanUrl = sanitizeSupabaseUrl(sbUrl);
+        const cleanKey = (sbKey && sbKey.trim()) || DEFAULT_SUPABASE_ANON_KEY;
+
+        if (window.supabase && cleanUrl) {
+          try {
+            return window.supabase.createClient(cleanUrl, cleanKey);
+          } catch (e) {
+            console.error("Supabase init error:", e);
+          }
+        }
+        return null;
+      };
+
+      const renderSupabaseModal = () => {
+        if (!showSbModal) return null;
+        return (
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              const urlClean = sanitizeSupabaseUrl(sbUrl);
+              const keyClean = (sbKey && sbKey.trim()) || DEFAULT_SUPABASE_ANON_KEY;
+              localStorage.setItem('sb_project_url', urlClean);
+              localStorage.setItem('sb_anon_key', keyClean);
+              setSbUrl(urlClean);
+              setSbKey(keyClean);
+              setIsSbConnected(true);
+              setShowSbModal(false);
+              alert("Connected to Supabase! URL validated and synced.");
+            }} className="bg-slate-900 border-2 border-sky-500 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-5 animate-modal-pop">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                <div className="flex items-center gap-2.5">
+                  <button
+                    type="button"
+                    onClick={() => setShowSbModal(false)}
+                    className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                  >
+                    <span>←</span> Back
+                  </button>
+                  <div className="w-7 h-7 rounded-lg bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400">
+                    <Icons.Shield className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white">Connect Supabase Database & Auth</h3>
+                    <p className="text-xs text-slate-400">Sync with live PostgreSQL & Supabase Auth</p>
+                  </div>
+                </div>
+                <button type="button" onClick={() => setShowSbModal(false)} className="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Supabase Project URL</label>
+                  <input
+                    type="url"
+                    placeholder="https://your-project-id.supabase.co"
+                    value={sbUrl}
+                    onChange={(e) => setSbUrl(e.target.value)}
+                    className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 font-mono"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Supabase Anon Key</label>
+                  <textarea
+                    rows="3"
+                    placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    value={sbKey}
+                    onChange={(e) => setSbKey(e.target.value)}
+                    className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-sky-500 font-mono"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+
+              <div className="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowSbModal(false)}
+                  className="py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition flex items-center gap-1"
+                >
+                  <span>←</span> Back
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSbUrl('');
+                    setSbKey('');
+                    localStorage.removeItem('sb_project_url');
+                    localStorage.removeItem('sb_anon_key');
+                    setIsSbConnected(false);
+                    setShowSbModal(false);
+                  }}
+                  className="py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-red-400 hover:text-red-300 text-xs font-semibold transition"
+                >
+                  Disconnect
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white text-xs font-bold shadow-lg shadow-sky-600/25 btn-shimmer"
+                >
+                  Save & Connect Database
+                </button>
+              </div>
+            </form>
+          </div>
+        );
+      };
+
+      // When user logs in as a student, automatically show their own records!
+      useEffect(() => {
+        if (currentUser && currentUser.role === 'user' && currentUser.batch && currentUser.name) {
+          setBatchNumber(currentUser.batch);
+          setFullName(currentUser.name);
+          performSearch(currentUser.batch, currentUser.name);
+        }
+      }, [currentUser]);
+
+      // SMOOTH REDIRECT TRIGGER (Shows Redirecting Screen Before Entering Main Portal)
+      const triggerRedirect = (sessionObj) => {
+        setIsAuthenticating(false);
+        setRedirectingUser(sessionObj);
+        setCurrentView('redirecting');
+        window.location.hash = '#redirecting';
+        localStorage.setItem('auth_user_session', JSON.stringify(sessionObj));
+
+        setTimeout(() => {
+          setCurrentUser(sessionObj);
+          setCurrentView('main');
+          window.location.hash = '#main';
+          setRedirectingUser(null);
+          setAuthPassword('');
+        }, 1100);
+      };
+
+      // LOGIN SUBMISSION (SUPABASE AUTH + LOCAL DEMO)
+      const handleLogin = async (e) => {
+        if (e) e.preventDefault();
+        setAuthError('');
+        setAuthSuccess('');
+        const emailClean = authEmail.trim().toLowerCase();
+
+        // 1. Check local demo / preset users first for instant access
+        const demoUser = registeredUsers.find(
+          u => u.email.toLowerCase() === emailClean && u.password === authPassword
+        );
+
+        if (demoUser) {
+          const sessionObj = {
+            id: demoUser.id,
+            role: demoUser.role,
+            email: demoUser.email,
+            name: demoUser.name,
+            batch: demoUser.batch || '',
+            student_id: demoUser.student_id || '',
+            is_admin: demoUser.role === 'admin'
+          };
+
+          setIsAuthenticating(true);
+          setTimeout(() => {
+            triggerRedirect(sessionObj);
+          }, 350);
+          return;
+        }
+
+        // 2. If not local demo user, authenticate via live Supabase Auth
+        const sbClient = getSupabaseClient();
+        if (sbClient) {
+          setIsAuthenticating(true);
+          try {
+            const { data: authData, error: authErr } = await sbClient.auth.signInWithPassword({
+              email: emailClean,
+              password: authPassword
+            });
+
+            if (authErr) {
+              setIsAuthenticating(false);
+              setAuthError(`Supabase Auth: ${authErr.message}`);
+              setShakeError(true);
+              setTimeout(() => setShakeError(false), 500);
+              return;
+            }
+
+            if (authData?.user) {
+              const uMeta = authData.user.user_metadata || {};
+              const userRole = uMeta.role || 'user';
+              const sessionObj = {
+                id: authData.user.id,
+                role: userRole,
+                email: authData.user.email,
+                name: uMeta.full_name || authData.user.email.split('@')[0],
+                batch: uMeta.batch_number || '',
+                student_id: uMeta.student_id || '',
+                is_admin: userRole === 'admin'
+              };
+
+              triggerRedirect(sessionObj);
+              return;
+            }
+          } catch (err) {
+            console.error('Supabase login error:', err);
+          }
+          setIsAuthenticating(false);
+        }
+
+        setAuthError('Invalid email or password. If you registered on Supabase, check your credentials or switch to Sign Up.');
+        setShakeError(true);
+        setTimeout(() => setShakeError(false), 500);
+      };
+
+      // ONE-CLICK DEMO LOGIN
+      const handleQuickLogin = (email, pass) => {
+        setAuthEmail(email);
+        setAuthPassword(pass);
+        const user = registeredUsers.find(u => u.email === email && u.password === pass);
+        if (user) {
+          const sessionObj = {
+            id: user.id,
+            role: user.role,
+            email: user.email,
+            name: user.name,
+            batch: user.batch || '',
+            student_id: user.student_id || '',
+            is_admin: user.role === 'admin'
+          };
+          setIsAuthenticating(true);
+          setTimeout(() => {
+            triggerRedirect(sessionObj);
+          }, 350);
+        }
+      };
+
+      // SIGN UP SUBMISSION WITH SUPABASE AUTH INTEGRATION
+      const handleSignUp = async (e) => {
+        e.preventDefault();
+        setAuthError('');
+        setAuthSuccess('');
+
+        const emailClean = authEmail.trim().toLowerCase();
+
+        if (registeredUsers.some(u => u.email.toLowerCase() === emailClean)) {
+          setAuthError('An account with this email already exists. Please log in.');
+          setShakeError(true);
+          setTimeout(() => setShakeError(false), 500);
+          return;
+        }
+
+        if (signupRole === 'admin' && adminPasscode !== 'admin123' && adminPasscode !== 'ADMIN') {
+          setAuthError('Invalid Admin Passcode! (Default demo passcode is: admin123)');
+          setShakeError(true);
+          setTimeout(() => setShakeError(false), 500);
+          return;
+        }
+
+        setIsAuthenticating(true);
+
+        const sbClient = getSupabaseClient();
+        let supabaseUserId = null;
+        let requiresEmailConfirm = false;
+
+        // 1. Attempt registration through Backend API (Backend securely manages Supabase Auth & DB)
+        try {
+          const apiRes = await fetch('http://localhost:8000/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: emailClean,
+              password: authPassword,
+              name: signupName.trim(),
+              role: signupRole,
+              batch: signupRole === 'user' ? signupBatch.trim() : '',
+              student_id: signupRole === 'user' ? signupStudentId.trim() : '',
+              department: signupRole === 'user' ? signupDept.trim() : ''
+            })
+          });
+          if (apiRes.ok) {
+            console.log("Successfully registered through backend Supabase connection.");
+          }
+        } catch (backendErr) {
+          // Backend offline or local, continue with Supabase client / memory
+        }
+
+        // 2. Direct client fallback if configured
+        if (sbClient) {
+          try {
+            const { data: authData, error: authErr } = await sbClient.auth.signUp({
+              email: emailClean,
+              password: authPassword,
+              options: {
+                data: {
+                  full_name: signupName.trim(),
+                  role: signupRole,
+                  batch_number: signupRole === 'user' ? signupBatch.trim() : '',
+                  student_id: signupRole === 'user' ? signupStudentId.trim() : '',
+                  department: signupRole === 'user' ? signupDept.trim() : ''
+                }
+              }
+            });
+
+            if (authErr) {
+              const errMsg = authErr.message || '';
+              if (errMsg.toLowerCase().includes('already registered')) {
+                setIsAuthenticating(false);
+                setAuthError('An account with this email already exists in Supabase. Please sign in.');
+                setShakeError(true);
+                setTimeout(() => setShakeError(false), 500);
+                return;
+              } else if (errMsg.toLowerCase().includes('password')) {
+                setIsAuthenticating(false);
+                setAuthError(`Password notice: ${errMsg}`);
+                setShakeError(true);
+                setTimeout(() => setShakeError(false), 500);
+                return;
+              } else {
+                console.warn('Supabase Auth notice (completing registration):', errMsg);
+              }
+            }
+
+            if (authData?.user) {
+              supabaseUserId = authData.user.id;
+              if (authData.user.identities && authData.user.identities.length === 0) {
+                setIsAuthenticating(false);
+                setAuthError('An account with this email already exists in Supabase. Please sign in.');
+                return;
+              }
+
+              if (!authData.session) {
+                requiresEmailConfirm = true;
+              }
+
+              // Sync into public.profiles table
+              try {
+                await sbClient.from('profiles').upsert({
+                  id: authData.user.id,
+                  email: emailClean,
+                  full_name: signupName.trim(),
+                  password: authPassword,
+                  role: signupRole
+                });
+              } catch (profErr) {
+                console.warn('Profiles table sync:', profErr);
+              }
+
+              // If registered as student/user, sync to public.interns and public.requirements
+              if (signupRole === 'user') {
+                try {
+                  const { data: internData } = await sbClient.from('interns').upsert({
+                    id: authData.user.id,
+                    full_name: signupName.trim(),
+                    batch_number: signupBatch.trim(),
+                    student_id: signupStudentId.trim() || `ID-${Date.now().toString().slice(-4)}`,
+                    email: emailClean,
+                    department: signupDept.trim(),
+                    overall_status: 'incomplete'
+                  }).select().single();
+
+                  if (internData?.id) {
+                    const defaultReqs = [
+                      { intern_id: internData.id, requirement_name: 'Diploma Degree / Academic Transcript', status: 'lacking', remarks: 'Not yet submitted. Please submit certified copy.' },
+                      { intern_id: internData.id, requirement_name: 'NC11 / NC II National Certificate', status: 'lacking', remarks: 'Required for trainer compliance. Submit to scanner.' },
+                      { intern_id: internData.id, requirement_name: 'Trainers Methodology (TM 1) Certificate', status: 'pending', remarks: 'Registered candidate; under coordinator evaluation.' },
+                      { intern_id: internData.id, requirement_name: 'Medical Physical & Drug Test Clearance', status: 'lacking', remarks: 'Mandatory clinical health exam required.' }
+                    ];
+                    await sbClient.from('requirements').insert(defaultReqs);
+                  }
+                } catch (internErr) {
+                  console.warn('Intern table sync:', internErr);
+                }
+              }
+            }
+          } catch (err) {
+            console.error('Supabase registration error:', err);
+          }
+        }
+
+        const newUserId = supabaseUserId || ('user-' + Date.now());
+        const newUser = {
+          id: newUserId,
+          email: emailClean,
+          password: authPassword,
+          role: signupRole,
+          name: signupName.trim(),
+          batch: signupRole === 'user' ? signupBatch.trim() : '',
+          student_id: signupRole === 'user' ? signupStudentId.trim() : ''
+        };
+
+        const updatedUsers = [...registeredUsers, newUser];
+        setRegisteredUsers(updatedUsers);
+        localStorage.setItem('registered_users', JSON.stringify(updatedUsers));
+
+        // If registered as student, initialize their record and requirements checklist locally
+        if (signupRole === 'user') {
+          const newStudentEntry = {
+            id: newUserId,
+            full_name: signupName.trim(),
+            batch_number: signupBatch.trim(),
+            student_id: signupStudentId.trim() || `ID-${Date.now().toString().slice(-4)}`,
+            email: emailClean,
+            department: signupDept.trim(),
+            overall_status: 'incomplete',
+            requirements: [
+              {
+                id: 'req-' + Date.now() + '-1',
+                name: 'Diploma Degree / Academic Transcript',
+                status: 'lacking',
+                remarks: 'Not yet submitted. Please submit certified copy.',
+                document_url: null,
+                scanned_at: null
+              },
+              {
+                id: 'req-' + Date.now() + '-2',
+                name: 'NC11 / NC II National Certificate',
+                status: 'lacking',
+                remarks: 'Required for trainer compliance. Submit to scanner.',
+                document_url: null,
+                scanned_at: null
+              },
+              {
+                id: 'req-' + Date.now() + '-3',
+                name: 'Trainers Methodology (TM 1) Certificate',
+                status: 'pending',
+                remarks: 'Registered candidate; under coordinator evaluation.',
+                document_url: null,
+                scanned_at: null
+              },
+              {
+                id: 'req-' + Date.now() + '-4',
+                name: 'Medical Physical & Drug Test Clearance',
+                status: 'lacking',
+                remarks: 'Mandatory clinical health exam required.',
+                document_url: null,
+                scanned_at: null
+              }
+            ]
+          };
+
+          const updatedDatabase = [newStudentEntry, ...internDatabase];
+          setInternDatabase(updatedDatabase);
+          localStorage.setItem('intern_database', JSON.stringify(updatedDatabase));
+        }
+
+        const sessionObj = {
+          id: newUser.id,
+          role: newUser.role,
+          email: newUser.email,
+          name: newUser.name,
+          batch: newUser.batch,
+          student_id: newUser.student_id,
+          is_admin: newUser.role === 'admin'
+        };
+
+        setIsAuthenticating(false);
+
+        if (requiresEmailConfirm) {
+          setAuthSuccess('Account registered successfully! A confirmation link was sent to your email. You can also sign in directly now.');
+          navigateTo('login');
+        } else {
+          triggerRedirect(sessionObj);
+        }
+      };
+
+      // LOGOUT & RETURN TO LOGIN PAGE
+      const handleLogout = () => {
+        setCurrentUser(null);
+        localStorage.removeItem('auth_user_session');
+        setSearchResult(null);
+        setHasSearched(false);
+        setBatchNumber('');
+        setFullName('');
+        setRedirectingUser(null);
+        navigateTo('login');
+      };
+
+      // SEARCH FUNCTION
+      const performSearch = async (bArg, nArg) => {
+        const b = (bArg !== undefined ? bArg : batchNumber).trim();
+        const n = (nArg !== undefined ? nArg : fullName).trim();
+
+        if (!b || !n) {
+          alert('Please enter both your Batch Number and your Full Name.');
+          return;
+        }
+
+        setIsSearching(true);
+        setHasSearched(true);
+
+        // 1. Attempt connection through Backend API (Backend securely proxies to Supabase)
+        try {
+          const apiRes = await fetch(`http://localhost:8000/api/interns/search?batch_number=${encodeURIComponent(b)}&name=${encodeURIComponent(n)}`);
+          if (apiRes.ok) {
+            const apiData = await apiRes.json();
+            if (apiData.found && apiData.data) {
+              setSearchResult(apiData.data);
+              setIsSearching(false);
+              return;
+            }
+          }
+        } catch (backendErr) {
+          // Backend offline or running decoupled, proceed to Supabase client / memory
+        }
+
+        const sb = getSupabaseClient();
+        if (sb) {
+          try {
+            const { data: interns } = await sb
+              .from('interns')
+              .select('*')
+              .ilike('batch_number', `%${b}%`)
+              .ilike('full_name', `%${n}%`);
+
+            if (interns && interns.length > 0) {
+              const intern = interns[0];
+              const { data: reqs } = await sb
+                .from('requirements')
+                .select('*')
+                .eq('intern_id', intern.id);
+
+              const formattedReqs = (reqs || []).map(r => ({
+                id: r.id,
+                name: r.requirement_name || r.name,
+                status: r.status,
+                remarks: r.remarks,
+                document_url: r.document_url,
+                scanned_at: r.scanned_at ? new Date(r.scanned_at).toLocaleDateString() : null
+              }));
+
+              setSearchResult({
+                ...intern,
+                requirements: formattedReqs
+              });
+              setIsSearching(false);
+              return;
+            }
+          } catch (err) {
+            console.warn("Supabase query error, falling back:", err);
+          }
+        }
+
+        setTimeout(() => {
+          const match = internDatabase.find(intern => {
+            const iBatch = intern.batch_number.toLowerCase();
+            const iName = intern.full_name.toLowerCase();
+            return (iBatch.includes(b.toLowerCase()) || b.toLowerCase().includes(iBatch)) &&
+              (iName.includes(n.toLowerCase()) || n.toLowerCase().includes(iName));
+          });
+
+          setSearchResult(match || null);
+          setIsSearching(false);
+        }, 300);
+      };
+
+      // ADMIN EDIT CREDENTIALS
+      const openEditInternModal = () => {
+        if (!currentUser?.is_admin) return;
+        setEditName(searchResult.full_name);
+        setEditBatch(searchResult.batch_number);
+        setEditStudentId(searchResult.student_id || '');
+        setEditDept(searchResult.department || '');
+        setEditEmail(searchResult.email || '');
+        setEditOverallStatus(searchResult.overall_status || 'incomplete');
+        setShowEditInternModal(true);
+      };
+
+      const handleSaveInternCredentials = (e) => {
+        e.preventDefault();
+        const updatedIntern = {
+          ...searchResult,
+          full_name: editName.trim(),
+          batch_number: editBatch.trim(),
+          student_id: editStudentId.trim(),
+          department: editDept.trim(),
+          email: editEmail.trim(),
+          overall_status: editOverallStatus
+        };
+
+        setSearchResult(updatedIntern);
+        const updatedList = internDatabase.map(item => (item.id === searchResult.id ? updatedIntern : item));
+        setInternDatabase(updatedList);
+        localStorage.setItem('intern_database', JSON.stringify(updatedList));
+
+        setShowEditInternModal(false);
+        alert('Credentials successfully updated by Administrator!');
+      };
+
+      // ADMIN UPDATE REQUIREMENT
+      const openEditReqModal = (req) => {
+        if (!currentUser?.is_admin) return;
+        setEditingReq(req);
+        setEditReqStatus(req.status);
+        setEditReqRemarks(req.remarks || '');
+        setEditReqDocUrl(req.document_url || '');
+        setShowEditReqModal(true);
+      };
+
+      const handleSaveRequirementUpdate = (e) => {
+        e.preventDefault();
+        if (!editingReq) return;
+
+        const updatedReqs = searchResult.requirements.map(r => {
+          if (r.id === editingReq.id) {
+            return {
+              ...r,
+              status: editReqStatus,
+              remarks: editReqRemarks.trim(),
+              document_url: editReqDocUrl.trim() || null
+            };
+          }
+          return r;
+        });
+
+        const updatedIntern = { ...searchResult, requirements: updatedReqs };
+        setSearchResult(updatedIntern);
+        const updatedList = internDatabase.map(item => (item.id === searchResult.id ? updatedIntern : item));
+        setInternDatabase(updatedList);
+        localStorage.setItem('intern_database', JSON.stringify(updatedList));
+
+        setShowEditReqModal(false);
+        alert('Requirement status & remarks updated by Administrator!');
+      };
+
+      // ADMIN ADD REQUIREMENT
+      const handleSaveAddRequirement = (e) => {
+        e.preventDefault();
+        if (!newReqName.trim()) return;
+
+        const newReqItem = {
+          id: 'req-' + Date.now(),
+          name: newReqName.trim(),
+          status: newReqStatus,
+          remarks: newReqRemarks.trim(),
+          document_url: null,
+          scanned_at: newReqStatus === 'submitted' ? new Date().toLocaleDateString() : null
+        };
+
+        const updatedReqs = [...searchResult.requirements, newReqItem];
+        const updatedIntern = { ...searchResult, requirements: updatedReqs };
+        setSearchResult(updatedIntern);
+        const updatedList = internDatabase.map(item => (item.id === searchResult.id ? updatedIntern : item));
+        setInternDatabase(updatedList);
+        localStorage.setItem('intern_database', JSON.stringify(updatedList));
+
+        setShowAddReqModal(false);
+        setNewReqName('');
+        setNewReqRemarks('');
+        alert('New requirement added to candidate checklist!');
+      };
+
+      // Statistics
+      const lackingList = searchResult?.requirements.filter(r => r.status === 'lacking') || [];
+      const pendingList = searchResult?.requirements.filter(r => r.status === 'pending') || [];
+      const submittedList = searchResult?.requirements.filter(r => r.status === 'submitted') || [];
+
+      const filteredRequirements = searchResult?.requirements.filter(r => {
+        if (activeFilter === 'all') return true;
+        return r.status === activeFilter;
+      }) || [];
+
+      // =====================================================================
+      // 1. DEDICATED REDIRECTION PAGE (BEFORE REDIRECTING TO MAIN PORTAL)
+      // =====================================================================
+      if (currentView === 'redirecting') {
+        const targetUser = redirectingUser || currentUser || { name: 'User', is_admin: false };
+        return (
+          <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-4 sm:p-6 relative overflow-hidden">
+            <div className="absolute top-4 right-4 z-30">
+              <ThemeToggle theme={theme} setTheme={setTheme} />
+            </div>
+
+            <ParticleCanvas theme={theme} />
+
+            <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
+              <div className="orb-1 absolute -top-40 -left-40 w-[30rem] h-[30rem] bg-gradient-to-tr from-sky-600/20 to-cyan-500/10 rounded-full blur-[110px]"></div>
+              <div className="orb-2 absolute top-1/3 -right-40 w-[28rem] h-[28rem] bg-gradient-to-bl from-indigo-600/20 to-purple-600/15 rounded-full blur-[120px]"></div>
+              <div className="light-wave-overlay absolute inset-0"></div>
+            </div>
+
+            <div className="w-full max-w-md relative z-10 animate-modal-pop">
+              <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-8 sm:p-10 w-full backdrop-blur-xl auth-card-glow text-center space-y-6">
+                <div className="relative mx-auto w-20 h-20 flex items-center justify-center">
+                  <div className="absolute inset-0 rounded-full border-4 border-sky-500/30 border-t-sky-400 animate-spin"></div>
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/30">
+                    <Icons.Shield className="w-7 h-7 text-white" />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full inline-flex items-center gap-1.5">
+                    <Icons.CheckCircle className="w-3.5 h-3.5" /> Verified Credentials
+                  </span>
+                  <h2 className="text-2xl font-extrabold text-white tracking-tight">
+                    Authentication Successful!
+                  </h2>
+                  <p className="text-xs text-slate-300">
+                    Welcome, <b className="text-sky-400">{targetUser.name}</b>
+                  </p>
+                  <p className="text-[11px] text-slate-400">
+                    {targetUser.is_admin
+                      ? 'Administrator Access Enabled • Loading System Records...'
+                      : 'Student Clearance Checklist Loading...'}
+                  </p>
+                </div>
+
+                {/* Animated Loading Bar */}
+                <div className="w-full bg-slate-950 rounded-full h-2.5 overflow-hidden border border-slate-800 p-0.5">
+                  <div className="bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-400 h-full rounded-full animate-redirect-progress"></div>
+                </div>
+
+                <p className="text-[11px] text-slate-500">
+                  Redirecting you to the Main Clearance Portal...
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCurrentUser(targetUser);
+                    setCurrentView('main');
+                    window.location.hash = '#main';
+                  }}
+                  className="text-xs text-sky-400 hover:text-sky-300 underline font-semibold transition"
+                >
+                  Click here if not redirected automatically →
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // =====================================================================
+      // 2. DEDICATED SIGN UP PAGE (SHOWN BEFORE REDIRECTING TO MAIN PAGE)
+      // =====================================================================
+      if (currentView === 'signup') {
+        return (
+          <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-4 sm:p-6 relative overflow-hidden py-12">
+            {/* Top Navigation */}
+            <div className="absolute top-4 left-4 right-4 z-30 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <img
+                  src="km100-logo.jpg"
+                  alt="KM100 Logo"
+                  className="w-7 h-7 rounded-full object-cover border-2 border-orange-500 shadow-md shadow-orange-500/20 bg-white"
+                />
+                <span className="text-xs font-bold text-slate-300 tracking-wide">
+                  KM100 Skills & Training Center
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => navigateTo('login')}
+                  className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition flex items-center gap-1.5 shadow-sm active:scale-95"
+                >
+                  <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back to Sign In
+                </button>
+                <ThemeToggle theme={theme} setTheme={setTheme} />
+              </div>
+            </div>
+
+            {/* Official KM100 Background Banner */}
+            <div className="home-bg-banner">
+              <img
+                src="km100-banner.jpg?v=2026"
+                alt="KM100 Skills and Training Center Banner"
+              />
+              <div className="home-bg-overlay"></div>
+            </div>
+
+            {/* Logo & Portal Branding */}
+            <div className="text-center mb-6 space-y-2.5 max-w-md relative z-10">
+              <div className="w-20 h-20 rounded-full border-2 border-orange-500 shadow-sm mx-auto overflow-hidden bg-white mb-2">
+                <img
+                  src="km100-logo.jpg"
+                  alt="KM100 Skills and Training Center, Inc."
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-0.5 rounded-full inline-block mb-1 shadow-sm">
+                  Create Clearance Account
+                </span>
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight animate-heading">
+                  Sign Up for Portal Access
+                </h1>
+                <p className="text-xs text-slate-400 animate-subtitle">
+                  Register as a Student or Administrator to verify clearance requirements
+                </p>
+              </div>
+            </div>
+
+            {/* SIGN UP CARD */}
+            <div className="w-full max-w-md relative z-10">
+              <div
+                className={`bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 w-full shadow-xl auth-card-glow space-y-5 transition-all duration-200 ${shakeError ? 'shake-error' : ''}`}
+              >
+                {/* Header Switcher */}
+                <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                  <div className="flex items-center gap-2">
+                    <img
+                      src="km100-logo.jpg"
+                      alt="KM100 Emblem"
+                      className="w-6 h-6 rounded-full object-cover border border-orange-500/60 shadow-sm"
+                    />
+                    <div>
+                      <h2 className="text-sm sm:text-base font-bold text-white">Create Account</h2>
+                      <p className="text-[11px] text-slate-400">Fill in your information to register</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => navigateTo('login')}
+                    className="text-xs font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1 transition"
+                  >
+                    <span>Sign In</span>
+                    <Icons.ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                {/* Error & Success Messages */}
+                {authError && (
+                  <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-300 flex items-center gap-2.5">
+                    <Icons.AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                    <span className="leading-relaxed">{authError}</span>
+                  </div>
+                )}
+                {authSuccess && (
+                  <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-300 flex items-center gap-2.5">
+                    <Icons.CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                    <span className="leading-relaxed">{authSuccess}</span>
+                  </div>
+                )}
+
+                <form onSubmit={handleSignUp} className="space-y-3.5" key="signup-page-form">
+                  <div className="stagger-1">
+                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                      Select Account Type
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setSignupRole('user')}
+                        className={`py-2 px-3 rounded-xl text-xs font-semibold border transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm active:scale-95 ${signupRole === 'user'
+                          ? 'bg-sky-600 text-white border-sky-500 shadow-md shadow-sky-600/20'
+                          : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+                          }`}
+                      >
+                        <Icons.User className="w-3.5 h-3.5" /> Student / Trainee
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setSignupRole('admin')}
+                        className={`py-2 px-3 rounded-xl text-xs font-semibold border transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm active:scale-95 ${signupRole === 'admin'
+                          ? 'bg-emerald-600 text-white border-emerald-500 shadow-md shadow-emerald-600/20'
+                          : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+                          }`}
+                      >
+                        <Icons.Shield className="w-3.5 h-3.5" /> Administrator
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="stagger-2">
+                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Sarah Jenkins"
+                      value={signupName}
+                      onChange={(e) => setSignupName(e.target.value)}
+                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none shadow-sm transition-all"
+                      required
+                    />
+                  </div>
+
+                  <div className="stagger-3">
+                    <label className="block text-xs font-bold text-slate-300 mb-1.5">Email Address</label>
+                    <input
+                      type="email"
+                      placeholder="e.g. sarah.jenkins@school.edu"
+                      value={authEmail}
+                      onChange={(e) => setAuthEmail(e.target.value)}
+                      className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none shadow-sm transition-all"
+                      required
+                    />
+                  </div>
+
+                  <div className="stagger-4">
+                    <label className="block text-xs font-bold text-slate-300 mb-1.5">Create Password</label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Minimum 6 characters"
+                        value={authPassword}
+                        onChange={(e) => setAuthPassword(e.target.value)}
+                        className="w-full input-animated border border-slate-800 rounded-xl pl-4 pr-10 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none shadow-sm transition-all"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-sky-400 text-xs p-1.5 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95 flex items-center justify-center"
+                        title={showPassword ? "Hide password" : "Show password"}
+                      >
+                        <PasswordEyeIcon show={showPassword} className="w-4 h-4 text-slate-400 hover:text-white transition-colors" />
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Student Specific Fields */}
+                  {signupRole === 'user' ? (
+                    <div className="grid grid-cols-2 gap-2.5 pt-1 stagger-5">
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 mb-1 flex items-center gap-1.5">
+                          <Icons.FileText className="w-3.5 h-3.5 text-sky-400" />
+                          <span>Batch Number</span>
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="e.g. Batch 2026-A"
+                          value={signupBatch}
+                          onChange={(e) => setSignupBatch(e.target.value)}
+                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none shadow-sm transition-all"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-300 mb-1 flex items-center gap-1.5">
+                          <Icons.User className="w-3.5 h-3.5 text-sky-400" />
+                          <span>Student ID</span>
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="e.g. 2026-004"
+                          value={signupStudentId}
+                          onChange={(e) => setSignupStudentId(e.target.value)}
+                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none shadow-sm transition-all"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="stagger-5">
+                      <label className="block text-xs font-bold text-emerald-300 mb-1 flex items-center gap-1.5">
+                        <Icons.Lock className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Administrator Verification Passcode</span>
+                      </label>
+                      <input
+                        type="password"
+                        placeholder="Enter admin passcode (demo: admin123)"
+                        value={adminPasscode}
+                        onChange={(e) => setAdminPasscode(e.target.value)}
+                        className="w-full input-animated border border-emerald-500/50 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400 shadow-sm transition-all"
+                        required
+                      />
+                    </div>
+                  )}
+
+                  <div className="stagger-6 pt-2 space-y-2.5">
+                    <button
+                      type="submit"
+                      disabled={isAuthenticating}
+                      className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 bg-[length:200%_auto] hover:bg-[position:right_center] text-white font-bold text-xs shadow-xl shadow-emerald-600/30 btn-shimmer flex items-center justify-center gap-2 disabled:opacity-75 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
+                    >
+                      {isAuthenticating ? (
+                        <>
+                          <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          <span>Creating Account & Syncing...</span>
+                        </>
+                      ) : (
+                        <span>Complete Registration & Enter Portal →</span>
+                      )}
+                    </button>
+
+                    <div className="text-center pt-2 border-t border-slate-800">
+                      <p className="text-xs text-slate-400">
+                        Already have an account?{' '}
+                        <button
+                          type="button"
+                          onClick={() => navigateTo('login')}
+                          className="text-sky-400 hover:text-sky-300 font-bold transition hover:underline"
+                        >
+                          Sign In here →
+                        </button>
+                      </p>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <p className="text-[11px] text-slate-500 mt-4 text-center relative z-10 animate-subtitle">
+              Secured by Supabase Authentication & Role-Based Access Control
+            </p>
+          </div>
+        );
+      }
+
+      // =====================================================================
+      // 3. DEDICATED LOGIN PAGE (SHOWN BEFORE REDIRECTING TO MAIN PAGE)
+      // =====================================================================
+      if (currentView === 'login' || !currentUser) {
+        return (
+          <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-4 sm:p-6 relative overflow-hidden py-12">
+            {/* Top Navigation */}
+            <div className="absolute top-4 left-4 right-4 z-30 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <img
+                  src="km100-logo.jpg"
+                  alt="KM100 Logo"
+                  className="w-7 h-7 rounded-full object-cover border-2 border-orange-500 shadow-md shadow-orange-500/20 bg-white"
+                />
+                <span className="text-xs font-bold text-slate-300 tracking-wide">
+                  KM100 Skills & Training Center
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <ThemeToggle theme={theme} setTheme={setTheme} />
+              </div>
+            </div>
+
+            {/* Official KM100 Training Center High-Res Background Banner */}
+            <div className="home-bg-banner">
+              <img
+                src="km100-banner.jpg?v=2026"
+                alt="KM100 Skills and Training Center Banner"
+              />
+              <div className="home-bg-overlay"></div>
+            </div>
+
+            {/* Logo & Portal Branding */}
+            <div className="text-center mb-6 space-y-2.5 max-w-md relative z-10">
+              <div className="w-20 h-20 rounded-full border-2 border-orange-500 shadow-sm mx-auto overflow-hidden bg-white mb-2">
+                <img
+                  src="km100-logo.jpg"
+                  alt="KM100 Skills and Training Center, Inc."
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-orange-400 bg-orange-500/10 border border-orange-500/30 px-3 py-0.5 rounded-full inline-block mb-1 shadow-sm">
+                  KM100 Skills & Training Center, Inc.
+                </span>
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight animate-heading">
+                  Diploma, NC11 Trainer Portal
+                </h1>
+                <p className="text-xs text-slate-400 animate-subtitle">
+                  Requirements Clearance & Trainee Verification Gateway
+                </p>
+              </div>
+            </div>
+
+            {/* Optional: Resume previous session card if found */}
+            {savedSession && (
+              <div className="w-full max-w-md mb-3 relative z-10 animate-form-enter">
+                <div className="bg-sky-950/40 border border-sky-500/30 rounded-2xl p-3 flex items-center justify-between shadow-sm">
+                  <div className="flex items-center gap-2.5">
+                    <Icons.User className="w-4 h-4 text-sky-400" />
+                    <div className="text-left">
+                      <p className="text-xs font-bold text-white">Active Session Found</p>
+                      <p className="text-[10px] text-sky-300">Continue as {savedSession.name} ({savedSession.role})</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => triggerRedirect(savedSession)}
+                    className="py-1 px-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold transition shadow-sm flex items-center gap-1"
+                  >
+                    <span>Enter Portal</span>
+                    <Icons.ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* LOGIN CARD WRAPPER */}
+            <div className="w-full max-w-md relative z-10">
+              <div
+                className={`bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 w-full shadow-xl auth-card-glow space-y-5 transition-all duration-200 ${shakeError ? 'shake-error' : ''}`}
+              >
+                {/* Header Switcher */}
+                <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                  <div className="flex items-center gap-2">
+                    <img
+                      src="km100-logo.jpg"
+                      alt="KM100 Emblem"
+                      className="w-6 h-6 rounded-full object-cover border border-orange-500/60 shadow-sm"
+                    />
+                    <div>
+                      <h2 className="text-sm sm:text-base font-bold text-white">Sign In</h2>
+                      <p className="text-[11px] text-slate-400">Enter your credentials to enter the portal</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ERROR ALERT */}
+                {authError && (
+                  <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-300 flex items-center gap-2.5">
+                    <Icons.AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                    <span className="leading-relaxed">{authError}</span>
+                  </div>
+                )}
+
+                {/* SUCCESS ALERT */}
+                {authSuccess && (
+                  <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-300 flex items-center gap-2.5">
+                    <Icons.CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                    <span className="leading-relaxed">{authSuccess}</span>
+                  </div>
+                )}
+
+                <form onSubmit={handleLogin} className="space-y-4 animate-form-enter" key="login-form">
+                  <div className="stagger-3">
+                    <label className="block text-xs font-bold text-slate-300 mb-1.5">Email Address</label>
+                    <input
+                      type="email"
+                      value={authEmail}
+                      onChange={(e) => setAuthEmail(e.target.value)}
+                      placeholder="e.g. admin@system.local or juan.delacruz@school.edu"
+                      className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none shadow-sm transition-all"
+                      required
+                    />
+                  </div>
+
+                  <div className="stagger-4">
+                    <label className="block text-xs font-bold text-slate-300 mb-1.5">Password</label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        value={authPassword}
+                        onChange={(e) => setAuthPassword(e.target.value)}
+                        placeholder="Enter your account password"
+                        className="w-full input-animated border border-slate-800 rounded-xl pl-4 pr-10 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none shadow-sm transition-all"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-sky-400 text-xs p-1.5 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95 flex items-center justify-center"
+                        title={showPassword ? "Hide password" : "Show password"}
+                      >
+                        <PasswordEyeIcon show={showPassword} className="w-4 h-4 text-slate-400 hover:text-white transition-colors" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="stagger-5 pt-1 space-y-3">
+                    <button
+                      type="submit"
+                      disabled={isAuthenticating}
+                      className="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-600 via-indigo-600 to-sky-600 bg-[length:200%_auto] hover:bg-[position:right_center] text-white font-bold text-xs shadow-xl shadow-sky-600/30 btn-shimmer flex items-center justify-center gap-2 disabled:opacity-75 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
+                    >
+                      {isAuthenticating ? (
+                        <>
+                          <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          <span>Verifying & Redirecting...</span>
+                        </>
+                      ) : (
+                        <span>Sign In & Redirect to Portal →</span>
+                      )}
+                    </button>
+
+                    <div className="text-center pt-2 border-t border-slate-800">
+                      <p className="text-xs text-slate-400">
+                        Don't have an account yet?{' '}
+                        <button
+                          type="button"
+                          onClick={() => navigateTo('signup')}
+                          className="text-sky-400 hover:text-sky-300 font-bold transition hover:underline"
+                        >
+                          Create Account (Sign Up) →
+                        </button>
+                      </p>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <p className="text-[11px] text-slate-500 mt-4 text-center relative z-10 animate-subtitle">
+              Secured by Supabase Authentication & Role-Based Access Control
+            </p>
+          </div>
+        );
+      }
+
+      // =====================================================================
+      // 2. MAIN WEBSITE / PORTAL INTERFACE (ACCESSIBLE ONLY AFTER LOGIN)
+      // =====================================================================
+      return (
+        <div className="flex-1 flex flex-col relative min-h-screen bg-slate-950 overflow-hidden">
+          {/* Subtle Ambient Background Backdrop */}
+          <div className="portal-bg-banner">
+            <img
+              src="km100-banner.jpg?v=2026"
+              alt="KM100 Background"
+            />
+            <div className="portal-bg-overlay"></div>
+          </div>
+
+          <div className="relative z-10 flex-1 flex flex-col animate-dashboard-in">
+            {/* HEADER BAR */}
+            <header className="header-glass bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80 px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-40 transition-colors duration-200">
+              <div className="flex items-center gap-3">
+                <img
+                  src="km100-logo.jpg"
+                  alt="KM100 Logo"
+                  className="w-10 h-10 rounded-full object-cover border border-slate-700/80 shadow-sm bg-white flex-shrink-0"
+                />
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[9px] font-extrabold uppercase tracking-widest text-orange-400 bg-orange-500/10 border border-orange-500/30 px-2 py-0.5 rounded-full">
+                      KM100 Skills & Training Center, Inc.
+                    </span>
+                  </div>
+                  <h1 className="text-base sm:text-lg font-bold text-white tracking-tight">
+                    Diploma, NC11 Trainer Portal
+                  </h1>
+                  <p className="text-[11px] text-slate-400">
+                    Requirements & Clearance Verification • Supabase Backend
+                  </p>
+                </div>
+              </div>
+
+              {/* LOGGED IN USER PROFILE BAR & LOGOUT */}
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <div className="flex items-center gap-2.5 bg-slate-950/90 px-3.5 py-1.5 rounded-xl border border-slate-800 shadow-sm backdrop-blur-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="relative flex h-2 w-2">
+                      <span className={`relative inline-flex rounded-full h-2 w-2 ${currentUser?.is_admin ? 'bg-emerald-500' : 'bg-sky-500'}`}></span>
+                    </span>
+                    <div className="text-left text-xs">
+                      <span className="font-bold text-white flex items-center gap-1.5">
+                        {currentUser?.is_admin ? (
+                          <>
+                            <Icons.Shield className="w-3.5 h-3.5 text-emerald-400" />
+                            <span>Administrator</span>
+                          </>
+                        ) : (
+                          <>
+                            <Icons.User className="w-3.5 h-3.5 text-sky-400" />
+                            <span>{currentUser?.name || 'Student'}</span>
+                          </>
+                        )}
+                      </span>
+                      <span className="text-[10px] text-slate-400 font-mono block">
+                        {currentUser?.is_admin ? 'Full Access' : 'View Only'}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="ml-2 text-[11px] text-red-400 hover:text-red-300 font-semibold px-2.5 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
+                    title="Exit and return to Login Gateway"
+                  >
+                    <Icons.LogOut className="w-3 h-3" />
+                    <span className="hidden sm:inline">Log Out</span>
+                  </button>
+                </div>
+
+                {/* Theme Toggle Button */}
+                <ThemeToggle theme={theme} setTheme={setTheme} />
+              </div>
+            </header>
+
+            {/* MAIN DASHBOARD CONTAINER */}
+            <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-6 sm:py-8 space-y-6">
+              {/* ROLE STATUS BANNER (ADMIN ONLY) */}
+              {currentUser?.is_admin ? (
+                <div className="bg-emerald-950/30 border border-emerald-500/30 rounded-xl p-3.5 sm:p-4 flex items-center justify-between shadow-sm">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 flex-shrink-0">
+                      <Icons.Shield className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-bold text-emerald-400 uppercase tracking-wider">
+                        Administrator Mode Active
+                      </h3>
+                      <p className="text-xs text-slate-300 mt-0.5">
+                        You have authorization to edit student credentials, verify requirements, and manage the clearance registry.
+                      </p>
+                    </div>
+                  </div>
+                  <span className="hidden sm:inline-flex items-center text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    Admin: Active
+                  </span>
+                </div>
+              ) : null}
+
+              {/* SEARCH BOX (DISPLAYED WHEN NOT VIEWING A CANDIDATE RESULT) */}
+              {!searchResult && (
+                <div className="main-portal-card bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl max-w-2xl w-full mx-auto space-y-6">
+                  <div className="text-center space-y-2">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-sky-400 bg-sky-500/10 px-3 py-1 rounded-full border border-sky-500/20 inline-block">
+                      Clearance Verification
+                    </span>
+                    <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                      Check your Diploma, NC11 Trainer Requirements
+                    </h2>
+                    <p className="text-xs sm:text-sm text-slate-400">
+                      Enter your Batch Number and Full Name to check if you have any lacking or pending requirements for clearance.
+                    </p>
+                  </div>
+
+                  <form onSubmit={(e) => { e.preventDefault(); performSearch(); }} className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                          Batch Number
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="e.g. Batch 2026-A"
+                          value={batchNumber}
+                          onChange={(e) => setBatchNumber(e.target.value)}
+                          className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none transition-all shadow-sm"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                          Full Name
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="e.g. Juan Dela Cruz"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none transition-all shadow-sm"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={isSearching}
+                      className="w-full py-3 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold text-sm shadow-md shadow-sky-600/20 flex items-center justify-center gap-2 disabled:opacity-50 transition-all duration-200"
+                    >
+                      {isSearching ? (
+                        <>
+                          <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          <span>Searching Database...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Icons.Search className="w-4 h-4" />
+                          <span>Check Requirements</span>
+                        </>
+                      )}
+                    </button>
+                  </form>
+                </div>
+              )}
+
+              {/* NOT FOUND CARD */}
+              {hasSearched && !isSearching && !searchResult && (
+                <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-6 sm:p-8 text-center space-y-3 max-w-xl mx-auto shadow-sm">
+                  <div className="w-12 h-12 rounded-xl bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-400 mx-auto">
+                    <Icons.AlertCircle className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-bold text-white">No Clearance Record Found</h3>
+                  <p className="text-xs sm:text-sm text-slate-400 max-w-md mx-auto">
+                    We could not find any record matching <span className="text-red-400 font-semibold">"{fullName}"</span> under batch <span className="text-red-400 font-semibold">"{batchNumber}"</span>.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setHasSearched(false)}
+                    className="mt-2 px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition inline-flex items-center gap-1.5"
+                  >
+                    <Icons.ArrowLeft className="w-3.5 h-3.5" />
+                    <span>Try Another Search</span>
+                  </button>
+                </div>
+              )}
+
+              {/* RESULTS VIEW */}
+              {hasSearched && !isSearching && searchResult && (() => {
+                const totalReqs = searchResult.requirements ? searchResult.requirements.length : 0;
+                const percentComplete = totalReqs > 0 ? Math.round((submittedList.length / totalReqs) * 100) : 0;
+                const isCleared = totalReqs > 0 && lackingList.length === 0 && pendingList.length === 0;
+
+                return (
+                  <div className="space-y-6 animate-in fade-in duration-200">
+                    {/* TOP ACTION TOOLBAR */}
+                    <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/80 border border-slate-800 px-4 py-2.5 rounded-xl">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSearchResult(null);
+                          setHasSearched(false);
+                        }}
+                        className="px-3.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 hover:bg-slate-900 text-slate-300 hover:text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-sm active:scale-95"
+                      >
+                        <Icons.ArrowLeft className="w-3.5 h-3.5" />
+                        <span>Search Another Candidate</span>
+                      </button>
+
+                      <div className="flex items-center gap-3 text-xs">
+                        <span className="text-slate-400 font-mono hidden sm:inline">
+                          Candidate: <span className="text-white font-bold">{searchResult.full_name}</span>
+                        </span>
+                        <span className={`text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border flex items-center gap-1.5 ${
+                          isCleared
+                            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                            : 'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                        }`}>
+                          {isCleared ? (
+                            <Icons.CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+                          ) : (
+                            <Icons.Clock className="w-3.5 h-3.5 text-amber-400" />
+                          )}
+                          <span>{isCleared ? 'Clearance Approved' : 'Clearance Pending'}</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* UNIFIED CANDIDATE CLEARANCE OVERVIEW PANEL */}
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-6">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-800">
+                        {/* Intern Identity */}
+                        <div className="flex items-center gap-4">
+                          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-2xl font-black text-white shadow-md flex-shrink-0">
+                            {searchResult.full_name.charAt(0)}
+                          </div>
+                          <div>
+                            <div className="flex flex-wrap items-center gap-2">
+                              <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                                {searchResult.full_name}
+                              </h3>
+                              <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/30">
+                                {searchResult.student_id}
+                              </span>
+                            </div>
+                            <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 mt-1">
+                              <span className="font-semibold text-slate-300">{searchResult.batch_number}</span>
+                              <span>•</span>
+                              <span>{searchResult.department}</span>
+                            </div>
+                            {searchResult.email && (
+                              <p className="text-xs text-slate-500 font-mono mt-0.5">{searchResult.email}</p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Admin Action Button / Student Badge */}
+                        <div className="flex items-center gap-2.5">
+                          {currentUser.is_admin ? (
+                            <button
+                              onClick={openEditInternModal}
+                              className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition flex items-center gap-1.5 active:scale-95"
+                            >
+                              <Icons.Edit className="w-3.5 h-3.5" />
+                              <span>Edit Intern Record</span>
+                            </button>
+                          ) : (
+                            <span className="text-xs font-semibold text-slate-400 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 flex items-center gap-1.5 shadow-sm">
+                              <Icons.User className="w-3.5 h-3.5 text-slate-400" />
+                              <span>Verified Student Record</span>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* CLEARANCE PROGRESS BAR */}
+                      <div className="space-y-1.5">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="font-semibold text-slate-300">
+                            Clearance Completion
+                          </span>
+                          <span className="font-mono font-bold text-white">
+                            {submittedList.length} of {totalReqs} Approved ({percentComplete}%)
+                          </span>
+                        </div>
+                        <div className="w-full h-2.5 bg-slate-950 rounded-full overflow-hidden border border-slate-800">
+                          <div
+                            className={`h-full rounded-full transition-all duration-500 ${
+                              percentComplete === 100
+                                ? 'bg-emerald-500'
+                                : 'bg-gradient-to-r from-sky-500 to-indigo-500'
+                            }`}
+                            style={{ width: `${percentComplete}%` }}
+                          ></div>
+                        </div>
+                      </div>
+
+                      {/* 3 KPI STAT CARDS */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                        {/* Lacking Card */}
+                        <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 flex items-center justify-between shadow-sm">
+                          <div>
+                            <div className="text-2xl font-bold text-red-400">
+                              {lackingList.length}
+                            </div>
+                            <div className="text-xs font-semibold text-red-200 mt-0.5">
+                              Lacking Documents
+                            </div>
+                            <div className="text-[11px] text-red-400/80">
+                              {lackingList.length > 0 ? 'Action Required' : 'None lacking'}
+                            </div>
+                          </div>
+                          <Icons.XCircle className="w-6 h-6 text-red-400 flex-shrink-0" />
+                        </div>
+
+                        {/* Pending Card */}
+                        <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4 flex items-center justify-between shadow-sm">
+                          <div>
+                            <div className="text-2xl font-bold text-amber-400">
+                              {pendingList.length}
+                            </div>
+                            <div className="text-xs font-semibold text-amber-200 mt-0.5">
+                              Pending Review
+                            </div>
+                            <div className="text-[11px] text-amber-400/80">
+                              {pendingList.length > 0 ? 'Under Evaluation' : 'None pending'}
+                            </div>
+                          </div>
+                          <Icons.Clock className="w-6 h-6 text-amber-400 flex-shrink-0" />
+                        </div>
+
+                        {/* Submitted Card */}
+                        <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4 flex items-center justify-between shadow-sm">
+                          <div>
+                            <div className="text-2xl font-bold text-emerald-400">
+                              {submittedList.length}
+                            </div>
+                            <div className="text-xs font-semibold text-emerald-200 mt-0.5">
+                              Verified & Approved
+                            </div>
+                            <div className="text-[11px] text-emerald-400/80">
+                              Ready for Clearance
+                            </div>
+                          </div>
+                          <Icons.CheckCircle className="w-6 h-6 text-emerald-400 flex-shrink-0" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* CRITICAL ALERT NOTICE (IF LACKING) */}
+                    {lackingList.length > 0 && (
+                      <div className="bg-red-950/30 border border-red-500/30 rounded-xl p-3.5 sm:p-4 flex items-start gap-3 shadow-sm">
+                        <Icons.AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <h4 className="text-xs sm:text-sm font-bold text-red-200">
+                            Attention: You have {lackingList.length} Lacking Requirement{lackingList.length > 1 ? 's' : ''}!
+                          </h4>
+                          <p className="text-xs text-red-300/80 mt-0.5 leading-relaxed">
+                            Diploma and NC11 Trainer clearance cannot be approved until all lacking documents are submitted or digitally scanned into the KM100 registry.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* REQUIREMENTS REGISTRY TABLE / LIST */}
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
+                      <div className="p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800">
+                        <div>
+                          <h4 className="text-base font-bold text-white">
+                            Prescribed Requirements Registry
+                          </h4>
+                          <p className="text-xs text-slate-400 mt-0.5">
+                            {currentUser.is_admin
+                              ? 'Admin Mode: Update compliance status or upload digital document scans.'
+                              : 'Student View: Showing verified compliance status and official remarks.'}
+                          </p>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-2.5">
+                          {/* ADMIN ADD REQUIREMENT BUTTON */}
+                          {currentUser.is_admin && (
+                            <button
+                              onClick={() => setShowAddReqModal(true)}
+                              className="py-1.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-sm active:scale-95"
+                            >
+                              <Icons.Plus className="w-3.5 h-3.5" />
+                              <span>Add Requirement</span>
+                            </button>
+                          )}
+
+                          {/* FILTER PILL TABS */}
+                          <div className="flex flex-wrap gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800 text-xs">
+                            {[
+                              { id: 'all', label: `All (${totalReqs})` },
+                              { id: 'lacking', label: `Lacking (${lackingList.length})` },
+                              { id: 'pending', label: `Pending (${pendingList.length})` },
+                              { id: 'submitted', label: `Submitted (${submittedList.length})` }
+                            ].map(tab => (
+                              <button
+                                key={tab.id}
+                                onClick={() => setActiveFilter(tab.id)}
+                                className={`px-2.5 py-1 rounded-md text-xs font-semibold transition ${
+                                  activeFilter === tab.id
+                                    ? 'bg-sky-600 text-white shadow-sm'
+                                    : 'text-slate-400 hover:text-white'
+                                }`}
+                              >
+                                {tab.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* REQUIREMENT REGISTRY ROWS */}
+                      <div className="divide-y divide-slate-800/80">
+                        {filteredRequirements.map(req => {
+                          const isLacking = req.status === 'lacking';
+                          const isPending = req.status === 'pending';
+
+                          return (
+                            <div
+                              key={req.id}
+                              className="p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-3.5 hover:bg-slate-800/30 transition-colors duration-150"
+                            >
+                              <div className="flex items-start gap-3">
+                                <div className="mt-0.5 flex-shrink-0">
+                                  {isLacking ? (
+                                    <Icons.XCircle className="w-4 h-4 text-red-500" />
+                                  ) : isPending ? (
+                                    <Icons.Clock className="w-4 h-4 text-amber-500" />
+                                  ) : (
+                                    <Icons.CheckCircle className="w-4 h-4 text-emerald-500" />
+                                  )}
+                                </div>
+                                <div className="space-y-1">
+                                  <div className="flex flex-wrap items-center gap-2">
+                                    <h5 className="text-sm font-semibold text-white">
+                                      {req.name}
+                                    </h5>
+                                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                                      isLacking
+                                        ? 'bg-red-500/15 text-red-400 border border-red-500/30'
+                                        : isPending
+                                          ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
+                                          : 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+                                    }`}>
+                                      {req.status}
+                                    </span>
+                                  </div>
+                                  <p className={`text-xs ${isLacking ? 'text-red-300 font-medium' : 'text-slate-400'}`}>
+                                    {req.remarks}
+                                  </p>
+                                  {req.scanned_at && (
+                                    <p className="text-[11px] text-slate-500 flex items-center gap-1 font-mono">
+                                      <Icons.Calendar className="w-3 h-3" />
+                                      <span>Scanned: {req.scanned_at}</span>
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+
+                              {/* ACTION BUTTONS */}
+                              <div className="shrink-0 flex items-center gap-2 self-end md:self-center">
+                                {req.document_url && (
+                                  <button
+                                    onClick={() => setSelectedDocument(req)}
+                                    className="py-1.5 px-3 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold shadow-sm transition flex items-center gap-1.5 active:scale-95"
+                                  >
+                                    <Icons.FileText className="w-3.5 h-3.5" />
+                                    <span>View Document</span>
+                                  </button>
+                                )}
+
+                                {currentUser.is_admin && (
+                                  <button
+                                    onClick={() => openEditReqModal(req)}
+                                    className="py-1.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-sm active:scale-95"
+                                  >
+                                    <Icons.Edit className="w-3.5 h-3.5" />
+                                    <span>Update</span>
+                                  </button>
+                                )}
+
+                                {!req.document_url && !currentUser.is_admin && (
+                                  <span className="text-[11px] font-semibold text-red-400 bg-red-500/10 px-3 py-1 rounded-lg border border-red-500/20">
+                                    Required: Submit to Scanner
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+            </main>
+
+            {/* ============================================================== */}
+            {/* MODALS (ADMIN EDIT, UPDATE REQ, ADD REQ, VIEW DOC)             */}
+            {/* ============================================================== */}
+            {showEditInternModal && (
+              <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <form onSubmit={handleSaveInternCredentials} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-lg w-full shadow-2xl space-y-4 animate-modal-pop">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <div className="flex items-center gap-2.5">
+                      <button
+                        type="button"
+                        onClick={() => setShowEditInternModal(false)}
+                        className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                      >
+                        <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
+                      </button>
+                      <div>
+                        <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
+                        <h3 className="text-base sm:text-lg font-bold text-white mt-0.5">Edit Student Credentials</h3>
+                      </div>
+                    </div>
+                    <button type="button" onClick={() => setShowEditInternModal(false)} className="text-slate-400 hover:text-white p-1">✕</button>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Full Name</label>
+                      <input
+                        type="text"
+                        value={editName}
+                        onChange={(e) => setEditName(e.target.value)}
+                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Batch Number</label>
+                      <input
+                        type="text"
+                        value={editBatch}
+                        onChange={(e) => setEditBatch(e.target.value)}
+                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Student ID / Trainer No.</label>
+                      <input
+                        type="text"
+                        value={editStudentId}
+                        onChange={(e) => setEditStudentId(e.target.value)}
+                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Department</label>
+                      <input
+                        type="text"
+                        value={editDept}
+                        onChange={(e) => setEditDept(e.target.value)}
+                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
+                    <input
+                      type="email"
+                      value={editEmail}
+                      onChange={(e) => setEditEmail(e.target.value)}
+                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1">Overall Clearance Status</label>
+                    <select
+                      value={editOverallStatus}
+                      onChange={(e) => setEditOverallStatus(e.target.value)}
+                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    >
+                      <option value="incomplete">Incomplete (Lacking Documents)</option>
+                      <option value="pending">Pending (Under Review)</option>
+                      <option value="complete">Complete (Fully Cleared)</option>
+                    </select>
+                  </div>
+
+                  <div className="flex gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowEditInternModal(false)}
+                      className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 py-2 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition active:scale-95 flex items-center justify-center gap-1.5"
+                    >
+                      <span>Save Credentials</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
+
+            {/* ADMIN UPDATE REQ MODAL */}
+            {showEditReqModal && editingReq && (
+              <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <form onSubmit={handleSaveRequirementUpdate} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-md w-full shadow-2xl space-y-4 animate-modal-pop">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <div className="flex items-center gap-2.5">
+                      <button
+                        type="button"
+                        onClick={() => setShowEditReqModal(false)}
+                        className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                      >
+                        <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
+                      </button>
+                      <div>
+                        <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
+                        <h3 className="text-base font-bold text-white mt-0.5">Update Requirement Status</h3>
+                      </div>
+                    </div>
+                    <button type="button" onClick={() => setShowEditReqModal(false)} className="text-slate-400 hover:text-white p-1">✕</button>
+                  </div>
+
+                  <div>
+                    <span className="text-xs text-slate-400">Requirement Name:</span>
+                    <div className="text-sm font-bold text-white mt-0.5">{editingReq.name}</div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1.5">Compliance Status</label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {[
+                        { id: 'lacking', label: 'Lacking', icon: <Icons.XCircle className="w-3.5 h-3.5 text-red-500" />, color: 'border-red-500/40 text-red-400 bg-red-500/10' },
+                        { id: 'pending', label: 'Pending', icon: <Icons.Clock className="w-3.5 h-3.5 text-amber-500" />, color: 'border-amber-500/40 text-amber-400 bg-amber-500/10' },
+                        { id: 'submitted', label: 'Submitted', icon: <Icons.CheckCircle className="w-3.5 h-3.5 text-emerald-500" />, color: 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10' }
+                      ].map(st => (
+                        <button
+                          type="button"
+                          key={st.id}
+                          onClick={() => setEditReqStatus(st.id)}
+                          className={`py-2 rounded-xl text-xs font-semibold border transition flex items-center justify-center gap-1.5 ${
+                            editReqStatus === st.id ? st.color : 'bg-slate-950 border-slate-800 text-slate-400'
+                          }`}
+                        >
+                          {st.icon}
+                          <span>{st.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1">Admin Remarks / Verification Notes</label>
+                    <textarea
+                      rows="3"
+                      value={editReqRemarks}
+                      onChange={(e) => setEditReqRemarks(e.target.value)}
+                      placeholder="e.g. Official transcript verified. / Missing page 2 stamp."
+                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    ></textarea>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1">Scanned Document URL (Optional)</label>
+                    <input
+                      type="url"
+                      value={editReqDocUrl}
+                      onChange={(e) => setEditReqDocUrl(e.target.value)}
+                      placeholder="https://... image or PDF URL"
+                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono"
+                    />
+                  </div>
+
+                  <div className="flex gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowEditReqModal(false)}
+                      className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 py-2 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition active:scale-95"
+                    >
+                      Update Status
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
+
+            {/* ADMIN ADD REQ MODAL */}
+            {showAddReqModal && (
+              <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <form onSubmit={handleSaveAddRequirement} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-6 sm:p-7 max-w-md w-full shadow-2xl space-y-4 animate-modal-pop">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <div className="flex items-center gap-2.5">
+                      <button
+                        type="button"
+                        onClick={() => setShowAddReqModal(false)}
+                        className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                      >
+                        <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
+                      </button>
+                      <div>
+                        <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
+                        <h3 className="text-base font-bold text-white mt-0.5">Add Prescribed Requirement</h3>
+                      </div>
+                    </div>
+                    <button type="button" onClick={() => setShowAddReqModal(false)} className="text-slate-400 hover:text-white p-1">✕</button>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1">Requirement Title</label>
+                    <input
+                      type="text"
+                      value={newReqName}
+                      onChange={(e) => setNewReqName(e.target.value)}
+                      placeholder="e.g. Industry Immersion Assessment"
+                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1">Initial Status</label>
+                    <select
+                      value={newReqStatus}
+                      onChange={(e) => setNewReqStatus(e.target.value)}
+                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    >
+                      <option value="lacking">Lacking (Missing document)</option>
+                      <option value="pending">Pending (Awaiting review)</option>
+                      <option value="submitted">Submitted (Verified)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 mb-1">Remarks / Submission Instructions</label>
+                    <textarea
+                      rows="2"
+                      value={newReqRemarks}
+                      onChange={(e) => setNewReqRemarks(e.target.value)}
+                      placeholder="e.g. Must be stamped by authorized supervisor."
+                      className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    ></textarea>
+                  </div>
+
+                  <div className="flex gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowAddReqModal(false)}
+                      className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 py-2 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition active:scale-95 flex items-center justify-center gap-1.5"
+                    >
+                      <Icons.Plus className="w-3.5 h-3.5" />
+                      <span>Add to Registry</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
+
+            {/* VIEW DOCUMENT MODAL */}
+            {selectedDocument && (
+              <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-4 animate-modal-pop">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <div className="flex items-center gap-2.5">
+                      <button
+                        onClick={() => setSelectedDocument(null)}
+                        className="text-xs text-sky-400 hover:text-sky-300 font-semibold px-2.5 py-1 rounded-lg bg-sky-500/10 border border-sky-500/30 hover:bg-sky-500/20 flex items-center gap-1 transition"
+                      >
+                        <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
+                      </button>
+                      <div>
+                        <span className="text-[10px] font-bold text-sky-400 uppercase tracking-wider">Scanned Document In System</span>
+                        <h3 className="text-base sm:text-lg font-bold text-white mt-0.5">{selectedDocument.name}</h3>
+                      </div>
+                    </div>
+                    <button onClick={() => setSelectedDocument(null)} className="text-slate-400 hover:text-white p-1">✕</button>
+                  </div>
+
+                  <div className="h-96 rounded-xl overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center">
+                    <img src={selectedDocument.document_url} alt="Scanned Document" className="max-h-full max-w-full object-contain" />
+                  </div>
+
+                  <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 text-xs space-y-1">
+                    <p className="text-slate-300"><span className="text-slate-500">Document Status:</span> <span className="text-emerald-400 font-bold uppercase">{selectedDocument.status}</span></p>
+                    <p className="text-slate-300"><span className="text-slate-500">Remarks:</span> {selectedDocument.remarks}</p>
+                    <p className="text-slate-300"><span className="text-slate-500">Verified Timestamp:</span> {selectedDocument.scanned_at || "Verified"}</p>
+                  </div>
+
+                  <div className="pt-2">
+                    <button
+                      onClick={() => setSelectedDocument(null)}
+                      className="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition flex items-center justify-center gap-1.5"
+                    >
+                      <Icons.ArrowLeft className="w-3.5 h-3.5" />
+                      <span>Return to Registry</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+
+</html>
