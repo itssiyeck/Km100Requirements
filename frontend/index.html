@@ -972,6 +972,18 @@
       color: #ffffff !important;
     }
 
+    /* Inline Search Error Banner */
+    .search-error-banner {
+      background-color: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #f87171;
+    }
+    .light-theme .search-error-banner {
+      background-color: #fff1f2 !important;
+      border: 1px solid #fecdd3 !important;
+      color: #9f1239 !important;
+    }
+
     /* Scrollbars in Light Mode */
     .light-theme::-webkit-scrollbar-track,
     .light-theme ::-webkit-scrollbar-track {
@@ -3192,6 +3204,30 @@
                     </p>
                   </div>
 
+                  {/* INLINE NOT FOUND ALERT - IMMEDIATELY VISIBLE WITHOUT SCROLLING */}
+                  {hasSearched && !isSearching && !searchResult && (
+                    <div className="search-error-banner p-3.5 sm:p-4 rounded-xl border flex items-start gap-3 animate-form-enter shadow-sm">
+                      <div className="w-8 h-8 rounded-lg bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-500 flex-shrink-0 mt-0.5">
+                        <Icons.AlertCircle className="w-4 h-4" />
+                      </div>
+                      <div className="flex-1 text-left text-xs">
+                        <h4 className="font-bold text-red-500 dark:text-red-400">No Clearance Record Found</h4>
+                        <p className="text-slate-600 dark:text-slate-300 mt-0.5 leading-relaxed">
+                          We could not find any clearance record matching <strong className="text-red-600 dark:text-red-300 font-semibold">"{fullName}"</strong> under batch <strong className="text-red-600 dark:text-red-300 font-semibold">"{batchNumber}"</strong>. Please check the spelling or batch format and try again.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setHasSearched(false)}
+                        className="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition text-xs font-bold"
+                        aria-label="Dismiss alert"
+                        title="Dismiss alert"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  )}
+
                   <form onSubmit={(e) => { e.preventDefault(); performSearch(); }} className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
@@ -3203,7 +3239,10 @@
                           type="text"
                           placeholder="e.g. Batch 2026-A"
                           value={batchNumber}
-                          onChange={(e) => setBatchNumber(e.target.value)}
+                          onChange={(e) => {
+                            setBatchNumber(e.target.value);
+                            if (hasSearched && !searchResult) setHasSearched(false);
+                          }}
                           className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none transition-all shadow-sm"
                           required
                         />
@@ -3218,7 +3257,10 @@
                           type="text"
                           placeholder="e.g. Juan Dela Cruz"
                           value={fullName}
-                          onChange={(e) => setFullName(e.target.value)}
+                          onChange={(e) => {
+                            setFullName(e.target.value);
+                            if (hasSearched && !searchResult) setHasSearched(false);
+                          }}
                           className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none transition-all shadow-sm"
                           required
                         />
@@ -3246,27 +3288,6 @@
                       )}
                     </button>
                   </form>
-                </div>
-              )}
-
-              {/* NOT FOUND CARD */}
-              {hasSearched && !isSearching && !searchResult && (
-                <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-6 sm:p-8 text-center space-y-3 max-w-xl mx-auto shadow-sm">
-                  <div className="w-12 h-12 rounded-xl bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-400 mx-auto">
-                    <Icons.AlertCircle className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-lg font-bold text-white">No Clearance Record Found</h3>
-                  <p className="text-xs sm:text-sm text-slate-400 max-w-md mx-auto">
-                    We could not find any record matching <span className="text-red-400 font-semibold">"{fullName}"</span> under batch <span className="text-red-400 font-semibold">"{batchNumber}"</span>.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setHasSearched(false)}
-                    className="mt-2 px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition inline-flex items-center gap-1.5"
-                  >
-                    <Icons.ArrowLeft className="w-3.5 h-3.5" />
-                    <span>Try Another Search</span>
-                  </button>
                 </div>
               )}
 
