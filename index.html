@@ -592,11 +592,11 @@
     /* Light Theme Banner & Overlay: Bright, Vibrant and Clearly Visible */
     .light-theme .home-bg-banner img {
       filter: saturate(1.18) contrast(1.04) brightness(1.02);
-      opacity: 0.88;
+      opacity: 0.85;
     }
 
     .light-theme .home-bg-overlay {
-      background: radial-gradient(circle at 50% 50%, rgba(248, 250, 252, 0.68) 0%, rgba(241, 245, 249, 0.44) 100%) !important;
+      background: radial-gradient(circle at 50% 50%, rgba(248, 250, 252, 0.82) 0%, rgba(241, 245, 249, 0.65) 100%) !important;
       pointer-events: none;
     }
 
@@ -1056,35 +1056,83 @@
     /* GUARANTEED TEXT VISIBILITY: DARK & LIGHT THEME COMPLETE HARMONY          */
     /* ========================================================================= */
 
-    /* 1. Auth Hero (Login / Sign Up) Screen sitting on dark photo background */
-    .auth-hero-scope,
+    /* 1. LIGHT MODE: Pure crisp black/charcoal text (#0f172a / #1e293b) */
     .light-theme .auth-hero-scope,
-    .dark .auth-hero-scope {
-      color: #f8fafc;
+    html.light-theme .auth-hero-scope,
+    body.light-theme .auth-hero-scope {
+      color: #0f172a !important;
     }
 
-    .auth-hero-scope h1,
-    .auth-hero-scope .animate-heading,
     .light-theme .auth-hero-scope h1,
-    .light-theme .auth-hero-scope .animate-heading {
-      color: #ffffff !important;
+    .light-theme .auth-hero-scope .animate-heading,
+    html.light-theme .auth-hero-scope h1,
+    html.light-theme .auth-hero-scope .animate-heading {
+      color: #0f172a !important;
+      text-shadow: none !important;
     }
 
-    .auth-hero-scope .auth-nav-title,
-    .light-theme .auth-hero-scope .auth-nav-title {
-      color: #ffffff !important;
+    .light-theme .auth-hero-scope .auth-nav-title,
+    html.light-theme .auth-hero-scope .auth-nav-title {
+      color: #0f172a !important;
+      font-weight: 700 !important;
+      text-shadow: none !important;
     }
 
-    .auth-hero-scope p.animate-subtitle,
-    .auth-hero-scope .animate-subtitle,
     .light-theme .auth-hero-scope p.animate-subtitle,
-    .light-theme .auth-hero-scope .animate-subtitle {
-      color: rgba(255, 255, 255, 0.88) !important;
+    .light-theme .auth-hero-scope .animate-subtitle,
+    html.light-theme .auth-hero-scope p.animate-subtitle,
+    html.light-theme .auth-hero-scope .animate-subtitle {
+      color: #1e293b !important;
+      font-weight: 600 !important;
+      text-shadow: none !important;
     }
 
-    .auth-hero-scope .auth-footer-text,
-    .light-theme .auth-hero-scope .auth-footer-text {
-      color: rgba(255, 255, 255, 0.75) !important;
+    .light-theme .auth-hero-scope .auth-footer-text,
+    html.light-theme .auth-hero-scope .auth-footer-text {
+      color: #334155 !important;
+      font-weight: 600 !important;
+      text-shadow: none !important;
+    }
+
+    /* 2. DARK MODE: Pure crisp white text (#ffffff / #f8fafc) */
+    .dark-theme .auth-hero-scope,
+    .dark .auth-hero-scope,
+    html.dark .auth-hero-scope,
+    body.dark .auth-hero-scope {
+      color: #f8fafc !important;
+    }
+
+    .dark-theme .auth-hero-scope h1,
+    .dark-theme .auth-hero-scope .animate-heading,
+    .dark .auth-hero-scope h1,
+    .dark .auth-hero-scope .animate-heading,
+    html.dark .auth-hero-scope h1,
+    html.dark .auth-hero-scope .animate-heading {
+      color: #ffffff !important;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45) !important;
+    }
+
+    .dark-theme .auth-hero-scope .auth-nav-title,
+    .dark .auth-hero-scope .auth-nav-title,
+    html.dark .auth-hero-scope .auth-nav-title {
+      color: #ffffff !important;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .dark-theme .auth-hero-scope p.animate-subtitle,
+    .dark-theme .auth-hero-scope .animate-subtitle,
+    .dark .auth-hero-scope p.animate-subtitle,
+    .dark .auth-hero-scope .animate-subtitle,
+    html.dark .auth-hero-scope p.animate-subtitle {
+      color: #e2e8f0 !important;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .dark-theme .auth-hero-scope .auth-footer-text,
+    .dark .auth-hero-scope .auth-footer-text,
+    html.dark .auth-hero-scope .auth-footer-text {
+      color: #cbd5e1 !important;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
     }
 
     /* 2. White Card on Auth Pages in Light Mode */
@@ -3087,25 +3135,25 @@
             </div>
 
             <div className="w-full max-w-md my-auto relative z-10 animate-modal-pop">
-              <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 sm:p-7 w-full backdrop-blur-xl auth-card-glow text-center space-y-4">
+              <div className="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 sm:p-7 w-full backdrop-blur-xl auth-card-glow text-center space-y-4 shadow-xl">
                 <div className="relative mx-auto w-20 h-20 flex items-center justify-center">
-                  <div className="absolute inset-0 rounded-full border-4 border-sky-500/30 border-t-sky-400 animate-spin"></div>
+                  <div className="absolute inset-0 rounded-full border-4 border-sky-500/30 border-t-sky-500 animate-spin"></div>
                   <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/30">
                     <Icons.Shield className="w-7 h-7 text-white" />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <span className="text-[11px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full inline-flex items-center gap-1.5">
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-emerald-700 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-500/10 border border-emerald-300 dark:border-emerald-500/30 px-3 py-1 rounded-full inline-flex items-center gap-1.5">
                     <Icons.CheckCircle className="w-3.5 h-3.5" /> Verified Credentials
                   </span>
-                  <h2 className="text-2xl font-extrabold text-white tracking-tight">
+                  <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                     Authentication Successful!
                   </h2>
-                  <p className="text-xs text-slate-300">
-                    Welcome, <b className="text-sky-400">{targetUser.name}</b>
+                  <p className="text-xs text-slate-700 dark:text-slate-300 font-medium">
+                    Welcome, <b className="text-sky-600 dark:text-sky-400">{targetUser.name}</b>
                   </p>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
                     {targetUser.is_admin
                       ? 'Administrator Access Enabled • Loading System Records...'
                       : 'Student Clearance Checklist Loading...'}
@@ -3163,7 +3211,7 @@
                     decoding="async"
                   />
                 </div>
-                <span className="auth-nav-title text-xs font-semibold text-white/90 tracking-wide">
+                <span className="auth-nav-title text-xs font-semibold text-slate-900 dark:text-white tracking-wide">
                   KM100 Skills and Training Center, Inc.
                 </span>
               </div>
@@ -3171,7 +3219,7 @@
                 <button
                   type="button"
                   onClick={() => navigateTo('login')}
-                  className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/10 dark:bg-slate-900 border border-white/20 dark:border-slate-800 text-white dark:text-slate-300 hover:bg-white/20 dark:hover:border-slate-700 dark:hover:text-white backdrop-blur-sm transition flex items-center gap-1.5 shadow-sm active:scale-95"
+                  className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/80 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-slate-800 dark:text-slate-300 hover:bg-white dark:hover:border-slate-700 dark:hover:text-white backdrop-blur-sm transition flex items-center gap-1.5 shadow-sm active:scale-95"
                 >
                   <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back to Sign In
                 </button>
@@ -3194,10 +3242,10 @@
             <div className="w-full max-w-lg my-auto flex flex-col items-center relative z-10">
               {/* Portal Branding */}
               <div className="text-center mb-3 w-full">
-                <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight animate-heading">
+                <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight animate-heading">
                   Sign Up for Portal Access
                 </h1>
-                <p className="text-xs text-white/60 dark:text-slate-400 mt-0.5 animate-subtitle">
+                <p className="text-xs text-slate-800 dark:text-slate-300 font-semibold mt-0.5 animate-subtitle">
                   KM100 Skills and Training Center, Inc. • Trainee &amp; Administrator Registration
                 </p>
               </div>
@@ -3412,7 +3460,7 @@
                 </form>
               </div>
 
-              <p className="text-[10px] text-white/50 dark:text-slate-400 mt-1.5 text-center animate-subtitle">
+              <p className="auth-footer-text text-[10px] text-slate-700 dark:text-slate-400 mt-1.5 text-center animate-subtitle font-medium">
                 Secured by Supabase Authentication &amp; Role-Based Access Control
               </p>
             </div>
@@ -3445,7 +3493,7 @@
                     decoding="async"
                   />
                 </div>
-                <span className="auth-nav-title text-xs font-semibold text-white/90 tracking-wide">
+                <span className="auth-nav-title text-xs font-semibold text-slate-900 dark:text-white tracking-wide">
                   KM100 Skills and Training Center, Inc.
                 </span>
               </div>
@@ -3472,14 +3520,14 @@
             >
               {/* Portal Branding */}
               <div className="text-center mb-3.5 w-full">
-                <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight animate-heading flex items-center justify-center gap-2 flex-wrap">
+                <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight animate-heading flex items-center justify-center gap-2 flex-wrap">
                   Diploma, NC II Trainee Portal
-                  <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-sky-700 dark:text-sky-200 bg-sky-100 dark:bg-sky-500/20 border border-sky-300 dark:border-sky-400/30 px-2 py-0.5 rounded-full shadow-sm">
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-sky-800 dark:text-sky-200 bg-sky-100 dark:bg-sky-500/20 border border-sky-300 dark:border-sky-400/30 px-2 py-0.5 rounded-full shadow-sm">
                     <span className="w-1.5 h-1.5 rounded-full bg-sky-600 dark:bg-sky-300"></span>
                     TESDA Accredited
                   </span>
                 </h1>
-                <p className="text-xs text-white/60 dark:text-slate-400 mt-1 animate-subtitle">
+                <p className="text-xs text-slate-800 dark:text-slate-300 font-semibold mt-1 animate-subtitle">
                   KM100 Skills and Training Center, Inc. • Requirements Clearance Gateway
                 </p>
               </div>
@@ -3617,7 +3665,7 @@
                 </form>
               </div>
 
-              <p className="auth-footer-text text-[11px] text-white/70 mt-3 text-center animate-subtitle">
+              <p className="auth-footer-text text-[11px] text-slate-700 dark:text-slate-300 font-semibold mt-3 text-center animate-subtitle">
                 Secured by Supabase Authentication &amp; Role-Based Access Control
               </p>
             </div>
