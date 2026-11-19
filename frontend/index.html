@@ -3069,36 +3069,34 @@
             {/* HEADER BAR */}
             <header className="header-glass bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80 px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-40 transition-colors duration-200">
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-2.5 flex-shrink-0">
                   <img
                     src="km100-logo.jpg"
                     alt="KM100 Logo"
-                    className="w-10 h-10 rounded-full object-cover border-2 border-orange-500 shadow-sm bg-white flex-shrink-0"
+                    className="w-10 h-10 rounded-full object-cover border border-slate-200 dark:border-slate-700 shadow-sm bg-white flex-shrink-0 transition-transform duration-200 hover:scale-105"
                     loading="eager"
                     decoding="async"
                   />
                   <img
                     src="tesda-logo.png"
                     alt="TESDA Logo"
-                    className="w-10 h-10 rounded-full object-cover border-2 border-blue-600 shadow-sm bg-white flex-shrink-0"
+                    className="w-10 h-10 rounded-full object-cover border border-slate-200 dark:border-slate-700 shadow-sm bg-white flex-shrink-0 transition-transform duration-200 hover:scale-105"
                     loading="eager"
                     decoding="async"
                   />
                 </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[9px] font-extrabold uppercase tracking-widest text-orange-400 bg-orange-500/10 border border-orange-500/30 px-2 py-0.5 rounded-full">
-                      KM100 Skills & Training Center, Inc.
-                    </span>
-                    <span className="text-[9px] font-extrabold uppercase tracking-widest text-blue-400 bg-blue-500/10 border border-blue-500/30 px-2 py-0.5 rounded-full">
+                <div className="flex flex-col justify-center">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h1 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                      Diploma, NC11 Trainer Portal
+                    </h1>
+                    <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-sky-700 bg-sky-50 border border-sky-200 dark:text-sky-300 dark:bg-sky-500/15 dark:border-sky-500/30 px-2.5 py-0.5 rounded-full shadow-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-sky-600 dark:bg-sky-400"></span>
                       TESDA Accredited
                     </span>
                   </div>
-                  <h1 className="text-base sm:text-lg font-bold text-white tracking-tight">
-                    Diploma, NC11 Trainer Portal
-                  </h1>
-                  <p className="text-[11px] text-slate-400">
-                    Requirements & Clearance Verification • Supabase Backend
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
+                    KM100 Skills & Training Center, Inc. • Clearance Verification Gateway
                   </p>
                 </div>
               </div>
