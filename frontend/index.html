@@ -50,6 +50,11 @@
       outline-offset: 2px;
     }
 
+    .light-theme :focus-visible {
+      outline-color: #0369a1;
+      outline-offset: 3px;
+    }
+
     body {
       font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       background-color: #020617;
@@ -74,12 +79,25 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: #1e293b;
+      background: #334155;
       border-radius: 9999px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: #334155;
+      background: #475569;
+    }
+
+    .light-theme::-webkit-scrollbar-track,
+    .light-theme *::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .light-theme::-webkit-scrollbar-thumb,
+    .light-theme *::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+    }
+    .light-theme::-webkit-scrollbar-thumb:hover,
+    .light-theme *::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
     }
 
     /* Smooth global transitions */
@@ -109,7 +127,7 @@
     }
 
     .light-theme .auth-card-glow {
-      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.04), 0 20px 40px -8px rgba(15, 23, 42, 0.10), 0 0 0 1px rgba(15, 23, 42, 0.06);
     }
 
     /* 3. Button Animations & Gradient Shimmer */
@@ -124,6 +142,10 @@
       background-position: right center;
       transform: translateY(-1.5px) scale(1.01);
       box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.5), 0 4px 10px -2px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .light-theme .btn-shimmer:hover {
+      box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.2), 0 2px 8px -2px rgba(15, 23, 42, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.25);
     }
 
     .btn-shimmer:active {
@@ -195,6 +217,12 @@
     .input-animated {
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       background-color: rgba(2, 6, 23, 0.9);
+    }
+
+    .light-theme .input-animated {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border-color: #cbd5e1 !important;
     }
 
     .input-animated:focus {
@@ -628,10 +656,16 @@
     .light-theme button[type="submit"] *,
     .light-theme .bg-sky-600,
     .light-theme .bg-sky-600 *,
+    .light-theme .bg-sky-500,
+    .light-theme .bg-sky-500 *,
     .light-theme .bg-emerald-600,
     .light-theme .bg-emerald-600 *,
+    .light-theme .bg-emerald-500,
+    .light-theme .bg-emerald-500 *,
     .light-theme .bg-red-600,
     .light-theme .bg-red-600 *,
+    .light-theme .bg-indigo-600,
+    .light-theme .bg-indigo-600 *,
     .light-theme .bg-gradient-to-r,
     .light-theme .bg-gradient-to-r *,
     .light-theme .bg-gradient-to-tr,
@@ -756,6 +790,17 @@
       color: #15803d !important;
     }
 
+    /* Auth Screen TESDA Accredited Badge in login heading */
+    .light-theme .login-tesda-badge,
+    .light-theme span.bg-sky-500\/20 {
+      background-color: rgba(2, 132, 199, 0.12) !important;
+      border-color: rgba(2, 132, 199, 0.35) !important;
+      color: #0369a1 !important;
+    }
+    .light-theme span.bg-sky-500\/20 span.bg-sky-300 {
+      background-color: #0284c7 !important;
+    }
+
     /* Sign-Up Brand Badge Adaptive Theme (Vibrant Emerald in Dark Mode, Bold Black in Light Mode) */
     .signup-brand-badge {
       color: #34d399 !important;
@@ -798,6 +843,46 @@
     }
     .light-theme .search-another-btn:hover svg {
       color: #ffffff !important;
+    }
+
+    /* Sky/Indigo/Amber surface tints in light mode */
+    .light-theme .bg-sky-500\/10,
+    .light-theme .bg-sky-500\/15,
+    .light-theme .bg-sky-500\/20 {
+      background-color: #f0f9ff !important;
+      border-color: #bae6fd !important;
+    }
+    .light-theme .bg-sky-950\/50,
+    .light-theme .bg-sky-950\/40,
+    .light-theme .bg-sky-950\/30 {
+      background-color: #f0f9ff !important;
+      border-color: #bae6fd !important;
+    }
+    .light-theme .bg-indigo-500\/10,
+    .light-theme .bg-indigo-500\/15 {
+      background-color: #eef2ff !important;
+      border-color: #c7d2fe !important;
+    }
+    .light-theme .bg-amber-500\/10,
+    .light-theme .bg-amber-500\/15 {
+      background-color: #fffbeb !important;
+      border-color: #fde68a !important;
+    }
+    /* Clearance result cards in light mode */
+    .light-theme .bg-red-500\/10 {
+      background-color: #fff1f2 !important;
+      border-color: #fecdd3 !important;
+    }
+    .light-theme .bg-emerald-500\/10 {
+      background-color: #f0fdf4 !important;
+      border-color: #bbf7d0 !important;
+    }
+    /* TESDA accredited badge tint */
+    .light-theme .bg-sky-50 {
+      background-color: #f0f9ff !important;
+    }
+    .light-theme .border-sky-200 {
+      border-color: #bae6fd !important;
     }
 
     /* Modals in Light Mode */
@@ -853,6 +938,16 @@
       background: linear-gradient(to bottom, rgba(248, 250, 252, 0.88) 0%, rgba(241, 245, 249, 0.96) 100%);
     }
 
+    /* Portal header text overrides for light mode */
+    .light-theme .header-glass h1,
+    .light-theme header h1 {
+      color: #0f172a !important;
+    }
+    .light-theme .header-glass p,
+    .light-theme header p {
+      color: #475569 !important;
+    }
+
     /* Refined Main Portal Glass Styling */
     .main-portal-card {
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -867,13 +962,13 @@
     .light-theme .admin-banner-card {
       background: linear-gradient(135deg, rgba(236, 253, 245, 0.95), rgba(240, 253, 250, 0.9)) !important;
       border-color: #a7f3d0 !important;
-      box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.1) !important;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05) !important;
     }
 
     .light-theme .student-banner-card {
       background: linear-gradient(135deg, rgba(240, 249, 255, 0.95), rgba(245, 243, 255, 0.9)) !important;
       border-color: #bae6fd !important;
-      box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.1) !important;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05) !important;
     }
 
     .light-theme .header-glass {
@@ -972,6 +1067,47 @@
       color: #ffffff !important;
     }
 
+    /* Sky / indigo link tokens in light mode */
+    .light-theme .text-sky-400 {
+      color: #0369a1 !important;
+    }
+    .light-theme a.text-sky-400,
+    .light-theme button.text-sky-400,
+    .light-theme span.text-sky-400 {
+      color: #0369a1 !important;
+    }
+    .light-theme .text-sky-300 {
+      color: #0284c7 !important;
+    }
+    .light-theme .text-sky-500 {
+      color: #0369a1 !important;
+    }
+    /* Emerald text tokens */
+    .light-theme .text-emerald-400 {
+      color: #059669 !important;
+    }
+    .light-theme .text-emerald-300 {
+      color: #047857 !important;
+    }
+    /* Amber text tokens */
+    .light-theme .text-amber-400 {
+      color: #d97706 !important;
+    }
+    .light-theme .text-amber-300 {
+      color: #b45309 !important;
+    }
+    /* Red text tokens */
+    .light-theme .text-red-400 {
+      color: #dc2626 !important;
+    }
+    .light-theme .text-red-300 {
+      color: #b91c1c !important;
+    }
+    /* Indigo text tokens */
+    .light-theme .text-indigo-400 {
+      color: #4338ca !important;
+    }
+
     /* Inline Search Error Banner */
     .search-error-banner {
       background-color: rgba(239, 68, 68, 0.12);
@@ -996,6 +1132,13 @@
     .light-theme::-webkit-scrollbar-thumb:hover,
     .light-theme ::-webkit-scrollbar-thumb:hover {
       background: #94a3b8 !important;
+    }
+
+    /* ThemeToggle button on photo backgrounds (login/signup) */
+    .home-bg-banner ~ * .theme-toggle-btn,
+    .light-theme .home-bg-banner ~ * .theme-toggle-btn {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     /* Accessibility: Respect Reduced Motion with intentional non-vestibular transitions */
@@ -1693,7 +1836,7 @@
                       type="button"
                       onClick={() => setShowSbModal(false)}
                       aria-label="Back and close Supabase dialog"
-                      className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                      className="text-xs text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center gap-1 transition"
                     >
                       <span>←</span> Back
                     </button>
@@ -1705,7 +1848,7 @@
                       <p className="text-xs text-slate-400">Sync with live PostgreSQL & Supabase Auth</p>
                     </div>
                   </div>
-                  <button type="button" onClick={() => setShowSbModal(false)} aria-label="Close Supabase modal" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-white text-base font-bold">✕</button>
+                  <button type="button" onClick={() => setShowSbModal(false)} aria-label="Close Supabase modal" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-slate-700 dark:hover:text-white text-base font-bold">✕</button>
                 </div>
 
               <div className="space-y-4">
@@ -2898,8 +3041,8 @@
               <div className="text-center mb-3.5 w-full">
                 <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight animate-heading flex items-center justify-center gap-2 flex-wrap">
                   Diploma, NC11 Trainer Portal
-                  <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-sky-200 bg-sky-500/20 border border-sky-400/30 px-2 py-0.5 rounded-full shadow-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-sky-300"></span>
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-sky-700 dark:text-sky-200 bg-sky-100 dark:bg-sky-500/20 border border-sky-300 dark:border-sky-400/30 px-2 py-0.5 rounded-full shadow-sm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky-600 dark:bg-sky-300"></span>
                     TESDA Accredited
                   </span>
                 </h1>
@@ -3090,7 +3233,7 @@
                     <h1 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                       Diploma, NC11 Trainer Portal
                     </h1>
-                    <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-sky-700 bg-sky-50 border border-sky-200 dark:text-sky-300 dark:bg-sky-500/15 dark:border-sky-500/30 px-2.5 py-0.5 rounded-full shadow-sm">
+                    <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-sky-700 bg-sky-50 border border-sky-200 dark:text-sky-300 dark:bg-sky-500/15 dark:border-sky-500/30 px-2.5 py-0.5 rounded-full shadow-sm transition-colors">
                       <span className="w-1.5 h-1.5 rounded-full bg-sky-600 dark:bg-sky-400"></span>
                       TESDA Accredited
                     </span>
@@ -3168,21 +3311,21 @@
             <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-6 sm:py-8 space-y-6">
               {/* ROLE STATUS BANNER (ADMIN ONLY) */}
               {currentUser?.is_admin ? (
-                <div className="bg-emerald-950/30 border border-emerald-500/30 rounded-xl p-3.5 sm:p-4 flex items-center justify-between shadow-sm">
+                <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/30 rounded-xl p-3.5 sm:p-4 flex items-center justify-between shadow-sm">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 flex-shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-500/15 border border-emerald-300 dark:border-emerald-500/30 flex items-center justify-center text-emerald-700 dark:text-emerald-400 flex-shrink-0">
                       <Icons.Shield className="w-4 h-4" />
                     </div>
                     <div>
-                      <h3 className="text-xs font-bold text-emerald-400 uppercase tracking-wider">
+                      <h3 className="text-xs font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-wider">
                         Administrator Mode Active
                       </h3>
-                      <p className="text-xs text-slate-300 mt-0.5">
+                      <p className="text-xs text-emerald-900/80 dark:text-slate-300 mt-0.5">
                         You have authorization to edit student credentials, verify requirements, and manage the clearance registry.
                       </p>
                     </div>
                   </div>
-                  <span className="hidden sm:inline-flex items-center text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  <span className="hidden sm:inline-flex items-center text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-500/30">
                     Admin: Active
                   </span>
                 </div>
@@ -3190,15 +3333,15 @@
 
               {/* SEARCH BOX (DISPLAYED WHEN NOT VIEWING A CANDIDATE RESULT) */}
               {!searchResult && (
-                <div className="main-portal-card bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl max-w-2xl w-full mx-auto space-y-6">
+                <div className="main-portal-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl max-w-2xl w-full mx-auto space-y-6">
                   <div className="text-center space-y-2">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-sky-400 bg-sky-500/10 px-3 py-1 rounded-full border border-sky-500/20 inline-block">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-sky-700 dark:text-sky-400 bg-sky-50 dark:bg-sky-500/10 px-3 py-1 rounded-full border border-sky-200 dark:border-sky-500/20 inline-block shadow-sm">
                       Clearance Verification
                     </span>
-                    <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                       Check your Diploma, NC11 Trainer Requirements
                     </h2>
-                    <p className="text-xs sm:text-sm text-slate-400">
+                    <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
                       Enter your Batch Number and Full Name to check if you have any lacking or pending requirements for clearance.
                     </p>
                   </div>
@@ -3230,7 +3373,7 @@
                   <form onSubmit={(e) => { e.preventDefault(); performSearch(); }} className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="search-batch" className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        <label htmlFor="search-batch" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
                           Batch Number
                         </label>
                         <input
@@ -3242,13 +3385,13 @@
                             setBatchNumber(e.target.value);
                             if (hasSearched && !searchResult) setHasSearched(false);
                           }}
-                          className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none transition-all shadow-sm"
+                          className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 bg-white dark:bg-transparent focus:outline-none transition-all shadow-sm"
                           required
                         />
                       </div>
 
                       <div>
-                        <label htmlFor="search-fullname" className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        <label htmlFor="search-fullname" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
                           Full Name
                         </label>
                         <input
@@ -3260,7 +3403,7 @@
                             setFullName(e.target.value);
                             if (hasSearched && !searchResult) setHasSearched(false);
                           }}
-                          className="w-full input-animated border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none transition-all shadow-sm"
+                          className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 bg-white dark:bg-transparent focus:outline-none transition-all shadow-sm"
                           required
                         />
                       </div>
@@ -3299,7 +3442,7 @@
                 return (
                   <div className="space-y-6 animate-in fade-in duration-200">
                     {/* TOP ACTION TOOLBAR */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/80 border border-slate-800 px-4 py-2.5 rounded-xl">
+                    <div className="flex flex-wrap items-center justify-between gap-3 bg-white/90 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 px-4 py-2.5 rounded-xl shadow-sm">
                       <button
                         type="button"
                         onClick={() => {
@@ -3313,13 +3456,13 @@
                       </button>
 
                       <div className="flex items-center gap-3 text-xs">
-                        <span className="text-slate-400 font-mono hidden sm:inline">
-                          Candidate: <span className="text-white font-bold">{searchResult.full_name}</span>
+                        <span className="text-slate-500 dark:text-slate-400 font-mono hidden sm:inline">
+                          Candidate: <span className="text-slate-900 dark:text-white font-bold">{searchResult.full_name}</span>
                         </span>
                         <span className={`text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border flex items-center gap-1.5 ${
                           isCleared
-                            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
-                            : 'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                            ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/30'
+                            : 'bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-500/30'
                         }`}>
                           {isCleared ? (
                             <Icons.CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
@@ -3332,8 +3475,8 @@
                     </div>
 
                     {/* UNIFIED CANDIDATE CLEARANCE OVERVIEW PANEL */}
-                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-6">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-800">
+                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-6">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-200 dark:border-slate-800">
                         {/* Intern Identity */}
                         <div className="flex items-center gap-4">
                           <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-2xl font-black text-white shadow-md flex-shrink-0">
@@ -3341,15 +3484,15 @@
                           </div>
                           <div>
                             <div className="flex flex-wrap items-center gap-2">
-                              <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                                 {searchResult.full_name}
                               </h3>
-                              <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/30">
+                              <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-500/10 text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-500/30">
                                 {searchResult.student_id}
                               </span>
                             </div>
-                            <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 mt-1">
-                              <span className="font-semibold text-slate-300">{searchResult.batch_number}</span>
+                            <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-1">
+                              <span className="font-semibold text-slate-700 dark:text-slate-300">{searchResult.batch_number}</span>
                               <span>•</span>
                               <span>{searchResult.department}</span>
                             </div>
@@ -3371,7 +3514,7 @@
                             </button>
                           ) : (
                             <div className="flex items-center gap-2">
-                              <span className="text-xs font-semibold text-slate-400 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 flex items-center gap-1.5 shadow-sm">
+                              <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center gap-1.5 shadow-sm">
                                 <Icons.User className="w-3.5 h-3.5 text-slate-400" />
                                 <span>Verified Student Record</span>
                               </span>
@@ -3396,14 +3539,14 @@
                       {/* CLEARANCE PROGRESS BAR */}
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="font-semibold text-slate-300">
+                          <span className="font-semibold text-slate-700 dark:text-slate-300">
                             Clearance Completion
                           </span>
-                          <span className="font-mono font-bold text-white">
+                          <span className="font-mono font-bold text-slate-900 dark:text-white">
                             {submittedList.length} of {totalReqs} Approved ({percentComplete}%)
                           </span>
                         </div>
-                        <div className="w-full h-2.5 bg-slate-950 rounded-full overflow-hidden border border-slate-800">
+                        <div className="w-full h-2.5 bg-slate-100 dark:bg-slate-950 rounded-full overflow-hidden border border-slate-200 dark:border-slate-800">
                           <div
                             className={`h-full rounded-full transition-all duration-500 ${
                               percentComplete === 100
@@ -3469,13 +3612,13 @@
 
                     {/* CRITICAL ALERT NOTICE (IF LACKING) */}
                     {lackingList.length > 0 && (
-                      <div className="bg-red-950/30 border border-red-500/30 rounded-xl p-3.5 sm:p-4 flex items-start gap-3 shadow-sm">
-                        <Icons.AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                      <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-500/30 rounded-xl p-3.5 sm:p-4 flex items-start gap-3 shadow-sm">
+                        <Icons.AlertCircle className="w-5 h-5 text-red-500 dark:text-red-400 flex-shrink-0 mt-0.5" />
                         <div>
-                          <h4 className="text-xs sm:text-sm font-bold text-red-200">
+                          <h4 className="text-xs sm:text-sm font-bold text-red-800 dark:text-red-200">
                             Attention: You have {lackingList.length} Lacking Requirement{lackingList.length > 1 ? 's' : ''}!
                           </h4>
-                          <p className="text-xs text-red-300/80 mt-0.5 leading-relaxed">
+                          <p className="text-xs text-red-700/90 dark:text-red-300/80 mt-0.5 leading-relaxed">
                             Diploma and NC11 Trainer clearance cannot be approved until all lacking documents are submitted or digitally scanned into the KM100 registry.
                           </p>
                         </div>
@@ -3483,13 +3626,13 @@
                     )}
 
                     {/* REQUIREMENTS REGISTRY TABLE / LIST */}
-                    <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
-                      <div className="p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800">
+                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl overflow-hidden">
+                      <div className="p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800">
                         <div>
-                          <h4 className="text-base font-bold text-white">
+                          <h4 className="text-base font-bold text-slate-900 dark:text-white">
                             Prescribed Requirements Registry
                           </h4>
-                          <p className="text-xs text-slate-400 mt-0.5">
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                             {currentUser.is_admin
                               ? 'Admin Mode: Update compliance status or upload digital document scans.'
                               : 'Student View: Showing verified compliance status and official remarks.'}
@@ -3509,7 +3652,7 @@
                           )}
 
                           {/* FILTER PILL TABS */}
-                          <div className="flex flex-wrap gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800 text-xs">
+                          <div className="flex flex-wrap gap-1 bg-slate-100 dark:bg-slate-950 p-1 rounded-lg border border-slate-200 dark:border-slate-800 text-xs">
                             {[
                               { id: 'all', label: `All (${totalReqs})` },
                               { id: 'lacking', label: `Lacking (${lackingList.length})` },
@@ -3522,7 +3665,7 @@
                                 className={`px-2.5 py-1 rounded-md text-xs font-semibold transition ${
                                   activeFilter === tab.id
                                     ? 'bg-sky-600 text-white shadow-sm'
-                                    : 'text-slate-400 hover:text-white'
+                                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                                 }`}
                               >
                                 {tab.label}
@@ -3533,7 +3676,7 @@
                       </div>
 
                       {/* REQUIREMENT REGISTRY ROWS */}
-                      <div className="divide-y divide-slate-800/80">
+                      <div className="divide-y divide-slate-200 dark:divide-slate-800/80">
                         {filteredRequirements.map(req => {
                           const isLacking = req.status === 'lacking';
                           const isPending = req.status === 'pending';
@@ -3541,7 +3684,7 @@
                           return (
                             <div
                               key={req.id}
-                              className="p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-3.5 hover:bg-slate-800/30 transition-colors duration-150"
+                              className="p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-3.5 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors duration-150"
                             >
                               <div className="flex items-start gap-3">
                                 <div className="mt-0.5 flex-shrink-0">
@@ -3555,24 +3698,24 @@
                                 </div>
                                 <div className="space-y-1">
                                   <div className="flex flex-wrap items-center gap-2">
-                                    <h5 className="text-sm font-semibold text-white">
+                                    <h5 className="text-sm font-semibold text-slate-900 dark:text-white">
                                       {req.name}
                                     </h5>
                                     <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
                                       isLacking
-                                        ? 'bg-red-500/15 text-red-400 border border-red-500/30'
+                                        ? 'bg-red-50 dark:bg-red-500/15 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-500/30'
                                         : isPending
-                                          ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
-                                          : 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+                                          ? 'bg-amber-50 dark:bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-500/30'
+                                          : 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30'
                                     }`}>
                                       {req.status}
                                     </span>
                                   </div>
-                                  <p className={`text-xs ${isLacking ? 'text-red-300 font-medium' : 'text-slate-400'}`}>
+                                  <p className={`text-xs ${isLacking ? 'text-red-700 dark:text-red-300 font-medium' : 'text-slate-500 dark:text-slate-400'}`}>
                                     {req.remarks}
                                   </p>
                                   {req.scanned_at && (
-                                    <p className="text-[11px] text-slate-400 flex items-center gap-1 font-mono">
+                                    <p className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1 font-mono">
                                       <Icons.Calendar className="w-3 h-3" />
                                       <span>Scanned: {req.scanned_at}</span>
                                     </p>
@@ -3603,7 +3746,7 @@
                                 )}
 
                                 {!req.document_url && !currentUser.is_admin && (
-                                  <span className="text-[11px] font-semibold text-red-400 bg-red-500/10 px-3 py-1 rounded-lg border border-red-500/20">
+                                  <span className="text-[11px] font-semibold text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-500/10 px-3 py-1 rounded-lg border border-red-200 dark:border-red-500/20">
                                     Required: Submit to Scanner
                                   </span>
                                 )}
@@ -3624,46 +3767,46 @@
             {showEditInternModal && (
               <ModalPortal>
                 <div className="fixed-modal-overlay">
-                  <form role="dialog" aria-modal="true" aria-labelledby="edit-intern-title" onSubmit={handleSaveInternCredentials} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-4 sm:p-6 max-w-lg w-full max-h-[calc(100vh-1.5rem)] overflow-y-auto m-auto shadow-2xl space-y-3.5 animate-modal-pop">
-                    <div className="flex items-center justify-between pb-2.5 border-b border-slate-800">
+                  <form role="dialog" aria-modal="true" aria-labelledby="edit-intern-title" onSubmit={handleSaveInternCredentials} className="bg-white dark:bg-slate-900 border border-emerald-500/30 dark:border-emerald-500/50 rounded-2xl p-4 sm:p-6 max-w-lg w-full max-h-[calc(100vh-1.5rem)] overflow-y-auto m-auto shadow-2xl space-y-3.5 animate-modal-pop">
+                    <div className="flex items-center justify-between pb-2.5 border-b border-slate-200 dark:border-slate-800">
                       <div className="flex items-center gap-2.5">
                         <button
                           type="button"
                           onClick={() => setShowEditInternModal(false)}
                           aria-label="Back and close edit student dialog"
-                          className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                          className="text-xs text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center gap-1 transition"
                         >
                           <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
                         </button>
                         <div>
-                          <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
-                          <h3 id="edit-intern-title" className="text-base font-bold text-white mt-0.5">Edit Student Credentials</h3>
+                          <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
+                          <h3 id="edit-intern-title" className="text-base font-bold text-slate-900 dark:text-white mt-0.5">Edit Student Credentials</h3>
                         </div>
                       </div>
-                      <button type="button" onClick={() => setShowEditInternModal(false)} aria-label="Close dialog" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-white text-base font-bold">✕</button>
+                      <button type="button" onClick={() => setShowEditInternModal(false)} aria-label="Close dialog" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-slate-700 dark:hover:text-white text-base font-bold">✕</button>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label htmlFor="edit-name" className="block text-xs font-semibold text-slate-300 mb-1">Full Name</label>
+                        <label htmlFor="edit-name" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Full Name</label>
                         <input
                           id="edit-name"
                           type="text"
                           value={editName}
                           onChange={(e) => setEditName(e.target.value)}
-                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                          className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-emerald-500 shadow-sm"
                           required
                         />
                       </div>
 
                       <div>
-                        <label htmlFor="edit-batch" className="block text-xs font-semibold text-slate-300 mb-1">Batch Number</label>
+                        <label htmlFor="edit-batch" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Batch Number</label>
                         <input
                           id="edit-batch"
                           type="text"
                           value={editBatch}
                           onChange={(e) => setEditBatch(e.target.value)}
-                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                          className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-emerald-500 shadow-sm"
                           required
                         />
                       </div>
@@ -3671,47 +3814,47 @@
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label htmlFor="edit-id" className="block text-xs font-semibold text-slate-300 mb-1">Student ID / Trainer No.</label>
+                        <label htmlFor="edit-id" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Student ID / Trainer No.</label>
                         <input
                           id="edit-id"
                           type="text"
                           value={editStudentId}
                           onChange={(e) => setEditStudentId(e.target.value)}
-                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                          className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-emerald-500 shadow-sm"
                         />
                       </div>
 
                       <div>
-                        <label htmlFor="edit-dept" className="block text-xs font-semibold text-slate-300 mb-1">Department</label>
+                        <label htmlFor="edit-dept" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Department</label>
                         <input
                           id="edit-dept"
                           type="text"
                           value={editDept}
                           onChange={(e) => setEditDept(e.target.value)}
-                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                          className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-emerald-500 shadow-sm"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label htmlFor="edit-email" className="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
+                        <label htmlFor="edit-email" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
                         <input
                           id="edit-email"
                           type="email"
                           value={editEmail}
                           onChange={(e) => setEditEmail(e.target.value)}
-                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                          className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-emerald-500 shadow-sm"
                         />
                       </div>
 
                       <div>
-                        <label htmlFor="edit-status" className="block text-xs font-semibold text-slate-300 mb-1">Overall Clearance Status</label>
+                        <label htmlFor="edit-status" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Overall Clearance Status</label>
                         <select
                           id="edit-status"
                           value={editOverallStatus}
                           onChange={(e) => setEditOverallStatus(e.target.value)}
-                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                          className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-emerald-500 shadow-sm"
                         >
                           <option value="incomplete">Incomplete (Lacking Documents)</option>
                           <option value="pending">Pending (Under Review)</option>
@@ -3722,7 +3865,7 @@
 
                     <div className="pt-2 border-t border-slate-800 space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <label htmlFor="edit-password" className="block text-xs font-semibold text-slate-300">
+                        <label htmlFor="edit-password" className="block text-xs font-semibold text-slate-700 dark:text-slate-300">
                           Student Account Password
                         </label>
                         <span className="text-[10px] text-emerald-400 font-mono">Encrypted</span>
@@ -3735,7 +3878,7 @@
                             value={editPassword}
                             onChange={(e) => setEditPassword(e.target.value)}
                             placeholder="Set password for student"
-                            className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 pr-9 text-xs text-white focus:outline-none focus:border-emerald-500"
+                            className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 pr-9 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-emerald-500 shadow-sm"
                           />
                           <button
                             type="button"
@@ -3767,7 +3910,7 @@
                       <button
                         type="button"
                         onClick={() => setShowEditInternModal(false)}
-                        className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition"
+                        className="py-2 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-semibold transition"
                       >
                         Cancel
                       </button>
@@ -3787,23 +3930,23 @@
             {showEditReqModal && editingReq && (
               <ModalPortal>
                 <div className="fixed-modal-overlay">
-                  <form role="dialog" aria-modal="true" aria-labelledby="edit-req-title" onSubmit={handleSaveRequirementUpdate} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-4 sm:p-6 max-w-md w-full max-h-[calc(100vh-1.5rem)] overflow-y-auto m-auto shadow-2xl space-y-3 animate-modal-pop">
-                    <div className="flex items-center justify-between pb-2.5 border-b border-slate-800">
+                  <form role="dialog" aria-modal="true" aria-labelledby="edit-req-title" onSubmit={handleSaveRequirementUpdate} className="bg-white dark:bg-slate-900 border border-emerald-500/30 dark:border-emerald-500/50 rounded-2xl p-4 sm:p-6 max-w-md w-full max-h-[calc(100vh-1.5rem)] overflow-y-auto m-auto shadow-2xl space-y-3 animate-modal-pop">
+                    <div className="flex items-center justify-between pb-2.5 border-b border-slate-200 dark:border-slate-800">
                       <div className="flex items-center gap-2.5">
                         <button
                           type="button"
                           onClick={() => setShowEditReqModal(false)}
                           aria-label="Back and close update requirement dialog"
-                          className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                          className="text-xs text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center gap-1 transition"
                         >
                           <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
                         </button>
                         <div>
-                          <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
-                          <h3 id="edit-req-title" className="text-base font-bold text-white mt-0.5">Update Requirement Status</h3>
+                          <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
+                          <h3 id="edit-req-title" className="text-base font-bold text-slate-900 dark:text-white mt-0.5">Update Requirement Status</h3>
                         </div>
                       </div>
-                      <button type="button" onClick={() => setShowEditReqModal(false)} aria-label="Close dialog" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-white text-base font-bold">✕</button>
+                      <button type="button" onClick={() => setShowEditReqModal(false)} aria-label="Close dialog" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-slate-700 dark:hover:text-white text-base font-bold">✕</button>
                     </div>
 
                     <div>
@@ -3812,7 +3955,7 @@
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Compliance Status</label>
+                      <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Compliance Status</label>
                       <div className="grid grid-cols-3 gap-2">
                         {[
                           { id: 'lacking', label: 'Lacking', icon: <Icons.XCircle className="w-3.5 h-3.5 text-red-500" />, color: 'border-red-500/40 text-red-400 bg-red-500/10' },
@@ -3824,7 +3967,7 @@
                             key={st.id}
                             onClick={() => setEditReqStatus(st.id)}
                             className={`py-2 rounded-xl text-xs font-semibold border transition flex items-center justify-center gap-1.5 ${
-                              editReqStatus === st.id ? st.color : 'bg-slate-950 border-slate-800 text-slate-400'
+                              editReqStatus === st.id ? st.color : 'bg-slate-100 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                             }`}
                           >
                             {st.icon}
@@ -3835,26 +3978,26 @@
                     </div>
 
                     <div>
-                      <label htmlFor="edit-req-remarks" className="block text-xs font-semibold text-slate-300 mb-1">Admin Remarks / Verification Notes</label>
+                      <label htmlFor="edit-req-remarks" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Admin Remarks / Verification Notes</label>
                       <textarea
                         id="edit-req-remarks"
                         rows="2"
                         value={editReqRemarks}
                         onChange={(e) => setEditReqRemarks(e.target.value)}
                         placeholder="e.g. Official transcript verified. / Missing page 2 stamp."
-                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                        className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-emerald-500 shadow-sm"
                       ></textarea>
                     </div>
 
                     <div>
-                      <label htmlFor="edit-req-docurl" className="block text-xs font-semibold text-slate-300 mb-1">Scanned Document URL (Optional)</label>
+                      <label htmlFor="edit-req-docurl" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Scanned Document URL (Optional)</label>
                       <input
                         id="edit-req-docurl"
                         type="url"
                         value={editReqDocUrl}
                         onChange={(e) => setEditReqDocUrl(e.target.value)}
                         placeholder="https://... image or PDF URL"
-                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono"
+                        className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-emerald-500 font-mono shadow-sm"
                       />
                     </div>
 
@@ -3862,7 +4005,7 @@
                       <button
                         type="button"
                         onClick={() => setShowEditReqModal(false)}
-                        className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition"
+                        className="py-2 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-semibold transition"
                       >
                         Cancel
                       </button>
@@ -3882,45 +4025,45 @@
             {showAddReqModal && (
               <ModalPortal>
                 <div className="fixed-modal-overlay">
-                  <form role="dialog" aria-modal="true" aria-labelledby="add-req-title" onSubmit={handleSaveAddRequirement} className="bg-slate-900 border border-emerald-500/50 rounded-2xl p-4 sm:p-6 max-w-md w-full max-h-[calc(100vh-1.5rem)] overflow-y-auto m-auto shadow-2xl space-y-3 animate-modal-pop">
-                    <div className="flex items-center justify-between pb-2.5 border-b border-slate-800">
+                  <form role="dialog" aria-modal="true" aria-labelledby="add-req-title" onSubmit={handleSaveAddRequirement} className="bg-white dark:bg-slate-900 border border-emerald-500/30 dark:border-emerald-500/50 rounded-2xl p-4 sm:p-6 max-w-md w-full max-h-[calc(100vh-1.5rem)] overflow-y-auto m-auto shadow-2xl space-y-3 animate-modal-pop">
+                    <div className="flex items-center justify-between pb-2.5 border-b border-slate-200 dark:border-slate-800">
                       <div className="flex items-center gap-2.5">
                         <button
                           type="button"
                           onClick={() => setShowAddReqModal(false)}
                           aria-label="Back and close add requirement dialog"
-                          className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                          className="text-xs text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center gap-1 transition"
                         >
                           <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
                         </button>
                         <div>
-                          <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
-                          <h3 id="add-req-title" className="text-base font-bold text-white mt-0.5">Add Prescribed Requirement</h3>
+                          <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">Admin Exclusive</span>
+                          <h3 id="add-req-title" className="text-base font-bold text-slate-900 dark:text-white mt-0.5">Add Prescribed Requirement</h3>
                         </div>
                       </div>
-                      <button type="button" onClick={() => setShowAddReqModal(false)} aria-label="Close dialog" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-white text-base font-bold">✕</button>
+                      <button type="button" onClick={() => setShowAddReqModal(false)} aria-label="Close dialog" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-slate-700 dark:hover:text-white text-base font-bold">✕</button>
                     </div>
 
                     <div>
-                      <label htmlFor="new-req-name" className="block text-xs font-semibold text-slate-300 mb-1">Requirement Title</label>
+                      <label htmlFor="new-req-name" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Requirement Title</label>
                       <input
                         id="new-req-name"
                         type="text"
                         value={newReqName}
                         onChange={(e) => setNewReqName(e.target.value)}
                         placeholder="e.g. Industry Immersion Assessment"
-                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                        className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-emerald-500 shadow-sm"
                         required
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="new-req-status" className="block text-xs font-semibold text-slate-300 mb-1">Initial Status</label>
+                      <label htmlFor="new-req-status" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Initial Status</label>
                       <select
                         id="new-req-status"
                         value={newReqStatus}
                         onChange={(e) => setNewReqStatus(e.target.value)}
-                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                        className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-emerald-500 shadow-sm"
                       >
                         <option value="lacking">Lacking (Missing document)</option>
                         <option value="pending">Pending (Awaiting review)</option>
@@ -3929,14 +4072,14 @@
                     </div>
 
                     <div>
-                      <label htmlFor="new-req-remarks" className="block text-xs font-semibold text-slate-300 mb-1">Remarks / Submission Instructions</label>
+                      <label htmlFor="new-req-remarks" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Remarks / Submission Instructions</label>
                       <textarea
                         id="new-req-remarks"
                         rows="2"
                         value={newReqRemarks}
                         onChange={(e) => setNewReqRemarks(e.target.value)}
                         placeholder="e.g. Must be stamped by authorized supervisor."
-                        className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                        className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-emerald-500 shadow-sm"
                       ></textarea>
                     </div>
 
@@ -3944,7 +4087,7 @@
                       <button
                         type="button"
                         onClick={() => setShowAddReqModal(false)}
-                        className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition"
+                        className="py-2 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-semibold transition"
                       >
                         Cancel
                       </button>
@@ -3965,8 +4108,8 @@
             {selectedDocument && (
               <ModalPortal>
                 <div className="fixed-modal-overlay">
-                  <div role="dialog" aria-modal="true" aria-labelledby="view-doc-title" className="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 max-w-2xl w-full max-h-[calc(100vh-1.5rem)] overflow-y-auto m-auto shadow-2xl space-y-3.5 animate-modal-pop">
-                    <div className="flex items-center justify-between pb-2.5 border-b border-slate-800">
+                  <div role="dialog" aria-modal="true" aria-labelledby="view-doc-title" className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 sm:p-6 max-w-2xl w-full max-h-[calc(100vh-1.5rem)] overflow-y-auto m-auto shadow-2xl space-y-3.5 animate-modal-pop">
+                    <div className="flex items-center justify-between pb-2.5 border-b border-slate-200 dark:border-slate-800">
                       <div className="flex items-center gap-2.5">
                         <button
                           onClick={() => setSelectedDocument(null)}
@@ -3976,27 +4119,27 @@
                           <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
                         </button>
                         <div>
-                          <span className="text-[10px] font-bold text-sky-400 uppercase tracking-wider">Scanned Document In System</span>
-                          <h3 id="view-doc-title" className="text-base sm:text-lg font-bold text-white mt-0.5">{selectedDocument.name}</h3>
+                          <span className="text-[10px] font-bold text-sky-700 dark:text-sky-400 uppercase tracking-wider">Scanned Document In System</span>
+                          <h3 id="view-doc-title" className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-0.5">{selectedDocument.name}</h3>
                         </div>
                       </div>
-                      <button onClick={() => setSelectedDocument(null)} aria-label="Close document viewer" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-white text-base font-bold">✕</button>
+                      <button onClick={() => setSelectedDocument(null)} aria-label="Close document viewer" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-slate-700 dark:hover:text-white text-base font-bold">✕</button>
                     </div>
 
-                    <div className="max-h-64 sm:max-h-72 h-auto min-h-[160px] rounded-xl overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center p-2">
+                    <div className="max-h-64 sm:max-h-72 h-auto min-h-[160px] rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center justify-center p-2">
                       <img src={selectedDocument.document_url} alt="Scanned Document" loading="lazy" decoding="async" className="max-h-60 sm:max-h-68 max-w-full object-contain" />
                     </div>
 
-                    <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1">
-                      <p className="text-slate-300"><span className="text-slate-400">Document Status:</span> <span className="text-emerald-400 font-bold uppercase">{selectedDocument.status}</span></p>
-                      <p className="text-slate-300"><span className="text-slate-400">Remarks:</span> {selectedDocument.remarks}</p>
-                      <p className="text-slate-300"><span className="text-slate-400">Verified Timestamp:</span> {selectedDocument.scanned_at || "Verified"}</p>
+                    <div className="bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-xs space-y-1">
+                      <p className="text-slate-700 dark:text-slate-300"><span className="text-slate-500 dark:text-slate-400 font-medium">Document Status:</span> <span className="text-emerald-700 dark:text-emerald-400 font-bold uppercase">{selectedDocument.status}</span></p>
+                      <p className="text-slate-700 dark:text-slate-300"><span className="text-slate-500 dark:text-slate-400 font-medium">Remarks:</span> {selectedDocument.remarks}</p>
+                      <p className="text-slate-700 dark:text-slate-300"><span className="text-slate-500 dark:text-slate-400 font-medium">Verified Timestamp:</span> {selectedDocument.scanned_at || "Verified"}</p>
                     </div>
 
                     <div className="pt-1.5">
                       <button
                         onClick={() => setSelectedDocument(null)}
-                        className="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition flex items-center justify-center gap-1.5"
+                        className="w-full py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-semibold transition flex items-center justify-center gap-1.5"
                       >
                         <Icons.ArrowLeft className="w-3.5 h-3.5" />
                         <span>Return to Registry</span>
@@ -4016,50 +4159,50 @@
                     aria-modal="true"
                     aria-labelledby="change-password-title"
                     onSubmit={handleSaveMyPassword}
-                    className="bg-slate-900 border border-sky-500/50 rounded-2xl p-4 sm:p-6 max-w-md w-full max-h-[calc(100vh-1.5rem)] overflow-y-auto m-auto shadow-2xl space-y-3.5 animate-modal-pop"
+                    className="bg-white dark:bg-slate-900 border border-sky-500/30 dark:border-sky-500/50 rounded-2xl p-4 sm:p-6 max-w-md w-full max-h-[calc(100vh-1.5rem)] overflow-y-auto m-auto shadow-2xl space-y-3.5 animate-modal-pop"
                   >
-                    <div className="flex items-center justify-between pb-2.5 border-b border-slate-800">
+                    <div className="flex items-center justify-between pb-2.5 border-b border-slate-200 dark:border-slate-800">
                       <div className="flex items-center gap-2.5">
                         <button
                           type="button"
                           onClick={() => setShowChangePasswordModal(false)}
                           aria-label="Back and close password dialog"
-                          className="text-xs text-slate-300 hover:text-white px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center gap-1 transition"
+                          className="text-xs text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center gap-1 transition"
                         >
                           <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back
                         </button>
                         <div>
-                          <span className="text-[10px] font-bold text-sky-400 uppercase tracking-wider">Account Security</span>
-                          <h3 id="change-password-title" className="text-base font-bold text-white mt-0.5">Reset Password</h3>
+                          <span className="text-[10px] font-bold text-sky-700 dark:text-sky-400 uppercase tracking-wider">Account Security</span>
+                          <h3 id="change-password-title" className="text-base font-bold text-slate-900 dark:text-white mt-0.5">Reset Password</h3>
                         </div>
                       </div>
                       <button
                         type="button"
                         onClick={() => setShowChangePasswordModal(false)}
                         aria-label="Close dialog"
-                        className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-white text-base font-bold"
+                        className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-slate-700 dark:hover:text-white text-base font-bold"
                       >
                         ✕
                       </button>
                     </div>
 
-                    <div className="bg-sky-500/10 border border-sky-500/20 rounded-xl p-3 text-xs text-slate-300 space-y-1">
+                    <div className="bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 rounded-xl p-3 text-xs text-slate-700 dark:text-slate-300 space-y-1">
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-400">Account:</span>
-                        <span className="font-semibold text-white">{currentUser?.email}</span>
+                        <span className="text-slate-500 dark:text-slate-400 font-medium">Account:</span>
+                        <span className="font-semibold text-slate-900 dark:text-white">{currentUser?.email}</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-400">Role:</span>
-                        <span className="font-mono text-sky-400 uppercase">{currentUser?.role || (currentUser?.is_admin ? 'Admin' : 'Student')}</span>
+                        <span className="text-slate-500 dark:text-slate-400 font-medium">Role:</span>
+                        <span className="font-mono text-sky-700 dark:text-sky-400 font-bold uppercase">{currentUser?.role || (currentUser?.is_admin ? 'Admin' : 'Student')}</span>
                       </div>
-                      <p className="text-[11px] text-sky-300 pt-1 border-t border-sky-500/20">
+                      <p className="text-[11px] text-sky-700 dark:text-sky-300 pt-1 border-t border-sky-200 dark:border-sky-500/20">
                         Updates and secures your portal account credentials.
                       </p>
                     </div>
 
                     <div className="space-y-3">
                       <div>
-                        <label htmlFor="reset-new-password" className="block text-xs font-semibold text-slate-300 mb-1">New Password</label>
+                        <label htmlFor="reset-new-password" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">New Password</label>
                         <div className="relative">
                           <input
                             id="reset-new-password"
@@ -4067,7 +4210,7 @@
                             value={myNewPassword}
                             onChange={(e) => setMyNewPassword(e.target.value)}
                             placeholder="Minimum 6 characters"
-                            className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 pr-9 text-xs text-white focus:outline-none focus:border-sky-500"
+                            className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 pr-9 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-sky-500 shadow-sm"
                             required
                             minLength={6}
                           />
@@ -4084,14 +4227,14 @@
                       </div>
 
                       <div>
-                        <label htmlFor="reset-confirm-password" className="block text-xs font-semibold text-slate-300 mb-1">Confirm New Password</label>
+                        <label htmlFor="reset-confirm-password" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Confirm New Password</label>
                         <input
                           id="reset-confirm-password"
                           type={showMyPassword ? "text" : "password"}
                           value={myConfirmPassword}
                           onChange={(e) => setMyConfirmPassword(e.target.value)}
                           placeholder="Re-type new password"
-                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500"
+                          className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-sky-500 shadow-sm"
                           required
                           minLength={6}
                         />
@@ -4102,7 +4245,7 @@
                       <button
                         type="button"
                         onClick={() => setShowChangePasswordModal(false)}
-                        className="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition"
+                        className="py-2 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-semibold transition"
                       >
                         Cancel
                       </button>
