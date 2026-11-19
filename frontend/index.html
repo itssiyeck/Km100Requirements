@@ -2125,8 +2125,8 @@
       if (currentView === 'redirecting') {
         const targetUser = redirectingUser || currentUser || { name: 'User', is_admin: false };
         return (
-          <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-4 sm:p-6 relative overflow-hidden">
-            <div className="absolute top-4 right-4 z-30">
+          <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center px-4 py-8 sm:px-6 relative overflow-hidden">
+            <div className="absolute top-4 right-4 sm:top-5 sm:right-6 z-30">
               <ThemeToggle theme={theme} setTheme={setTheme} />
             </div>
 
@@ -2139,7 +2139,7 @@
             </div>
 
             <div className="w-full max-w-md relative z-10 animate-modal-pop">
-              <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-8 sm:p-10 w-full backdrop-blur-xl auth-card-glow text-center space-y-6">
+              <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 w-full backdrop-blur-xl auth-card-glow text-center space-y-5">
                 <div className="relative mx-auto w-20 h-20 flex items-center justify-center">
                   <div className="absolute inset-0 rounded-full border-4 border-sky-500/30 border-t-sky-400 animate-spin"></div>
                   <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/30">
@@ -2195,9 +2195,9 @@
       // =====================================================================
       if (currentView === 'signup') {
         return (
-          <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-4 sm:p-6 relative overflow-hidden py-12">
+          <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center px-4 pt-16 sm:pt-20 pb-10 sm:pb-12 relative overflow-hidden">
             {/* Top Navigation */}
-            <div className="absolute top-4 left-4 right-4 z-30 flex items-center justify-between">
+            <div className="absolute top-4 left-4 right-4 sm:top-5 sm:left-6 sm:right-6 z-30 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <img
                   src="km100-logo.jpg"
@@ -2212,7 +2212,7 @@
                 <button
                   type="button"
                   onClick={() => navigateTo('login')}
-                  className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition flex items-center gap-1.5 shadow-sm active:scale-95"
+                  className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition flex items-center gap-1.5 shadow-sm active:scale-95"
                 >
                   <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back to Sign In
                 </button>
@@ -2230,15 +2230,15 @@
             </div>
 
             {/* Portal Branding */}
-            <div className="text-center mb-6 space-y-2 max-w-md relative z-10">
+            <div className="text-center mb-5 space-y-1.5 max-w-md relative z-10">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-0.5 rounded-full inline-block mb-1.5 shadow-sm">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-0.5 rounded-full inline-block mb-1 shadow-sm">
                   Create Clearance Account
                 </span>
                 <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight animate-heading">
                   Sign Up for Portal Access
                 </h1>
-                <p className="text-xs text-slate-400 animate-subtitle mt-1">
+                <p className="text-xs text-slate-400 animate-subtitle mt-0.5">
                   Register as a Student or Administrator to verify clearance requirements
                 </p>
               </div>
@@ -2247,7 +2247,7 @@
             {/* SIGN UP CARD */}
             <div className="w-full max-w-md relative z-10">
               <div
-                className={`bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 w-full shadow-xl auth-card-glow space-y-5 transition-all duration-200 ${shakeError ? 'shake-error' : ''}`}
+                className={`bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 w-full shadow-xl auth-card-glow space-y-4 transition-all duration-200 ${shakeError ? 'shake-error' : ''}`}
               >
                 {/* Header Switcher */}
                 <div className="flex items-center justify-between pb-3 border-b border-slate-800">
@@ -2377,7 +2377,7 @@
                           placeholder="e.g. Batch 2026-A"
                           value={signupBatch}
                           onChange={(e) => setSignupBatch(e.target.value)}
-                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none shadow-sm transition-all"
+                          className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none shadow-sm transition-all"
                           required
                         />
                       </div>
@@ -2391,7 +2391,7 @@
                           placeholder="e.g. 2026-004"
                           value={signupStudentId}
                           onChange={(e) => setSignupStudentId(e.target.value)}
-                          className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none shadow-sm transition-all"
+                          className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none shadow-sm transition-all"
                         />
                       </div>
                     </div>
@@ -2416,7 +2416,7 @@
                     <button
                       type="submit"
                       disabled={isAuthenticating}
-                      className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 bg-[length:200%_auto] hover:bg-[position:right_center] text-white font-bold text-xs shadow-xl shadow-emerald-600/30 btn-shimmer flex items-center justify-center gap-2 disabled:opacity-75 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
+                      className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 bg-[length:200%_auto] hover:bg-[position:right_center] text-white font-bold text-xs shadow-xl shadow-emerald-600/30 btn-shimmer flex items-center justify-center gap-2 disabled:opacity-75 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
                     >
                       {isAuthenticating ? (
                         <>
@@ -2460,9 +2460,9 @@
       // =====================================================================
       if (currentView === 'login' || !currentUser) {
         return (
-          <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-4 sm:p-6 relative overflow-hidden py-12">
+          <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center px-4 pt-16 sm:pt-20 pb-10 sm:pb-12 relative overflow-hidden">
             {/* Top Navigation */}
-            <div className="absolute top-4 left-4 right-4 z-30 flex items-center justify-between">
+            <div className="absolute top-4 left-4 right-4 sm:top-5 sm:left-6 sm:right-6 z-30 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <img
                   src="km100-logo.jpg"
@@ -2488,15 +2488,15 @@
             </div>
 
             {/* Portal Branding */}
-            <div className="text-center mb-6 space-y-2 max-w-md relative z-10">
+            <div className="text-center mb-5 space-y-1.5 max-w-md relative z-10">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-orange-400 bg-orange-500/10 border border-orange-500/30 px-3 py-0.5 rounded-full inline-block mb-1.5 shadow-sm">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-orange-400 bg-orange-500/10 border border-orange-500/30 px-3 py-0.5 rounded-full inline-block mb-1 shadow-sm">
                   KM100 Skills & Training Center, Inc.
                 </span>
                 <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight animate-heading">
                   Diploma, NC11 Trainer Portal
                 </h1>
-                <p className="text-xs text-slate-400 animate-subtitle mt-1">
+                <p className="text-xs text-slate-400 animate-subtitle mt-0.5">
                   Requirements Clearance & Trainee Verification Gateway
                 </p>
               </div>
@@ -2528,7 +2528,7 @@
             {/* LOGIN CARD WRAPPER */}
             <div className="w-full max-w-md relative z-10">
               <div
-                className={`bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 w-full shadow-xl auth-card-glow space-y-5 transition-all duration-200 ${shakeError ? 'shake-error' : ''}`}
+                className={`bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 w-full shadow-xl auth-card-glow space-y-4 transition-all duration-200 ${shakeError ? 'shake-error' : ''}`}
               >
                 {/* Header Switcher */}
                 <div className="flex items-center justify-between pb-3 border-b border-slate-800">
@@ -2601,7 +2601,7 @@
                     <button
                       type="submit"
                       disabled={isAuthenticating}
-                      className="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-600 via-indigo-600 to-sky-600 bg-[length:200%_auto] hover:bg-[position:right_center] text-white font-bold text-xs shadow-xl shadow-sky-600/30 btn-shimmer flex items-center justify-center gap-2 disabled:opacity-75 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
+                      className="w-full py-3 rounded-xl bg-gradient-to-r from-sky-600 via-indigo-600 to-sky-600 bg-[length:200%_auto] hover:bg-[position:right_center] text-white font-bold text-xs shadow-xl shadow-sky-600/30 btn-shimmer flex items-center justify-center gap-2 disabled:opacity-75 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
                     >
                       {isAuthenticating ? (
                         <>
