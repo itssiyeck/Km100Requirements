@@ -750,16 +750,21 @@
       color: #0f172a !important;
       box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.25) !important;
     }
-      pointer-events: none;
-    }
 
     /* Portal Dashboard Ambient Background */
-    .portal-bg-banner {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
+    .portal-bg-banner,
+    .home-bg-banner {
+      position: fixed !important;
+      inset: 0 !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 0 !important;
+      pointer-events: none !important;
+      overflow: hidden !important;
     }
 
     .portal-bg-banner img {
@@ -2232,7 +2237,7 @@
             </div>
 
             {/* Official KM100 Background Banner */}
-            <div className="home-bg-banner">
+            <div className="home-bg-banner pointer-events-none fixed inset-0 z-0 overflow-hidden">
               <img
                 src="km100-banner.jpg?v=2026"
                 alt="KM100 Skills and Training Center Banner"
@@ -2490,7 +2495,7 @@
             </div>
 
             {/* Official KM100 Training Center High-Res Background Banner */}
-            <div className="home-bg-banner">
+            <div className="home-bg-banner pointer-events-none fixed inset-0 z-0 overflow-hidden">
               <img
                 src="km100-banner.jpg?v=2026"
                 alt="KM100 Skills and Training Center Banner"
@@ -2657,7 +2662,7 @@
       return (
         <div className="flex-1 flex flex-col relative min-h-screen bg-slate-950 overflow-hidden">
           {/* Subtle Ambient Background Backdrop */}
-          <div className="portal-bg-banner">
+          <div className="portal-bg-banner pointer-events-none fixed inset-0 z-0 overflow-hidden">
             <img
               src="km100-banner.jpg?v=2026"
               alt="KM100 Background"
