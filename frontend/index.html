@@ -750,6 +750,38 @@
       border-color: rgba(16, 185, 129, 0.5) !important;
     }
 
+    /* Search Another Candidate Button - Turns into vivid blue on hover in both Light & Dark Mode */
+    .search-another-btn {
+      background-color: #020617;
+      border: 1px solid #1e293b;
+      color: #cbd5e1;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .search-another-btn:hover {
+      background-color: #0284c7 !important;
+      border-color: #0284c7 !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+    }
+    .search-another-btn:hover svg {
+      color: #ffffff !important;
+    }
+
+    .light-theme .search-another-btn {
+      background-color: #f1f5f9 !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #1e293b !important;
+    }
+    .light-theme .search-another-btn:hover {
+      background-color: #0284c7 !important;
+      border-color: #0284c7 !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+    }
+    .light-theme .search-another-btn:hover svg {
+      color: #ffffff !important;
+    }
+
     /* Modals in Light Mode */
     .light-theme .fixed.inset-0.bg-black\/80 {
       background-color: rgba(15, 23, 42, 0.45) !important;
@@ -3078,7 +3110,7 @@
                           setSearchResult(null);
                           setHasSearched(false);
                         }}
-                        className="px-3.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 hover:bg-slate-900 text-slate-300 hover:text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-sm active:scale-95"
+                        className="search-another-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-sm active:scale-95"
                       >
                         <Icons.ArrowLeft className="w-3.5 h-3.5" />
                         <span>Search Another Candidate</span>
