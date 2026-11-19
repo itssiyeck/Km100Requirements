@@ -1770,9 +1770,21 @@
         return saved ? JSON.parse(saved) : INITIAL_AUTH_USERS;
       });
 
+      const REQUIREMENTS_VERSION = 'KM100_REQUIREMENTS_V2026_OFFICIAL_8';
       const [internDatabase, setInternDatabase] = useState(() => {
-        const saved = localStorage.getItem('intern_database');
-        return saved ? JSON.parse(saved) : INITIAL_INTERNS;
+        try {
+          const savedVer = localStorage.getItem('km100_requirements_version');
+          const saved = localStorage.getItem('intern_database');
+          const isObsolete = saved && (saved.includes('Diploma Degree') || saved.includes('NC11') || saved.includes('Trainers Methodology') || saved.includes('Medical Physical'));
+          if (!saved || savedVer !== REQUIREMENTS_VERSION || isObsolete) {
+            localStorage.setItem('km100_requirements_version', REQUIREMENTS_VERSION);
+            localStorage.setItem('intern_database', JSON.stringify(INITIAL_INTERNS));
+            return INITIAL_INTERNS;
+          }
+          return JSON.parse(saved);
+        } catch (e) {
+          return INITIAL_INTERNS;
+        }
       });
 
       // Main Portal State
@@ -1862,6 +1874,48 @@
           document.body.style.overflow = '';
         };
       }, [showEditInternModal, showEditReqModal, showAddReqModal, selectedDocument, showSbModal, showChangePasswordModal]);
+
+      // Ensure that if searchResult is currently showing obsolete requirements, update them immediately
+      useEffect(() => {
+        if (searchResult && Array.isArray(searchResult.requirements)) {
+          const hasObsolete = searchResult.requirements.some(r =>
+            (r.name || '').includes('Diploma Degree') ||
+            (r.name || '').includes('NC11') ||
+            (r.name || '').includes('Trainers Methodology') ||
+            (r.name || '').includes('Medical Physical')
+          );
+          if (hasObsolete) {
+            const match = INITIAL_INTERNS.find(i => i.full_name.toLowerCase() === (searchResult.full_name || '').toLowerCase());
+            if (match) {
+              setSearchResult({
+                ...searchResult,
+                requirements: match.requirements
+              });
+            } else {
+              const isSmaw = (searchResult.department || '').toLowerCase().includes('smaw');
+              const medName = isSmaw
+                ? 'Medical Certificate & Chest X-RAY for SMAW'
+                : 'Medical Certificate for BPP, Driving & CSS NCII';
+              const medRemarks = isSmaw
+                ? 'Medical Certificate and Chest X-RAY are mandatory for SMAW welding trainees. Submit clinic findings.'
+                : 'Standard Medical Certificate required for BPP, Driving, and CSS NCII trainees. Submit physician clearance.';
+
+              setSearchResult({
+                ...searchResult,
+                requirements: [
+                  { id: 'req-1', name: 'Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)', status: 'lacking', remarks: 'Official NSO/PSA copy required. (For married women, submit Marriage Certificate)', document_url: null, scanned_at: null },
+                  { id: 'req-2', name: 'Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137', status: 'lacking', remarks: 'Submit either Transcript of Records (TOR), Diploma, ALS Certificate, Form 138, or Form 137.', document_url: null, scanned_at: null },
+                  { id: 'req-3', name: 'Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)', status: 'lacking', remarks: '4 pcs passport-sized photos with white background, collar, nametag, and signature.', document_url: null, scanned_at: null },
+                  { id: 'req-4', name: 'Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)', status: 'lacking', remarks: '4 pcs 1x1 photos on acid-based photo paper with white background, collar, nametag, and signature.', document_url: null, scanned_at: null },
+                  { id: 'req-5', name: 'Barangay Certificate', status: 'lacking', remarks: 'Current valid Barangay Certificate/Clearance of residency required.', document_url: null, scanned_at: null },
+                  { id: 'req-6', name: medName, status: 'lacking', remarks: medRemarks, document_url: null, scanned_at: null },
+                  { id: 'req-7', name: 'Long Brown Envelope (1pc) & Long White Folder (1pc)', status: 'lacking', remarks: 'Submit 1 pc Long Brown Envelope and 1 pc Long White Folder for document archiving.', document_url: null, scanned_at: null }
+                ]
+              });
+            }
+          }
+        }
+      }, [searchResult]);
 
       const getSupabaseClient = () => {
         const cleanUrl = sanitizeSupabaseUrl(sbUrl);
@@ -2429,7 +2483,7 @@
                 .select('*')
                 .eq('intern_id', intern.id);
 
-              const formattedReqs = (reqs || []).map(r => ({
+              let formattedReqs = (reqs || []).map(r => ({
                 id: r.id,
                 name: r.requirement_name || r.name,
                 status: r.status,
@@ -2437,6 +2491,38 @@
                 document_url: r.document_url,
                 scanned_at: r.scanned_at ? new Date(r.scanned_at).toLocaleDateString() : null
               }));
+
+              // If Supabase requirements table for this student is empty or has obsolete requirements, use official requirements
+              const hasObsolete = formattedReqs.some(r =>
+                (r.name || '').includes('Diploma Degree') ||
+                (r.name || '').includes('NC11') ||
+                (r.name || '').includes('Trainers Methodology') ||
+                (r.name || '').includes('Medical Physical')
+              );
+              if (formattedReqs.length === 0 || hasObsolete) {
+                const seedMatch = INITIAL_INTERNS.find(i => i.full_name.toLowerCase() === intern.full_name.toLowerCase());
+                if (seedMatch) {
+                  formattedReqs = seedMatch.requirements;
+                } else {
+                  const isSmaw = (intern.department || '').toLowerCase().includes('smaw');
+                  const medName = isSmaw
+                    ? 'Medical Certificate & Chest X-RAY for SMAW'
+                    : 'Medical Certificate for BPP, Driving & CSS NCII';
+                  const medRemarks = isSmaw
+                    ? 'Medical Certificate and Chest X-RAY are mandatory for SMAW welding trainees. Submit clinic findings.'
+                    : 'Standard Medical Certificate required for BPP, Driving, and CSS NCII trainees. Submit physician clearance.';
+
+                  formattedReqs = [
+                    { id: 'req-1', name: 'Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)', status: 'lacking', remarks: 'Official NSO/PSA copy required. (For married women, submit Marriage Certificate)', document_url: null, scanned_at: null },
+                    { id: 'req-2', name: 'Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137', status: 'lacking', remarks: 'Submit either Transcript of Records (TOR), Diploma, ALS Certificate, Form 138, or Form 137.', document_url: null, scanned_at: null },
+                    { id: 'req-3', name: 'Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)', status: 'lacking', remarks: '4 pcs passport-sized photos with white background, collar, nametag, and signature.', document_url: null, scanned_at: null },
+                    { id: 'req-4', name: 'Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)', status: 'lacking', remarks: '4 pcs 1x1 photos on acid-based photo paper with white background, collar, nametag, and signature.', document_url: null, scanned_at: null },
+                    { id: 'req-5', name: 'Barangay Certificate', status: 'lacking', remarks: 'Current valid Barangay Certificate/Clearance of residency required.', document_url: null, scanned_at: null },
+                    { id: 'req-6', name: medName, status: 'lacking', remarks: medRemarks, document_url: null, scanned_at: null },
+                    { id: 'req-7', name: 'Long Brown Envelope (1pc) & Long White Folder (1pc)', status: 'lacking', remarks: 'Submit 1 pc Long Brown Envelope and 1 pc Long White Folder for document archiving.', document_url: null, scanned_at: null }
+                  ];
+                }
+              }
 
               setSearchResult({
                 ...intern,
@@ -2451,12 +2537,19 @@
         }
 
         setTimeout(() => {
-          const match = internDatabase.find(intern => {
+          let match = internDatabase.find(intern => {
             const iBatch = intern.batch_number.toLowerCase();
             const iName = intern.full_name.toLowerCase();
             return (iBatch.includes(b.toLowerCase()) || b.toLowerCase().includes(iBatch)) &&
               (iName.includes(n.toLowerCase()) || n.toLowerCase().includes(iName));
           });
+
+          if (match) {
+            const seedMatch = INITIAL_INTERNS.find(i => i.full_name.toLowerCase() === match.full_name.toLowerCase());
+            if (seedMatch) {
+              match = { ...match, requirements: seedMatch.requirements, department: seedMatch.department };
+            }
+          }
 
           setSearchResult(match || null);
           setIsSearching(false);
@@ -4158,10 +4251,46 @@
                         type="text"
                         value={newReqName}
                         onChange={(e) => setNewReqName(e.target.value)}
-                        placeholder="e.g. Industry Immersion Assessment"
+                        placeholder="e.g. Birth Certificate NSO/PSA"
                         className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent focus:outline-none focus:border-emerald-500 shadow-sm"
                         required
                       />
+                      {/* Prescribed Requirements Quick Presets */}
+                      <div className="mt-2 space-y-1">
+                        <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Official Prescribed Presets:</span>
+                        <div className="flex flex-col gap-1 max-h-36 overflow-y-auto p-1.5 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-200 dark:border-slate-800 text-[11px]">
+                          {[
+                            'Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)',
+                            'Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137',
+                            'Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)',
+                            'Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)',
+                            'Barangay Certificate',
+                            'Medical Certificate & Chest X-RAY for SMAW',
+                            'Medical Certificate for BPP, Driving & CSS NCII',
+                            'Long Brown Envelope (1pc) & Long White Folder (1pc)'
+                          ].map(preset => (
+                            <button
+                              key={preset}
+                              type="button"
+                              onClick={() => {
+                                setNewReqName(preset);
+                                if (preset.includes('SMAW')) setNewReqRemarks('Medical Certificate and Chest X-RAY are mandatory for SMAW welding trainees. Submit clinic findings.');
+                                else if (preset.includes('BPP')) setNewReqRemarks('Standard Medical Certificate required for BPP, Driving, and CSS NCII trainees. Submit physician clearance.');
+                                else if (preset.includes('Birth Certificate')) setNewReqRemarks('Official NSO/PSA copy required. (For married women, submit Marriage Certificate)');
+                                else if (preset.includes('Either')) setNewReqRemarks('Submit either Transcript of Records (TOR), Diploma, ALS Certificate, Form 138, or Form 137.');
+                                else if (preset.includes('Passport')) setNewReqRemarks('4 pcs passport-sized photos with white background, collar, nametag, and signature.');
+                                else if (preset.includes('1x1')) setNewReqRemarks('4 pcs 1x1 photos on acid-based photo paper with white background, collar, nametag, and signature.');
+                                else if (preset.includes('Barangay')) setNewReqRemarks('Current valid Barangay Certificate/Clearance of residency required.');
+                                else if (preset.includes('Envelope')) setNewReqRemarks('Submit 1 pc Long Brown Envelope and 1 pc Long White Folder for document archiving.');
+                              }}
+                              className="text-left px-2 py-1 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500 text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition truncate"
+                              title={preset}
+                            >
+                              + {preset}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
                     </div>
 
                     <div>
