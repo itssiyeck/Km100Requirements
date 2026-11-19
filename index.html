@@ -2412,7 +2412,10 @@
 
         // 1. Attempt registration through Backend API (Backend securely manages Supabase Auth & DB)
         try {
-          const apiRes = await fetch('http://localhost:8000/api/auth/register', {
+          const apiBaseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== '8000'
+            ? 'http://localhost:8000'
+            : '';
+          const apiRes = await fetch(`${apiBaseUrl}/api/auth/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -2681,7 +2684,10 @@
 
         // 1. Attempt connection through Backend API (Backend securely proxies to Supabase)
         try {
-          const apiRes = await fetch(`http://localhost:8000/api/interns/search?batch_number=${encodeURIComponent(b)}&name=${encodeURIComponent(n)}`);
+          const apiBaseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== '8000'
+            ? 'http://localhost:8000'
+            : '';
+          const apiRes = await fetch(`${apiBaseUrl}/api/interns/search?batch_number=${encodeURIComponent(b)}&name=${encodeURIComponent(n)}`);
           if (apiRes.ok) {
             const apiData = await apiRes.json();
             if (apiData.found && apiData.data) {
