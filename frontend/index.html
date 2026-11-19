@@ -2684,8 +2684,11 @@
               <div className="home-bg-overlay"></div>
             </div>
 
-            {/* Centered Auth Container */}
-            <div className="w-full max-w-md my-auto py-2 sm:py-4 flex flex-col items-center relative z-10">
+            {/* Centered Auth Container - Raised by 25px for optical vertical balance */}
+            <div
+              className="w-full max-w-md my-auto py-2 sm:py-4 flex flex-col items-center relative z-10 -translate-y-[25px]"
+              style={{ transform: 'translateY(-25px)' }}
+            >
               {/* Portal Branding */}
               <div className="text-center mb-3.5 space-y-1 w-full">
                 <span className="text-[10px] font-bold uppercase tracking-widest text-orange-400 bg-orange-500/10 border border-orange-500/30 px-3 py-0.5 rounded-full inline-block mb-0.5 shadow-sm">
