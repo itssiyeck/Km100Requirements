@@ -1,3 +1,12 @@
+import sys
+import os
+
+# Ensure backend root directory is in sys.path for robust module resolution on Vercel and local
+_current_dir = os.path.dirname(os.path.abspath(__file__))
+_backend_dir = os.path.dirname(_current_dir)
+if _backend_dir not in sys.path:
+    sys.path.insert(0, _backend_dir)
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes import auth, documents

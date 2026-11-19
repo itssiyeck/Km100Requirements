@@ -1,0 +1,19 @@
+[project]
+name = "km100requirements"
+version = "1.0.0"
+description = "KM100 Trainee Portal & Clearance System"
+requires-python = ">=3.9"
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.28.0",
+    "supabase>=2.4.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.6.0",
+    "python-multipart>=0.0.9",
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+    "requests>=2.31.0"
+]
+
+[tool.vercel]
+entrypoint = "backend.app.main:app"

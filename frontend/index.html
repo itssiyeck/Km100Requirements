@@ -29,7 +29,7 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script>
-    (function() {
+    (function () {
       try {
         var t = localStorage.getItem('portal_theme') || 'dark';
         if (t === 'light') {
@@ -39,7 +39,7 @@
           document.documentElement.classList.add('dark', 'dark-theme');
           document.documentElement.classList.remove('light-theme');
         }
-      } catch (e) {}
+      } catch (e) { }
     })();
   </script>
 
@@ -49,6 +49,7 @@
       background-color: rgba(14, 165, 233, 0.3);
       color: inherit;
     }
+
     .light-theme ::selection {
       background-color: rgba(14, 165, 233, 0.22);
       color: inherit;
@@ -83,11 +84,31 @@
       max-width: 100%;
       height: auto;
     }
-    img.w-6 { width: 1.5rem !important; height: 1.5rem !important; }
-    img.w-7 { width: 1.75rem !important; height: 1.75rem !important; }
-    img.w-8 { width: 2rem !important; height: 2rem !important; }
-    img.w-10 { width: 2.5rem !important; height: 2.5rem !important; }
-    img.w-14 { width: 3.5rem !important; height: 3.5rem !important; }
+
+    img.w-6 {
+      width: 1.5rem !important;
+      height: 1.5rem !important;
+    }
+
+    img.w-7 {
+      width: 1.75rem !important;
+      height: 1.75rem !important;
+    }
+
+    img.w-8 {
+      width: 2rem !important;
+      height: 2rem !important;
+    }
+
+    img.w-10 {
+      width: 2.5rem !important;
+      height: 2.5rem !important;
+    }
+
+    img.w-14 {
+      width: 3.5rem !important;
+      height: 3.5rem !important;
+    }
 
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
@@ -111,10 +132,12 @@
     .light-theme *::-webkit-scrollbar-track {
       background: #f1f5f9;
     }
+
     .light-theme::-webkit-scrollbar-thumb,
     .light-theme *::-webkit-scrollbar-thumb {
       background: #cbd5e1;
     }
+
     .light-theme::-webkit-scrollbar-thumb:hover,
     .light-theme *::-webkit-scrollbar-thumb:hover {
       background: #94a3b8;
@@ -131,6 +154,7 @@
         opacity: 0;
         transform: translateY(12px);
       }
+
       100% {
         opacity: 1;
         transform: translateY(0);
@@ -138,7 +162,7 @@
     }
 
     .auth-card-glow {
-      box-shadow: 
+      box-shadow:
         0 0 0 1px rgba(255, 255, 255, 0.08),
         0 20px 45px -10px rgba(0, 0, 0, 0.7),
         0 10px 20px -5px rgba(0, 0, 0, 0.5),
@@ -338,6 +362,7 @@
         opacity: 0;
         transform: translateY(8px);
       }
+
       100% {
         opacity: 1;
         transform: translateY(0);
@@ -422,12 +447,15 @@
       0% {
         width: 0%;
       }
+
       40% {
         width: 60%;
       }
+
       80% {
         width: 88%;
       }
+
       100% {
         width: 100%;
       }
@@ -623,7 +651,7 @@
       border-color: #e2e8f0 !important;
     }
 
-    .light-theme .divide-slate-800\/80 > :not([hidden]) ~ :not([hidden]) {
+    .light-theme .divide-slate-800\/80> :not([hidden])~ :not([hidden]) {
       border-color: #e2e8f0 !important;
     }
 
@@ -743,9 +771,11 @@
       background-color: #ecfdf5 !important;
       border-color: #a7f3d0 !important;
     }
+
     .light-theme .bg-emerald-950\/30 h3 {
       color: #047857 !important;
     }
+
     .light-theme .bg-emerald-950\/30 p {
       color: #065f46 !important;
     }
@@ -755,10 +785,12 @@
       background-color: #fef2f2 !important;
       border-color: #fecaca !important;
     }
+
     .light-theme .bg-red-950\/30 h4,
     .light-theme .bg-red-950\/30 .text-red-200 {
       color: #991b1b !important;
     }
+
     .light-theme .bg-red-950\/30 p,
     .light-theme .bg-red-950\/30 .text-red-300\/80 {
       color: #b91c1c !important;
@@ -769,13 +801,16 @@
       background-color: #fef2f2 !important;
       border-color: #fecdd3 !important;
     }
+
     .light-theme .bg-red-500\/5 .text-red-400 {
       color: #dc2626 !important;
     }
+
     .light-theme .bg-red-500\/5 .text-red-200 {
       color: #991b1b !important;
       font-weight: 700;
     }
+
     .light-theme .bg-red-500\/5 .text-red-400\/80 {
       color: #b91c1c !important;
     }
@@ -784,13 +819,16 @@
       background-color: #fffbeb !important;
       border-color: #fde68a !important;
     }
+
     .light-theme .bg-amber-500\/5 .text-amber-400 {
       color: #d97706 !important;
     }
+
     .light-theme .bg-amber-500\/5 .text-amber-200 {
       color: #92400e !important;
       font-weight: 700;
     }
+
     .light-theme .bg-amber-500\/5 .text-amber-400\/80 {
       color: #b45309 !important;
     }
@@ -799,13 +837,16 @@
       background-color: #f0fdf4 !important;
       border-color: #bbf7d0 !important;
     }
+
     .light-theme .bg-emerald-500\/5 .text-emerald-400 {
       color: #059669 !important;
     }
+
     .light-theme .bg-emerald-500\/5 .text-emerald-200 {
       color: #166534 !important;
       font-weight: 700;
     }
+
     .light-theme .bg-emerald-500\/5 .text-emerald-400\/80 {
       color: #15803d !important;
     }
@@ -817,6 +858,7 @@
       border-color: rgba(2, 132, 199, 0.35) !important;
       color: #0369a1 !important;
     }
+
     .light-theme span.bg-sky-500\/20 span.bg-sky-300 {
       background-color: #0284c7 !important;
     }
@@ -827,6 +869,7 @@
       background-color: rgba(16, 185, 129, 0.12) !important;
       border-color: rgba(16, 185, 129, 0.35) !important;
     }
+
     .light-theme .signup-brand-badge {
       color: #000000 !important;
       background-color: rgba(52, 211, 153, 0.35) !important;
@@ -840,12 +883,14 @@
       color: #cbd5e1;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
     .search-another-btn:hover {
       background-color: #0284c7 !important;
       border-color: #0284c7 !important;
       color: #ffffff !important;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
     }
+
     .search-another-btn:hover svg {
       color: #ffffff !important;
     }
@@ -855,12 +900,14 @@
       border: 1px solid #cbd5e1 !important;
       color: #1e293b !important;
     }
+
     .light-theme .search-another-btn:hover {
       background-color: #0284c7 !important;
       border-color: #0284c7 !important;
       color: #ffffff !important;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
     }
+
     .light-theme .search-another-btn:hover svg {
       color: #ffffff !important;
     }
@@ -872,35 +919,42 @@
       background-color: #f0f9ff !important;
       border-color: #bae6fd !important;
     }
+
     .light-theme .bg-sky-950\/50,
     .light-theme .bg-sky-950\/40,
     .light-theme .bg-sky-950\/30 {
       background-color: #f0f9ff !important;
       border-color: #bae6fd !important;
     }
+
     .light-theme .bg-indigo-500\/10,
     .light-theme .bg-indigo-500\/15 {
       background-color: #eef2ff !important;
       border-color: #c7d2fe !important;
     }
+
     .light-theme .bg-amber-500\/10,
     .light-theme .bg-amber-500\/15 {
       background-color: #fffbeb !important;
       border-color: #fde68a !important;
     }
+
     /* Clearance result cards in light mode */
     .light-theme .bg-red-500\/10 {
       background-color: #fff1f2 !important;
       border-color: #fecdd3 !important;
     }
+
     .light-theme .bg-emerald-500\/10 {
       background-color: #f0fdf4 !important;
       border-color: #bbf7d0 !important;
     }
+
     /* TESDA accredited badge tint */
     .light-theme .bg-sky-50 {
       background-color: #f0f9ff !important;
     }
+
     .light-theme .border-sky-200 {
       border-color: #bae6fd !important;
     }
@@ -963,6 +1017,7 @@
     .light-theme header h1 {
       color: #0f172a !important;
     }
+
     .light-theme .header-glass p,
     .light-theme header p {
       color: #475569 !important;
@@ -1007,22 +1062,26 @@
     .dark .auth-hero-scope {
       color: #f8fafc;
     }
+
     .auth-hero-scope h1,
     .auth-hero-scope .animate-heading,
     .light-theme .auth-hero-scope h1,
     .light-theme .auth-hero-scope .animate-heading {
       color: #ffffff !important;
     }
+
     .auth-hero-scope .auth-nav-title,
     .light-theme .auth-hero-scope .auth-nav-title {
       color: #ffffff !important;
     }
+
     .auth-hero-scope p.animate-subtitle,
     .auth-hero-scope .animate-subtitle,
     .light-theme .auth-hero-scope p.animate-subtitle,
     .light-theme .auth-hero-scope .animate-subtitle {
       color: rgba(255, 255, 255, 0.88) !important;
     }
+
     .auth-hero-scope .auth-footer-text,
     .light-theme .auth-hero-scope .auth-footer-text {
       color: rgba(255, 255, 255, 0.75) !important;
@@ -1033,15 +1092,18 @@
       background-color: #ffffff !important;
       border-color: #e2e8f0 !important;
     }
+
     .light-theme .auth-card-glow h2,
     .light-theme .auth-card-glow h3,
     .light-theme .auth-card-glow h4 {
       color: #0f172a !important;
     }
+
     .light-theme .auth-card-glow label {
       color: #0f172a !important;
       font-weight: 700 !important;
     }
+
     .light-theme .auth-card-glow p,
     .light-theme .auth-card-glow span.text-slate-500,
     .light-theme .auth-card-glow span.text-slate-400 {
@@ -1054,22 +1116,26 @@
     .light-theme .main-portal-card h4 {
       color: #0f172a !important;
     }
+
     .light-theme .main-portal-card p {
       color: #334155 !important;
     }
+
     .light-theme .main-portal-card label {
       color: #0f172a !important;
       font-weight: 700 !important;
     }
 
     /* 4. Requirements Registry Table in Light Mode */
-    .light-theme .divide-y > div h5 {
+    .light-theme .divide-y>div h5 {
       color: #0f172a !important;
     }
-    .light-theme .divide-y > div p {
+
+    .light-theme .divide-y>div p {
       color: #334155 !important;
     }
-    .light-theme .divide-y > div p.text-red-700 {
+
+    .light-theme .divide-y>div p.text-red-700 {
       color: #b91c1c !important;
     }
 
@@ -1078,11 +1144,13 @@
     .light-theme div[role="dialog"] h3 {
       color: #0f172a !important;
     }
+
     .light-theme form[role="dialog"] label,
     .light-theme div[role="dialog"] label {
       color: #0f172a !important;
       font-weight: 700 !important;
     }
+
     .light-theme form[role="dialog"] p,
     .light-theme div[role="dialog"] p {
       color: #334155 !important;
@@ -1096,40 +1164,49 @@
       border: 1px solid rgba(51, 65, 85, 0.7);
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     }
+
     .user-profile-name {
       color: #f8fafc;
     }
+
     .user-profile-sub {
       color: #94a3b8;
     }
+
     .user-profile-divider {
       background-color: rgba(51, 65, 85, 0.6);
     }
+
     .btn-profile-reset {
       background-color: rgba(14, 165, 233, 0.12);
       border: 1px solid rgba(14, 165, 233, 0.35);
       color: #38bdf8;
     }
+
     .btn-profile-reset:hover {
       background-color: #0284c7;
       border-color: #0284c7;
       color: #ffffff !important;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
+
     .btn-profile-reset:hover svg {
       color: #ffffff !important;
     }
+
     .btn-profile-logout {
       background-color: rgba(239, 68, 68, 0.12);
       border: 1px solid rgba(239, 68, 68, 0.35);
       color: #f87171;
     }
+
     .btn-profile-logout:hover {
       background-color: #dc2626;
       border-color: #dc2626;
       color: #ffffff !important;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
+
     .btn-profile-logout:hover svg {
       color: #ffffff !important;
     }
@@ -1140,40 +1217,49 @@
       border: 1px solid #e2e8f0 !important;
       box-shadow: 0 2px 10px -2px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04) !important;
     }
+
     .light-theme .user-profile-name {
       color: #0f172a !important;
     }
+
     .light-theme .user-profile-sub {
       color: #64748b !important;
     }
+
     .light-theme .user-profile-divider {
       background-color: #e2e8f0 !important;
     }
+
     .light-theme .btn-profile-reset {
       background-color: #f0f9ff !important;
       border: 1px solid #bae6fd !important;
       color: #0369a1 !important;
     }
+
     .light-theme .btn-profile-reset:hover {
       background-color: #0284c7 !important;
       border-color: #0284c7 !important;
       color: #ffffff !important;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
     }
+
     .light-theme .btn-profile-reset:hover svg {
       color: #ffffff !important;
     }
+
     .light-theme .btn-profile-logout {
       background-color: #fff1f2 !important;
       border: 1px solid #fecdd3 !important;
       color: #be123c !important;
     }
+
     .light-theme .btn-profile-logout:hover {
       background-color: #e11d48 !important;
       border-color: #e11d48 !important;
       color: #ffffff !important;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
     }
+
     .light-theme .btn-profile-logout:hover svg {
       color: #ffffff !important;
     }
@@ -1182,38 +1268,48 @@
     .light-theme .text-sky-400 {
       color: #0369a1 !important;
     }
+
     .light-theme a.text-sky-400,
     .light-theme button.text-sky-400,
     .light-theme span.text-sky-400 {
       color: #0369a1 !important;
     }
+
     .light-theme .text-sky-300 {
       color: #0284c7 !important;
     }
+
     .light-theme .text-sky-500 {
       color: #0369a1 !important;
     }
+
     /* Emerald text tokens */
     .light-theme .text-emerald-400 {
       color: #059669 !important;
     }
+
     .light-theme .text-emerald-300 {
       color: #047857 !important;
     }
+
     /* Amber text tokens */
     .light-theme .text-amber-400 {
       color: #d97706 !important;
     }
+
     .light-theme .text-amber-300 {
       color: #b45309 !important;
     }
+
     /* Red text tokens */
     .light-theme .text-red-400 {
       color: #dc2626 !important;
     }
+
     .light-theme .text-red-300 {
       color: #b91c1c !important;
     }
+
     /* Indigo text tokens */
     .light-theme .text-indigo-400 {
       color: #4338ca !important;
@@ -1225,6 +1321,7 @@
       border: 1px solid rgba(239, 68, 68, 0.35);
       color: #f87171;
     }
+
     .light-theme .search-error-banner {
       background-color: #fff1f2 !important;
       border: 1px solid #fecdd3 !important;
@@ -1236,24 +1333,27 @@
     .light-theme ::-webkit-scrollbar-track {
       background: #f1f5f9 !important;
     }
+
     .light-theme::-webkit-scrollbar-thumb,
     .light-theme ::-webkit-scrollbar-thumb {
       background: #cbd5e1 !important;
     }
+
     .light-theme::-webkit-scrollbar-thumb:hover,
     .light-theme ::-webkit-scrollbar-thumb:hover {
       background: #94a3b8 !important;
     }
 
     /* ThemeToggle button on photo backgrounds (login/signup) */
-    .home-bg-banner ~ * .theme-toggle-btn,
-    .light-theme .home-bg-banner ~ * .theme-toggle-btn {
+    .home-bg-banner~* .theme-toggle-btn,
+    .light-theme .home-bg-banner~* .theme-toggle-btn {
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
     }
 
     /* Accessibility: Respect Reduced Motion with intentional non-vestibular transitions */
     @media (prefers-reduced-motion: reduce) {
+
       *,
       ::before,
       ::after {
@@ -1274,7 +1374,15 @@
       }
 
       /* Retain soft opacity and color changes for clear interactive confirmation */
-      button, input, select, textarea, a, .tab-slider-bg, [role="button"], [role="dialog"], .input-animated {
+      button,
+      input,
+      select,
+      textarea,
+      a,
+      .tab-slider-bg,
+      [role="button"],
+      [role="dialog"],
+      .input-animated {
         transition-duration: 150ms !important;
         transition-property: opacity, background-color, border-color, color, box-shadow !important;
         transform: none !important;
@@ -1295,7 +1403,8 @@
   </style>
 </head>
 
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans min-h-screen antialiased flex flex-col transition-colors duration-200">
+<body
+  class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans min-h-screen antialiased flex flex-col transition-colors duration-200">
   <div id="root" class="flex-1 flex flex-col"></div>
 
   <script type="text/babel">
@@ -1696,11 +1805,10 @@
           type="button"
           onClick={() => setTheme(isLight ? 'dark' : 'light')}
           aria-label={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
-          className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-150 flex items-center gap-1.5 shadow-sm active:scale-95 ${
-            isLight
+          className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-150 flex items-center gap-1.5 shadow-sm active:scale-95 ${isLight
               ? 'bg-slate-100/90 text-slate-700 border-slate-200 hover:bg-slate-200/90'
               : 'bg-slate-800/80 text-slate-200 border-slate-700 hover:bg-slate-700/80'
-          } ${className}`}
+            } ${className}`}
           title={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
         >
           {isLight ? (
@@ -1797,7 +1905,7 @@
         if (hash === '#main') {
           try {
             localStorage.setItem('auth_user_session', JSON.stringify(DEFAULT_ADMIN_SESSION));
-          } catch (e) {}
+          } catch (e) { }
           return DEFAULT_ADMIN_SESSION;
         }
         return null; // Ensure user starts at login / signup page!
@@ -1836,12 +1944,12 @@
             try {
               const saved = localStorage.getItem('auth_user_session');
               if (saved) session = JSON.parse(saved);
-            } catch (e) {}
+            } catch (e) { }
             if (!session) {
               session = DEFAULT_ADMIN_SESSION;
               try {
                 localStorage.setItem('auth_user_session', JSON.stringify(DEFAULT_ADMIN_SESSION));
-              } catch (e) {}
+              } catch (e) { }
             }
             setCurrentUser(session);
             setCurrentView('main');
@@ -2088,68 +2196,68 @@
                   <button type="button" onClick={() => setShowSbModal(false)} aria-label="Close Supabase modal" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-slate-700 dark:hover:text-white text-base font-bold">✕</button>
                 </div>
 
-              <div className="space-y-4">
-                <div>
-                  <label htmlFor="sb-url" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Supabase Project URL</label>
-                  <input
-                    id="sb-url"
-                    type="url"
-                    placeholder="https://your-project-id.supabase.co"
-                    value={sbUrl}
-                    onChange={(e) => setSbUrl(e.target.value)}
-                    className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent placeholder-slate-400 focus:outline-none focus:border-sky-500 font-mono shadow-sm"
-                    required
-                  />
+                <div className="space-y-4">
+                  <div>
+                    <label htmlFor="sb-url" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Supabase Project URL</label>
+                    <input
+                      id="sb-url"
+                      type="url"
+                      placeholder="https://your-project-id.supabase.co"
+                      value={sbUrl}
+                      onChange={(e) => setSbUrl(e.target.value)}
+                      className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent placeholder-slate-400 focus:outline-none focus:border-sky-500 font-mono shadow-sm"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="sb-key" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Supabase Anon Key</label>
+                    <textarea
+                      id="sb-key"
+                      rows="3"
+                      placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                      value={sbKey}
+                      onChange={(e) => setSbKey(e.target.value)}
+                      className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent placeholder-slate-400 focus:outline-none focus:border-sky-500 font-mono shadow-sm"
+                      required
+                    ></textarea>
+                  </div>
                 </div>
 
-                <div>
-                  <label htmlFor="sb-key" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Supabase Anon Key</label>
-                  <textarea
-                    id="sb-key"
-                    rows="3"
-                    placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                    value={sbKey}
-                    onChange={(e) => setSbKey(e.target.value)}
-                    className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-900 dark:text-white bg-white dark:bg-transparent placeholder-slate-400 focus:outline-none focus:border-sky-500 font-mono shadow-sm"
-                    required
-                  ></textarea>
+                <div className="flex gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowSbModal(false)}
+                    className="py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-semibold transition flex items-center gap-1 shadow-sm"
+                  >
+                    <span>←</span> Back
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSbUrl('');
+                      setSbKey('');
+                      localStorage.removeItem('sb_project_url');
+                      localStorage.removeItem('sb_anon_key');
+                      setIsSbConnected(false);
+                      setShowSbModal(false);
+                    }}
+                    className="py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-xs font-semibold transition shadow-sm"
+                  >
+                    Disconnect
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white text-xs font-bold shadow-lg shadow-sky-600/25 btn-shimmer"
+                  >
+                    Save & Connect Database
+                  </button>
                 </div>
-              </div>
-
-              <div className="flex gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setShowSbModal(false)}
-                  className="py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-semibold transition flex items-center gap-1 shadow-sm"
-                >
-                  <span>←</span> Back
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSbUrl('');
-                    setSbKey('');
-                    localStorage.removeItem('sb_project_url');
-                    localStorage.removeItem('sb_anon_key');
-                    setIsSbConnected(false);
-                    setShowSbModal(false);
-                  }}
-                  className="py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-xs font-semibold transition shadow-sm"
-                >
-                  Disconnect
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white text-xs font-bold shadow-lg shadow-sky-600/25 btn-shimmer"
-                >
-                  Save & Connect Database
-                </button>
-              </div>
-            </form>
-          </div>
-        </ModalPortal>
-      );
-    };
+              </form>
+            </div>
+          </ModalPortal>
+        );
+      };
 
       // When user logs in as a student, automatically show their own records!
       useEffect(() => {
@@ -3568,11 +3676,10 @@
                 <div className="user-profile-capsule flex items-center gap-2.5 sm:gap-3 px-3 sm:px-3.5 py-1.5 rounded-xl shadow-sm backdrop-blur-md transition-all duration-200">
                   {/* User Identity */}
                   <div className="flex items-center gap-2.5">
-                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                      currentUser?.is_admin
+                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${currentUser?.is_admin
                         ? 'bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25'
                         : 'bg-sky-500/10 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400 border border-sky-500/25'
-                    }`}>
+                      }`}>
                       {currentUser?.is_admin ? (
                         <Icons.Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       ) : (
@@ -3804,11 +3911,10 @@
                         <span className="text-slate-600 dark:text-slate-400 font-semibold hidden sm:inline">
                           Status:
                         </span>
-                        <span className={`text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border flex items-center gap-1.5 ${
-                          isCleared
+                        <span className={`text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border flex items-center gap-1.5 ${isCleared
                             ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/30'
                             : 'bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-500/30'
-                        }`}>
+                          }`}>
                           {isCleared ? (
                             <Icons.CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
                           ) : (
@@ -3891,11 +3997,10 @@
                         </div>
                         <div className="w-full h-2.5 bg-slate-100 dark:bg-slate-950 rounded-full overflow-hidden border border-slate-200 dark:border-slate-800">
                           <div
-                            className={`h-full rounded-full transition-all duration-500 ${
-                              percentComplete === 100
+                            className={`h-full rounded-full transition-all duration-500 ${percentComplete === 100
                                 ? 'bg-emerald-500'
                                 : 'bg-gradient-to-r from-sky-500 to-indigo-500'
-                            }`}
+                              }`}
                             style={{ width: `${percentComplete}%` }}
                           ></div>
                         </div>
@@ -4005,11 +4110,10 @@
                               <button
                                 key={tab.id}
                                 onClick={() => setActiveFilter(tab.id)}
-                                className={`px-2.5 py-1 rounded-md text-xs font-semibold transition ${
-                                  activeFilter === tab.id
+                                className={`px-2.5 py-1 rounded-md text-xs font-semibold transition ${activeFilter === tab.id
                                     ? 'bg-sky-600 text-white shadow-sm'
                                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800/60'
-                                }`}
+                                  }`}
                               >
                                 {tab.label}
                               </button>
@@ -4044,13 +4148,12 @@
                                     <h5 className="text-sm font-semibold text-slate-900 dark:text-white">
                                       {req.name}
                                     </h5>
-                                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                                      isLacking
+                                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${isLacking
                                         ? 'bg-red-50 dark:bg-red-500/15 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-500/30'
                                         : isPending
                                           ? 'bg-amber-50 dark:bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-500/30'
                                           : 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30'
-                                    }`}>
+                                      }`}>
                                       {req.status}
                                     </span>
                                   </div>
@@ -4323,9 +4426,8 @@
                             type="button"
                             key={st.id}
                             onClick={() => setEditReqStatus(st.id)}
-                            className={`py-2 rounded-xl text-xs font-semibold border transition flex items-center justify-center gap-1.5 ${
-                              editReqStatus === st.id ? st.color : 'bg-slate-100 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                            }`}
+                            className={`py-2 rounded-xl text-xs font-semibold border transition flex items-center justify-center gap-1.5 ${editReqStatus === st.id ? st.color : 'bg-slate-100 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                              }`}
                           >
                             {st.icon}
                             <span>{st.label}</span>
