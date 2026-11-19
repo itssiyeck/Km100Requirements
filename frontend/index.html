@@ -5,18 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Diploma, NC11 Trainer Portal - Authentication Gate</title>
-  <!-- Google Fonts: Plus Jakarta Sans -->
+  <!-- Resource Preconnects for Fast Asset Retrieval -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Supabase JS Client for Live Database Connection -->
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-  <!-- React & Babel for zero-install direct browser preview -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <!-- Production React & Babel Standalone -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script>
     (function() {
@@ -32,6 +34,21 @@
   </script>
 
   <style>
+    /* Global Selection and Focus Consistency */
+    ::selection {
+      background-color: rgba(14, 165, 233, 0.3);
+      color: inherit;
+    }
+    .light-theme ::selection {
+      background-color: rgba(14, 165, 233, 0.22);
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid #0284c7;
+      outline-offset: 2px;
+    }
+
     body {
       font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       background-color: #020617;
@@ -884,20 +901,31 @@
       background: #94a3b8 !important;
     }
 
-    /* Accessibility: Respect Reduced Motion without breaking UI feedback */
+    /* Accessibility: Respect Reduced Motion with intentional non-vestibular transitions */
     @media (prefers-reduced-motion: reduce) {
       *,
       ::before,
       ::after {
-        animation-iteration-count: 1 !important;
-        animation-duration: 0.01ms !important;
         scroll-behavior: auto !important;
       }
 
-      /* Retain soft non-vestibular transitions for interactive feedback */
-      button, input, select, textarea, a, .tab-slider-bg {
+      /* Eliminate spatial translations and floating loops */
+      .animate-modal-pop,
+      .animate-form-enter,
+      .animate-heading,
+      .animate-subtitle,
+      .animate-glow,
+      .shake-error,
+      .btn-shimmer::after {
+        animation: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+      }
+
+      /* Retain soft opacity and color changes for clear interactive confirmation */
+      button, input, select, textarea, a, .tab-slider-bg, [role="button"], [role="dialog"], .input-animated {
         transition-duration: 150ms !important;
-        transition-property: opacity, background-color, border-color, color !important;
+        transition-property: opacity, background-color, border-color, color, box-shadow !important;
         transform: none !important;
       }
 
@@ -910,9 +938,6 @@
       .animate-logo {
         animation: none !important;
         transform: none !important;
-      }
-
-      .particle-canvas {
         display: none !important;
       }
     }
@@ -1583,13 +1608,14 @@
                       <p className="text-xs text-slate-400">Sync with live PostgreSQL & Supabase Auth</p>
                     </div>
                   </div>
-                  <button type="button" onClick={() => setShowSbModal(false)} aria-label="Close Supabase modal" className="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+                  <button type="button" onClick={() => setShowSbModal(false)} aria-label="Close Supabase modal" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-white text-base font-bold">✕</button>
                 </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Supabase Project URL</label>
+                  <label htmlFor="sb-url" className="block text-xs font-semibold text-slate-300 mb-1.5">Supabase Project URL</label>
                   <input
+                    id="sb-url"
                     type="url"
                     placeholder="https://your-project-id.supabase.co"
                     value={sbUrl}
@@ -1600,8 +1626,9 @@
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">Supabase Anon Key</label>
+                  <label htmlFor="sb-key" className="block text-xs font-semibold text-slate-300 mb-1.5">Supabase Anon Key</label>
                   <textarea
+                    id="sb-key"
                     rows="3"
                     placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                     value={sbKey}
@@ -2447,11 +2474,22 @@
             {/* Top Navigation */}
             <div className="absolute top-4 left-4 right-4 sm:top-5 sm:left-6 sm:right-6 z-30 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <img
-                  src="km100-logo.jpg"
-                  alt="KM100 Logo"
-                  className="w-7 h-7 rounded-full object-cover border-2 border-orange-500 shadow-md shadow-orange-500/20 bg-white"
-                />
+                <div className="flex items-center -space-x-1.5">
+                  <img
+                    src="km100-logo.jpg"
+                    alt="KM100 Logo"
+                    className="w-7 h-7 rounded-full object-cover border-2 border-orange-500 shadow-md shadow-orange-500/20 bg-white relative z-10"
+                    loading="eager"
+                    decoding="async"
+                  />
+                  <img
+                    src="tesda-logo.png"
+                    alt="TESDA Logo"
+                    className="w-7 h-7 rounded-full object-cover border-2 border-blue-600 shadow-md shadow-blue-600/20 bg-white relative z-0"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </div>
                 <span className="text-xs font-bold text-slate-300 tracking-wide">
                   KM100 Skills & Training Center
                 </span>
@@ -2473,6 +2511,8 @@
               <img
                 src="km100-banner.jpg?v=2026"
                 alt="KM100 Skills and Training Center Banner"
+                fetchpriority="high"
+                decoding="async"
               />
               <div className="home-bg-overlay"></div>
             </div>
@@ -2497,11 +2537,22 @@
                 {/* Header Switcher */}
                 <div className="flex items-center justify-between pb-1.5 border-b border-slate-800">
                   <div className="flex items-center gap-2">
-                    <img
-                      src="km100-logo.jpg"
-                      alt="KM100 Emblem"
-                      className="w-5 h-5 rounded-full object-cover border border-orange-500/60 shadow-sm"
-                    />
+                    <div className="flex items-center -space-x-1">
+                      <img
+                        src="km100-logo.jpg"
+                        alt="KM100 Emblem"
+                        className="w-5 h-5 rounded-full object-cover border border-orange-500/60 shadow-sm relative z-10"
+                        loading="eager"
+                        decoding="async"
+                      />
+                      <img
+                        src="tesda-logo.png"
+                        alt="TESDA Emblem"
+                        className="w-5 h-5 rounded-full object-cover border border-blue-500/60 shadow-sm relative z-0"
+                        loading="eager"
+                        decoding="async"
+                      />
+                    </div>
                     <span className="text-xs font-bold text-white">Create New Account</span>
                   </div>
                   <button
@@ -2560,10 +2611,11 @@
                   {/* 2-Column Grid: Full Name & Email Address */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 stagger-2">
                     <div>
-                      <label className="block text-[10px] font-semibold text-slate-300 mb-0.5">
+                      <label htmlFor="signup-name" className="block text-[10px] font-semibold text-slate-300 mb-0.5">
                         Full Name
                       </label>
                       <input
+                        id="signup-name"
                         type="text"
                         placeholder="e.g. Sarah Jenkins"
                         value={signupName}
@@ -2573,8 +2625,9 @@
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold text-slate-300 mb-0.5">Email Address</label>
+                      <label htmlFor="signup-email" className="block text-[10px] font-bold text-slate-300 mb-0.5">Email Address</label>
                       <input
+                        id="signup-email"
                         type="email"
                         placeholder="e.g. sarah.jenkins@school.edu"
                         value={authEmail}
@@ -2589,11 +2642,12 @@
                   {signupRole === 'user' ? (
                     <div className="grid grid-cols-2 gap-2 stagger-3">
                       <div>
-                        <label className="block text-[10px] font-bold text-slate-300 mb-0.5 flex items-center gap-1">
+                        <label htmlFor="signup-batch" className="block text-[10px] font-bold text-slate-300 mb-0.5 flex items-center gap-1">
                           <Icons.FileText className="w-3 h-3 text-sky-400" />
                           <span>Batch Number</span>
                         </label>
                         <input
+                          id="signup-batch"
                           type="text"
                           placeholder="e.g. Batch 2026-A"
                           value={signupBatch}
@@ -2603,11 +2657,12 @@
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] font-bold text-slate-300 mb-0.5 flex items-center gap-1">
+                        <label htmlFor="signup-id" className="block text-[10px] font-bold text-slate-300 mb-0.5 flex items-center gap-1">
                           <Icons.User className="w-3 h-3 text-sky-400" />
                           <span>Student ID</span>
                         </label>
                         <input
+                          id="signup-id"
                           type="text"
                           placeholder="e.g. 2026-004"
                           value={signupStudentId}
@@ -2618,11 +2673,12 @@
                     </div>
                   ) : (
                     <div className="stagger-3">
-                      <label className="block text-[10px] font-bold text-emerald-300 mb-0.5 flex items-center gap-1">
+                      <label htmlFor="signup-admin-passcode" className="block text-[10px] font-bold text-emerald-300 mb-0.5 flex items-center gap-1">
                         <Icons.Lock className="w-3 h-3 text-emerald-400" />
                         <span>Administrator Verification Passcode</span>
                       </label>
                       <input
+                        id="signup-admin-passcode"
                         type="password"
                         placeholder="Enter admin passcode (demo: admin123)"
                         value={adminPasscode}
@@ -2635,9 +2691,10 @@
 
                   {/* Password Field */}
                   <div className="stagger-4">
-                    <label className="block text-[10px] font-bold text-slate-300 mb-0.5">Create Password</label>
+                    <label htmlFor="signup-password" className="block text-[10px] font-bold text-slate-300 mb-0.5">Create Password</label>
                     <div className="relative">
                       <input
+                        id="signup-password"
                         type={showPassword ? "text" : "password"}
                         placeholder="Minimum 6 characters"
                         value={authPassword}
@@ -2709,11 +2766,22 @@
             {/* Top Navigation */}
             <div className="absolute top-4 left-4 right-4 sm:top-5 sm:left-6 sm:right-6 z-30 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <img
-                  src="km100-logo.jpg"
-                  alt="KM100 Logo"
-                  className="w-7 h-7 rounded-full object-cover border-2 border-orange-500 shadow-md shadow-orange-500/20 bg-white"
-                />
+                <div className="flex items-center -space-x-1.5">
+                  <img
+                    src="km100-logo.jpg"
+                    alt="KM100 Logo"
+                    className="w-7 h-7 rounded-full object-cover border-2 border-orange-500 shadow-md shadow-orange-500/20 bg-white relative z-10"
+                    loading="eager"
+                    decoding="async"
+                  />
+                  <img
+                    src="tesda-logo.png"
+                    alt="TESDA Logo"
+                    className="w-7 h-7 rounded-full object-cover border-2 border-blue-600 shadow-md shadow-blue-600/20 bg-white relative z-0"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </div>
                 <span className="text-xs font-bold text-slate-300 tracking-wide">
                   KM100 Skills & Training Center
                 </span>
@@ -2728,6 +2796,8 @@
               <img
                 src="km100-banner.jpg?v=2026"
                 alt="KM100 Skills and Training Center Banner"
+                fetchpriority="high"
+                decoding="async"
               />
               <div className="home-bg-overlay"></div>
             </div>
@@ -2780,11 +2850,22 @@
                 {/* Header Switcher */}
                 <div className="flex items-center justify-between pb-2.5 border-b border-slate-800">
                   <div className="flex items-center gap-2">
-                    <img
-                      src="km100-logo.jpg"
-                      alt="KM100 Emblem"
-                      className="w-6 h-6 rounded-full object-cover border border-orange-500/60 shadow-sm"
-                    />
+                    <div className="flex items-center -space-x-1">
+                      <img
+                        src="km100-logo.jpg"
+                        alt="KM100 Emblem"
+                        className="w-6 h-6 rounded-full object-cover border border-orange-500/60 shadow-sm relative z-10"
+                        loading="eager"
+                        decoding="async"
+                      />
+                      <img
+                        src="tesda-logo.png"
+                        alt="TESDA Emblem"
+                        className="w-6 h-6 rounded-full object-cover border border-blue-500/60 shadow-sm relative z-0"
+                        loading="eager"
+                        decoding="async"
+                      />
+                    </div>
                     <div>
                       <h2 className="text-sm sm:text-base font-bold text-white">Sign In</h2>
                       <p className="text-[11px] text-slate-400">Enter your credentials to enter the portal</p>
@@ -2810,8 +2891,9 @@
 
                 <form onSubmit={handleLogin} className="space-y-3 animate-form-enter" key="login-form">
                   <div className="stagger-3">
-                    <label className="block text-xs font-bold text-slate-300 mb-1">Email Address</label>
+                    <label htmlFor="login-email" className="block text-xs font-bold text-slate-300 mb-1">Email Address</label>
                     <input
+                      id="login-email"
                       type="email"
                       value={authEmail}
                       onChange={(e) => setAuthEmail(e.target.value)}
@@ -2822,9 +2904,10 @@
                   </div>
 
                   <div className="stagger-4">
-                    <label className="block text-xs font-bold text-slate-300 mb-1">Password</label>
+                    <label htmlFor="login-password" className="block text-xs font-bold text-slate-300 mb-1">Password</label>
                     <div className="relative">
                       <input
+                        id="login-password"
                         type={showPassword ? "text" : "password"}
                         value={authPassword}
                         onChange={(e) => setAuthPassword(e.target.value)}
@@ -2897,6 +2980,8 @@
             <img
               src="km100-banner.jpg?v=2026"
               alt="KM100 Background"
+              loading="lazy"
+              decoding="async"
             />
             <div className="portal-bg-overlay"></div>
           </div>
@@ -2905,15 +2990,29 @@
             {/* HEADER BAR */}
             <header className="header-glass bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80 px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-40 transition-colors duration-200">
               <div className="flex items-center gap-3">
-                <img
-                  src="km100-logo.jpg"
-                  alt="KM100 Logo"
-                  className="w-10 h-10 rounded-full object-cover border border-slate-700/80 shadow-sm bg-white flex-shrink-0"
-                />
+                <div className="flex items-center -space-x-2">
+                  <img
+                    src="km100-logo.jpg"
+                    alt="KM100 Logo"
+                    className="w-10 h-10 rounded-full object-cover border-2 border-orange-500 shadow-sm bg-white flex-shrink-0 relative z-10"
+                    loading="eager"
+                    decoding="async"
+                  />
+                  <img
+                    src="tesda-logo.png"
+                    alt="TESDA Logo"
+                    className="w-10 h-10 rounded-full object-cover border-2 border-blue-600 shadow-sm bg-white flex-shrink-0 relative z-0"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </div>
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-[9px] font-extrabold uppercase tracking-widest text-orange-400 bg-orange-500/10 border border-orange-500/30 px-2 py-0.5 rounded-full">
                       KM100 Skills & Training Center, Inc.
+                    </span>
+                    <span className="text-[9px] font-extrabold uppercase tracking-widest text-blue-400 bg-blue-500/10 border border-blue-500/30 px-2 py-0.5 rounded-full">
+                      TESDA Accredited
                     </span>
                   </div>
                   <h1 className="text-base sm:text-lg font-bold text-white tracking-tight">
@@ -3021,10 +3120,11 @@
                   <form onSubmit={(e) => { e.preventDefault(); performSearch(); }} className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        <label htmlFor="search-batch" className="block text-xs font-semibold text-slate-300 mb-1.5">
                           Batch Number
                         </label>
                         <input
+                          id="search-batch"
                           type="text"
                           placeholder="e.g. Batch 2026-A"
                           value={batchNumber}
@@ -3035,10 +3135,11 @@
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        <label htmlFor="search-fullname" className="block text-xs font-semibold text-slate-300 mb-1.5">
                           Full Name
                         </label>
                         <input
+                          id="search-fullname"
                           type="text"
                           placeholder="e.g. Juan Dela Cruz"
                           value={fullName}
@@ -3444,13 +3545,14 @@
                           <h3 id="edit-intern-title" className="text-base font-bold text-white mt-0.5">Edit Student Credentials</h3>
                         </div>
                       </div>
-                      <button type="button" onClick={() => setShowEditInternModal(false)} aria-label="Close dialog" className="text-slate-400 hover:text-white p-1">✕</button>
+                      <button type="button" onClick={() => setShowEditInternModal(false)} aria-label="Close dialog" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-white text-base font-bold">✕</button>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">Full Name</label>
+                        <label htmlFor="edit-name" className="block text-xs font-semibold text-slate-300 mb-1">Full Name</label>
                         <input
+                          id="edit-name"
                           type="text"
                           value={editName}
                           onChange={(e) => setEditName(e.target.value)}
@@ -3460,8 +3562,9 @@
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">Batch Number</label>
+                        <label htmlFor="edit-batch" className="block text-xs font-semibold text-slate-300 mb-1">Batch Number</label>
                         <input
+                          id="edit-batch"
                           type="text"
                           value={editBatch}
                           onChange={(e) => setEditBatch(e.target.value)}
@@ -3473,8 +3576,9 @@
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">Student ID / Trainer No.</label>
+                        <label htmlFor="edit-id" className="block text-xs font-semibold text-slate-300 mb-1">Student ID / Trainer No.</label>
                         <input
+                          id="edit-id"
                           type="text"
                           value={editStudentId}
                           onChange={(e) => setEditStudentId(e.target.value)}
@@ -3483,8 +3587,9 @@
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">Department</label>
+                        <label htmlFor="edit-dept" className="block text-xs font-semibold text-slate-300 mb-1">Department</label>
                         <input
+                          id="edit-dept"
                           type="text"
                           value={editDept}
                           onChange={(e) => setEditDept(e.target.value)}
@@ -3495,8 +3600,9 @@
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
+                        <label htmlFor="edit-email" className="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
                         <input
+                          id="edit-email"
                           type="email"
                           value={editEmail}
                           onChange={(e) => setEditEmail(e.target.value)}
@@ -3505,8 +3611,9 @@
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">Overall Clearance Status</label>
+                        <label htmlFor="edit-status" className="block text-xs font-semibold text-slate-300 mb-1">Overall Clearance Status</label>
                         <select
+                          id="edit-status"
                           value={editOverallStatus}
                           onChange={(e) => setEditOverallStatus(e.target.value)}
                           className="w-full input-animated border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
@@ -3520,7 +3627,7 @@
 
                     <div className="pt-2 border-t border-slate-800 space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <label className="block text-xs font-semibold text-slate-300">
+                        <label htmlFor="edit-password" className="block text-xs font-semibold text-slate-300">
                           Student Account Password
                         </label>
                         <span className="text-[10px] text-emerald-400 font-mono">Encrypted</span>
@@ -3528,6 +3635,7 @@
                       <div className="flex gap-2 items-center">
                         <div className="relative flex-1">
                           <input
+                            id="edit-password"
                             type={showEditPassword ? "text" : "password"}
                             value={editPassword}
                             onChange={(e) => setEditPassword(e.target.value)}
@@ -3600,7 +3708,7 @@
                           <h3 id="edit-req-title" className="text-base font-bold text-white mt-0.5">Update Requirement Status</h3>
                         </div>
                       </div>
-                      <button type="button" onClick={() => setShowEditReqModal(false)} aria-label="Close dialog" className="text-slate-400 hover:text-white p-1">✕</button>
+                      <button type="button" onClick={() => setShowEditReqModal(false)} aria-label="Close dialog" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-white text-base font-bold">✕</button>
                     </div>
 
                     <div>
@@ -3632,8 +3740,9 @@
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Admin Remarks / Verification Notes</label>
+                      <label htmlFor="edit-req-remarks" className="block text-xs font-semibold text-slate-300 mb-1">Admin Remarks / Verification Notes</label>
                       <textarea
+                        id="edit-req-remarks"
                         rows="2"
                         value={editReqRemarks}
                         onChange={(e) => setEditReqRemarks(e.target.value)}
@@ -3643,8 +3752,9 @@
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Scanned Document URL (Optional)</label>
+                      <label htmlFor="edit-req-docurl" className="block text-xs font-semibold text-slate-300 mb-1">Scanned Document URL (Optional)</label>
                       <input
+                        id="edit-req-docurl"
                         type="url"
                         value={editReqDocUrl}
                         onChange={(e) => setEditReqDocUrl(e.target.value)}
@@ -3693,12 +3803,13 @@
                           <h3 id="add-req-title" className="text-base font-bold text-white mt-0.5">Add Prescribed Requirement</h3>
                         </div>
                       </div>
-                      <button type="button" onClick={() => setShowAddReqModal(false)} aria-label="Close dialog" className="text-slate-400 hover:text-white p-1">✕</button>
+                      <button type="button" onClick={() => setShowAddReqModal(false)} aria-label="Close dialog" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-white text-base font-bold">✕</button>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Requirement Title</label>
+                      <label htmlFor="new-req-name" className="block text-xs font-semibold text-slate-300 mb-1">Requirement Title</label>
                       <input
+                        id="new-req-name"
                         type="text"
                         value={newReqName}
                         onChange={(e) => setNewReqName(e.target.value)}
@@ -3709,8 +3820,9 @@
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Initial Status</label>
+                      <label htmlFor="new-req-status" className="block text-xs font-semibold text-slate-300 mb-1">Initial Status</label>
                       <select
+                        id="new-req-status"
                         value={newReqStatus}
                         onChange={(e) => setNewReqStatus(e.target.value)}
                         className="w-full input-animated border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
@@ -3722,8 +3834,9 @@
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Remarks / Submission Instructions</label>
+                      <label htmlFor="new-req-remarks" className="block text-xs font-semibold text-slate-300 mb-1">Remarks / Submission Instructions</label>
                       <textarea
+                        id="new-req-remarks"
                         rows="2"
                         value={newReqRemarks}
                         onChange={(e) => setNewReqRemarks(e.target.value)}
@@ -3772,11 +3885,11 @@
                           <h3 id="view-doc-title" className="text-base sm:text-lg font-bold text-white mt-0.5">{selectedDocument.name}</h3>
                         </div>
                       </div>
-                      <button onClick={() => setSelectedDocument(null)} aria-label="Close document viewer" className="text-slate-400 hover:text-white p-1">✕</button>
+                      <button onClick={() => setSelectedDocument(null)} aria-label="Close document viewer" className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-white text-base font-bold">✕</button>
                     </div>
 
                     <div className="max-h-64 sm:max-h-72 h-auto min-h-[160px] rounded-xl overflow-hidden bg-slate-950 border border-slate-800 flex items-center justify-center p-2">
-                      <img src={selectedDocument.document_url} alt="Scanned Document" className="max-h-60 sm:max-h-68 max-w-full object-contain" />
+                      <img src={selectedDocument.document_url} alt="Scanned Document" loading="lazy" decoding="async" className="max-h-60 sm:max-h-68 max-w-full object-contain" />
                     </div>
 
                     <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1">
@@ -3829,7 +3942,7 @@
                         type="button"
                         onClick={() => setShowChangePasswordModal(false)}
                         aria-label="Close dialog"
-                        className="text-slate-400 hover:text-white p-1"
+                        className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-800 transition active:scale-95 text-slate-400 hover:text-white text-base font-bold"
                       >
                         ✕
                       </button>
@@ -3851,9 +3964,10 @@
 
                     <div className="space-y-3">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">New Password</label>
+                        <label htmlFor="reset-new-password" className="block text-xs font-semibold text-slate-300 mb-1">New Password</label>
                         <div className="relative">
                           <input
+                            id="reset-new-password"
                             type={showMyPassword ? "text" : "password"}
                             value={myNewPassword}
                             onChange={(e) => setMyNewPassword(e.target.value)}
@@ -3875,8 +3989,9 @@
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">Confirm New Password</label>
+                        <label htmlFor="reset-confirm-password" className="block text-xs font-semibold text-slate-300 mb-1">Confirm New Password</label>
                         <input
+                          id="reset-confirm-password"
                           type={showMyPassword ? "text" : "password"}
                           value={myConfirmPassword}
                           onChange={(e) => setMyConfirmPassword(e.target.value)}
