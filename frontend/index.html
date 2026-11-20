@@ -31,14 +31,9 @@
   <script>
     (function () {
       try {
-        var t = localStorage.getItem('portal_theme') || 'dark';
-        if (t === 'light') {
-          document.documentElement.classList.add('light-theme');
-          document.documentElement.classList.remove('dark', 'dark-theme');
-        } else {
-          document.documentElement.classList.add('dark', 'dark-theme');
-          document.documentElement.classList.remove('light-theme');
-        }
+        localStorage.setItem('portal_theme', 'light');
+        document.documentElement.classList.add('light-theme');
+        document.documentElement.classList.remove('dark', 'dark-theme');
       } catch (e) { }
     })();
   </script>
@@ -573,8 +568,10 @@
     }
 
     /* ========================================================================= */
-    /* 2. LIGHT MODE SYSTEM STYLING (TRUE LIGHT THEME WITH HIGH CONTRAST)        */
+    /* 2. LIGHT MODE SYSTEM STYLING (PERMANENT EXCLUSIVE LIGHT THEME)            */
     /* ========================================================================= */
+    html,
+    body,
     html.light-theme,
     html.light-theme body,
     body.light-theme {
@@ -1845,28 +1842,9 @@
       }
     ];
 
-    // THEME TOGGLE BUTTON COMPONENT (Lucide Sun/Moon)
-    function ThemeToggle({ theme, setTheme, className = "" }) {
-      const isLight = theme === 'light';
-      return (
-        <button
-          type="button"
-          onClick={() => setTheme(isLight ? 'dark' : 'light')}
-          aria-label={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
-          className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-150 flex items-center gap-1.5 shadow-sm active:scale-95 ${isLight
-              ? 'bg-slate-100/90 text-slate-700 border-slate-200 hover:bg-slate-200/90'
-              : 'bg-slate-800/80 text-slate-200 border-slate-700 hover:bg-slate-700/80'
-            } ${className}`}
-          title={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
-        >
-          {isLight ? (
-            <Icons.Sun className="w-3.5 h-3.5 text-amber-500" />
-          ) : (
-            <Icons.Moon className="w-3.5 h-3.5 text-indigo-400" />
-          )}
-          <span>{isLight ? 'Light' : 'Dark'}</span>
-        </button>
-      );
+    // THEME TOGGLE: Removed (System operates permanently in Light Mode)
+    function ThemeToggle() {
+      return null;
     }
 
     // PASSWORD VISIBILITY TOGGLE EYE ICON (Lucide Eye / EyeOff)
@@ -1903,25 +1881,18 @@
     }
 
     function App() {
-      // THEME STATE: 'dark' | 'light'
-      const [theme, setTheme] = useState(() => {
-        return localStorage.getItem('portal_theme') || 'dark';
-      });
+      // THEME: System locked to Light Mode only
+      const theme = 'light';
 
       useEffect(() => {
-        localStorage.setItem('portal_theme', theme);
-        if (theme === 'light') {
-          document.documentElement.classList.add('light-theme');
-          document.body.classList.add('light-theme');
-          document.documentElement.classList.remove('dark', 'dark-theme');
-          document.body.classList.remove('dark', 'dark-theme');
-        } else {
-          document.documentElement.classList.add('dark', 'dark-theme');
-          document.body.classList.add('dark', 'dark-theme');
-          document.documentElement.classList.remove('light-theme');
-          document.body.classList.remove('light-theme');
-        }
-      }, [theme]);
+        try {
+          localStorage.setItem('portal_theme', 'light');
+        } catch (e) { }
+        document.documentElement.classList.add('light-theme');
+        document.body.classList.add('light-theme');
+        document.documentElement.classList.remove('dark', 'dark-theme');
+        document.body.classList.remove('dark', 'dark-theme');
+      }, []);
 
       // DEFAULT FALLBACK ADMIN SESSION (used when visiting #main directly without prior login)
       const DEFAULT_ADMIN_SESSION = {
@@ -3122,10 +3093,6 @@
         const targetUser = redirectingUser || currentUser || { name: 'User', is_admin: false };
         return (
           <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-4 relative overflow-y-auto">
-            <div className="absolute top-4 right-4 sm:top-5 sm:right-6 z-30">
-              <ThemeToggle theme={theme} setTheme={setTheme} />
-            </div>
-
             <ParticleCanvas theme={theme} />
 
             <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
@@ -3223,7 +3190,6 @@
                 >
                   <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back to Sign In
                 </button>
-                <ThemeToggle theme={theme} setTheme={setTheme} />
               </div>
             </div>
 
@@ -3496,9 +3462,6 @@
                 <span className="auth-nav-title text-xs font-semibold text-slate-900 dark:text-white tracking-wide">
                   KM100 Skills and Training Center, Inc.
                 </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <ThemeToggle theme={theme} setTheme={setTheme} />
               </div>
             </div>
 
@@ -3778,11 +3741,6 @@
                       <span className="hidden sm:inline">Log Out</span>
                     </button>
                   </div>
-
-                  <div className="user-profile-divider h-6 w-px hidden sm:block"></div>
-
-                  {/* Integrated Theme Toggle */}
-                  <ThemeToggle theme={theme} setTheme={setTheme} />
                 </div>
               </div>
             </header>
