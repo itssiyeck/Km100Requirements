@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KM100 Skills and Training Center, Inc. - PQF Level 5 Diploma Programs</title>
+  <title>KM100 Skills and Training Center, Inc.</title>
   <link rel="icon" type="image/jpeg" href="km100-logo.jpg">
   <!-- Resource Preconnects for Fast Asset Retrieval -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1593,249 +1593,1161 @@
       return null;
     }
 
-    // PRE-CONFIGURED LOGIN ACCOUNTS
+    // PRE-CONFIGURED LOGIN ACCOUNTS FOR 5 BATCHES
     const INITIAL_AUTH_USERS = [
       {
-        id: "admin-1",
-        email: "admin@system.local",
-        password: "admin123",
-        role: "admin",
-        name: "System Administrator",
-        title: "OJT / TVET Head Coordinator"
+            "id": "admin-1",
+            "email": "admin@system.local",
+            "password": "admin123",
+            "role": "admin",
+            "name": "System Administrator",
+            "title": "OJT / TVET Head Coordinator"
       },
       {
-        id: "user-1",
-        email: "juan.delacruz@school.edu",
-        password: "user123",
-        role: "user",
-        name: "Juan Dela Cruz",
-        batch: "Batch 2026-A",
-        student_id: "2026-001"
+            "id": "user-1",
+            "email": "juan.dela.cruz@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Juan Dela Cruz",
+            "batch": "Batch 1",
+            "student_id": "2026-B1-001"
       },
       {
-        id: "user-2",
-        email: "maria.clara@school.edu",
-        password: "user123",
-        role: "user",
-        name: "Maria Clara",
-        batch: "Batch 2026-A",
-        student_id: "2026-002"
+            "id": "user-2",
+            "email": "maria.clara@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Maria Clara",
+            "batch": "Batch 1",
+            "student_id": "2026-B1-002"
       },
       {
-        id: "user-3",
-        email: "c.ibarra@school.edu",
-        password: "user123",
-        role: "user",
-        name: "Crisostomo Ibarra",
-        batch: "Batch 2026-B",
-        student_id: "2026-003"
+            "id": "user-3",
+            "email": "andres.bonifacio@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Andres Bonifacio",
+            "batch": "Batch 1",
+            "student_id": "2026-B1-003"
+      },
+      {
+            "id": "user-4",
+            "email": "crisostomo.ibarra@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Crisostomo Ibarra",
+            "batch": "Batch 2",
+            "student_id": "2026-B2-001"
+      },
+      {
+            "id": "user-5",
+            "email": "leonor.rivera@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Leonor Rivera",
+            "batch": "Batch 2",
+            "student_id": "2026-B2-002"
+      },
+      {
+            "id": "user-6",
+            "email": "emilio.jacinto@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Emilio Jacinto",
+            "batch": "Batch 2",
+            "student_id": "2026-B2-003"
+      },
+      {
+            "id": "user-7",
+            "email": "antonio.luna@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Antonio Luna",
+            "batch": "Batch 3",
+            "student_id": "2026-B3-001"
+      },
+      {
+            "id": "user-8",
+            "email": "melchora.aquino@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Melchora Aquino",
+            "batch": "Batch 3",
+            "student_id": "2026-B3-002"
+      },
+      {
+            "id": "user-9",
+            "email": "marcelo.del.pilar@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Marcelo Del Pilar",
+            "batch": "Batch 3",
+            "student_id": "2026-B3-003"
+      },
+      {
+            "id": "user-10",
+            "email": "jose.rizal@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Jose Rizal",
+            "batch": "Batch 4",
+            "student_id": "2026-B4-001"
+      },
+      {
+            "id": "user-11",
+            "email": "gabriela.silang@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Gabriela Silang",
+            "batch": "Batch 4",
+            "student_id": "2026-B4-002"
+      },
+      {
+            "id": "user-12",
+            "email": "apolinario.mabini@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Apolinario Mabini",
+            "batch": "Batch 4",
+            "student_id": "2026-B4-003"
+      },
+      {
+            "id": "user-13",
+            "email": "diego.silang@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Diego Silang",
+            "batch": "Batch 5",
+            "student_id": "2026-B5-001"
+      },
+      {
+            "id": "user-14",
+            "email": "teresa.magbanua@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Teresa Magbanua",
+            "batch": "Batch 5",
+            "student_id": "2026-B5-002"
+      },
+      {
+            "id": "user-15",
+            "email": "gregorio.del.pilar@school.edu",
+            "password": "user123",
+            "role": "user",
+            "name": "Gregorio Del Pilar",
+            "batch": "Batch 5",
+            "student_id": "2026-B5-003"
       }
-    ];
+];
 
-    // DATABASE SEED FOR KM100 OFFICIAL PRESCRIBED REQUIREMENTS
+    // DATABASE SEED FOR KM100 OFFICIAL PRESCRIBED REQUIREMENTS (5 BATCHES)
     const INITIAL_INTERNS = [
       {
-        id: "aaaaaaaa-1111-1111-1111-111111111111",
-        full_name: "Juan Dela Cruz",
-        batch_number: "Batch 2026-A",
-        student_id: "2026-001",
-        email: "juan.delacruz@school.edu",
-        department: "SMAW",
-        overall_status: "incomplete",
-        requirements: [
-          {
-            id: "req-1",
-            name: "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
-            status: "submitted",
-            remarks: "Official PSA Birth Certificate copy submitted and verified.",
-            document_url: "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
-            scanned_at: "Nov 10, 2026"
-          },
-          {
-            id: "req-2",
-            name: "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
-            status: "submitted",
-            remarks: "Official Transcript of Records (T.O.R) verified and authenticated.",
-            document_url: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
-            scanned_at: "Nov 11, 2026"
-          },
-          {
-            id: "req-3",
-            name: "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
-            status: "pending",
-            remarks: "4 pcs passport photos with nametag and signature submitted; under registrar review.",
-            document_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
-            scanned_at: "Nov 15, 2026"
-          },
-          {
-            id: "req-4",
-            name: "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
-            status: "submitted",
-            remarks: "4 pcs 1x1 acid-base photos with nametag and signature verified.",
-            document_url: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
-            scanned_at: "Nov 12, 2026"
-          },
-          {
-            id: "req-5",
-            name: "Barangay Certificate",
-            status: "lacking",
-            remarks: "Valid Barangay Certificate/Clearance of residency required. Please submit to scanner.",
-            document_url: null,
-            scanned_at: null
-          },
-          {
-            id: "req-6",
-            name: "Medical Certificate & Chest X-RAY for SMAW",
-            status: "submitted",
-            remarks: "Medical Certificate & Chest X-RAY verified valid for SMAW trainee.",
-            document_url: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
-            scanned_at: "Nov 14, 2026"
-          },
-          {
-            id: "req-7",
-            name: "Long Brown Envelope (1pc) & Long White Folder (1pc)",
-            status: "lacking",
-            remarks: "Physical filing materials: 1pc Long Brown Envelope and 1pc Long White Folder needed.",
-            document_url: null,
-            scanned_at: null
-          }
-        ]
+            "id": "intern-b1-1",
+            "full_name": "Juan Dela Cruz",
+            "batch_number": "Batch 1",
+            "student_id": "2026-B1-001",
+            "email": "juan.dela.cruz@school.edu",
+            "department": "SMAW",
+            "overall_status": "incomplete",
+            "requirements": [
+                  {
+                        "id": "req-1",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 11, 2026"
+                  },
+                  {
+                        "id": "req-2",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 12, 2026"
+                  },
+                  {
+                        "id": "req-3",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 13, 2026"
+                  },
+                  {
+                        "id": "req-4",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 14, 2026"
+                  },
+                  {
+                        "id": "req-5",
+                        "name": "Barangay Certificate",
+                        "status": "lacking",
+                        "remarks": "Valid Barangay Certificate/Clearance of residency required.",
+                        "document_url": null,
+                        "scanned_at": null
+                  },
+                  {
+                        "id": "req-6",
+                        "name": "Medical Certificate & Chest X-RAY for SMAW",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate & Chest X-RAY for SMAW verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 16, 2026"
+                  },
+                  {
+                        "id": "req-7",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "lacking",
+                        "remarks": "Physical filing materials required.",
+                        "document_url": null,
+                        "scanned_at": null
+                  }
+            ]
       },
       {
-        id: "bbbbbbbb-2222-2222-2222-222222222222",
-        full_name: "Maria Clara",
-        batch_number: "Batch 2026-A",
-        student_id: "2026-002",
-        email: "maria.clara@school.edu",
-        department: "BPP (Bread & Pastry Production)",
-        overall_status: "pending",
-        requirements: [
-          {
-            id: "req-8",
-            name: "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
-            status: "submitted",
-            remarks: "NSO/PSA copy verified.",
-            document_url: "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
-            scanned_at: "Nov 09, 2026"
-          },
-          {
-            id: "req-9",
-            name: "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
-            status: "submitted",
-            remarks: "College Diploma verified.",
-            document_url: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
-            scanned_at: "Nov 10, 2026"
-          },
-          {
-            id: "req-10",
-            name: "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
-            status: "submitted",
-            remarks: "Photos complete and stamped.",
-            document_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
-            scanned_at: "Nov 14, 2026"
-          },
-          {
-            id: "req-11",
-            name: "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
-            status: "submitted",
-            remarks: "1x1 photos complete.",
-            document_url: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
-            scanned_at: "Nov 14, 2026"
-          },
-          {
-            id: "req-12",
-            name: "Barangay Certificate",
-            status: "pending",
-            remarks: "Submitted Barangay clearance under verification.",
-            document_url: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
-            scanned_at: "Nov 16, 2026"
-          },
-          {
-            id: "req-13",
-            name: "Medical Certificate for BPP, Driving & CSS NCII",
-            status: "pending",
-            remarks: "Standard Medical Certificate received; awaiting clinic confirmation.",
-            document_url: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
-            scanned_at: "Nov 16, 2026"
-          },
-          {
-            id: "req-14",
-            name: "Long Brown Envelope (1pc) & Long White Folder (1pc)",
-            status: "submitted",
-            remarks: "Filing supplies received and tagged.",
-            document_url: null,
-            scanned_at: "Nov 15, 2026"
-          }
-        ]
+            "id": "intern-b1-2",
+            "full_name": "Maria Clara",
+            "batch_number": "Batch 1",
+            "student_id": "2026-B1-002",
+            "email": "maria.clara@school.edu",
+            "department": "BPP (Bread & Pastry Production)",
+            "overall_status": "pending",
+            "requirements": [
+                  {
+                        "id": "req-8",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 18, 2026"
+                  },
+                  {
+                        "id": "req-9",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 19, 2026"
+                  },
+                  {
+                        "id": "req-10",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "pending",
+                        "remarks": "Under registrar verification.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 20, 2026"
+                  },
+                  {
+                        "id": "req-11",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 21, 2026"
+                  },
+                  {
+                        "id": "req-12",
+                        "name": "Barangay Certificate",
+                        "status": "submitted",
+                        "remarks": "Barangay Certificate verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+                        "scanned_at": "Nov 10, 2026"
+                  },
+                  {
+                        "id": "req-13",
+                        "name": "Medical Certificate for BPP, Driving & CSS NCII",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate for BPP, Driving & CSS NCII verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 11, 2026"
+                  },
+                  {
+                        "id": "req-14",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "submitted",
+                        "remarks": "Archived in registrar.",
+                        "document_url": null,
+                        "scanned_at": "Nov 12, 2026"
+                  }
+            ]
       },
       {
-        id: "cccccccc-3333-3333-3333-333333333333",
-        full_name: "Crisostomo Ibarra",
-        batch_number: "Batch 2026-B",
-        student_id: "2026-003",
-        email: "c.ibarra@school.edu",
-        department: "Driving & CSS NCII",
-        overall_status: "complete",
-        requirements: [
-          {
-            id: "req-15",
-            name: "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
-            status: "submitted",
-            remarks: "Complete & Verified.",
-            document_url: "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
-            scanned_at: "Nov 01, 2026"
-          },
-          {
-            id: "req-16",
-            name: "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
-            status: "submitted",
-            remarks: "Complete & Verified.",
-            document_url: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
-            scanned_at: "Nov 01, 2026"
-          },
-          {
-            id: "req-17",
-            name: "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
-            status: "submitted",
-            remarks: "Complete & Verified.",
-            document_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
-            scanned_at: "Nov 02, 2026"
-          },
-          {
-            id: "req-18",
-            name: "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
-            status: "submitted",
-            remarks: "Complete & Verified.",
-            document_url: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
-            scanned_at: "Nov 02, 2026"
-          },
-          {
-            id: "req-19",
-            name: "Barangay Certificate",
-            status: "submitted",
-            remarks: "Valid Barangay Certificate on record.",
-            document_url: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
-            scanned_at: "Nov 03, 2026"
-          },
-          {
-            id: "req-20",
-            name: "Medical Certificate for BPP, Driving & CSS NCII",
-            status: "submitted",
-            remarks: "Medical Certificate verified valid for Driving & CSS NCII trainee.",
-            document_url: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
-            scanned_at: "Nov 04, 2026"
-          },
-          {
-            id: "req-21",
-            name: "Long Brown Envelope (1pc) & Long White Folder (1pc)",
-            status: "submitted",
-            remarks: "Filing materials archived.",
-            document_url: null,
-            scanned_at: "Nov 05, 2026"
-          }
-        ]
+            "id": "intern-b1-3",
+            "full_name": "Andres Bonifacio",
+            "batch_number": "Batch 1",
+            "student_id": "2026-B1-003",
+            "email": "andres.bonifacio@school.edu",
+            "department": "SMAW",
+            "overall_status": "complete",
+            "requirements": [
+                  {
+                        "id": "req-15",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 13, 2026"
+                  },
+                  {
+                        "id": "req-16",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 14, 2026"
+                  },
+                  {
+                        "id": "req-17",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 15, 2026"
+                  },
+                  {
+                        "id": "req-18",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 16, 2026"
+                  },
+                  {
+                        "id": "req-19",
+                        "name": "Barangay Certificate",
+                        "status": "submitted",
+                        "remarks": "Barangay Certificate verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+                        "scanned_at": "Nov 17, 2026"
+                  },
+                  {
+                        "id": "req-20",
+                        "name": "Medical Certificate & Chest X-RAY for SMAW",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate & Chest X-RAY for SMAW verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 18, 2026"
+                  },
+                  {
+                        "id": "req-21",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "submitted",
+                        "remarks": "Long Brown Envelope (1pc) & Long White Folder (1pc) verified and authenticated on record.",
+                        "document_url": null,
+                        "scanned_at": "Nov 19, 2026"
+                  }
+            ]
+      },
+      {
+            "id": "intern-b2-1",
+            "full_name": "Crisostomo Ibarra",
+            "batch_number": "Batch 2",
+            "student_id": "2026-B2-001",
+            "email": "crisostomo.ibarra@school.edu",
+            "department": "Driving & CSS NCII",
+            "overall_status": "incomplete",
+            "requirements": [
+                  {
+                        "id": "req-22",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 20, 2026"
+                  },
+                  {
+                        "id": "req-23",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 21, 2026"
+                  },
+                  {
+                        "id": "req-24",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 10, 2026"
+                  },
+                  {
+                        "id": "req-25",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 11, 2026"
+                  },
+                  {
+                        "id": "req-26",
+                        "name": "Barangay Certificate",
+                        "status": "lacking",
+                        "remarks": "Valid Barangay Certificate/Clearance of residency required.",
+                        "document_url": null,
+                        "scanned_at": null
+                  },
+                  {
+                        "id": "req-27",
+                        "name": "Medical Certificate for BPP, Driving & CSS NCII",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate for BPP, Driving & CSS NCII verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 13, 2026"
+                  },
+                  {
+                        "id": "req-28",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "lacking",
+                        "remarks": "Physical filing materials required.",
+                        "document_url": null,
+                        "scanned_at": null
+                  }
+            ]
+      },
+      {
+            "id": "intern-b2-2",
+            "full_name": "Leonor Rivera",
+            "batch_number": "Batch 2",
+            "student_id": "2026-B2-002",
+            "email": "leonor.rivera@school.edu",
+            "department": "BPP (Bread & Pastry Production)",
+            "overall_status": "pending",
+            "requirements": [
+                  {
+                        "id": "req-29",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 15, 2026"
+                  },
+                  {
+                        "id": "req-30",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 16, 2026"
+                  },
+                  {
+                        "id": "req-31",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "pending",
+                        "remarks": "Under registrar verification.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 17, 2026"
+                  },
+                  {
+                        "id": "req-32",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 18, 2026"
+                  },
+                  {
+                        "id": "req-33",
+                        "name": "Barangay Certificate",
+                        "status": "submitted",
+                        "remarks": "Barangay Certificate verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+                        "scanned_at": "Nov 19, 2026"
+                  },
+                  {
+                        "id": "req-34",
+                        "name": "Medical Certificate for BPP, Driving & CSS NCII",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate for BPP, Driving & CSS NCII verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 20, 2026"
+                  },
+                  {
+                        "id": "req-35",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "submitted",
+                        "remarks": "Archived in registrar.",
+                        "document_url": null,
+                        "scanned_at": "Nov 21, 2026"
+                  }
+            ]
+      },
+      {
+            "id": "intern-b2-3",
+            "full_name": "Emilio Jacinto",
+            "batch_number": "Batch 2",
+            "student_id": "2026-B2-003",
+            "email": "emilio.jacinto@school.edu",
+            "department": "Driving & CSS NCII",
+            "overall_status": "complete",
+            "requirements": [
+                  {
+                        "id": "req-36",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 10, 2026"
+                  },
+                  {
+                        "id": "req-37",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 11, 2026"
+                  },
+                  {
+                        "id": "req-38",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 12, 2026"
+                  },
+                  {
+                        "id": "req-39",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 13, 2026"
+                  },
+                  {
+                        "id": "req-40",
+                        "name": "Barangay Certificate",
+                        "status": "submitted",
+                        "remarks": "Barangay Certificate verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+                        "scanned_at": "Nov 14, 2026"
+                  },
+                  {
+                        "id": "req-41",
+                        "name": "Medical Certificate for BPP, Driving & CSS NCII",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate for BPP, Driving & CSS NCII verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 15, 2026"
+                  },
+                  {
+                        "id": "req-42",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "submitted",
+                        "remarks": "Long Brown Envelope (1pc) & Long White Folder (1pc) verified and authenticated on record.",
+                        "document_url": null,
+                        "scanned_at": "Nov 16, 2026"
+                  }
+            ]
+      },
+      {
+            "id": "intern-b3-1",
+            "full_name": "Antonio Luna",
+            "batch_number": "Batch 3",
+            "student_id": "2026-B3-001",
+            "email": "antonio.luna@school.edu",
+            "department": "SMAW",
+            "overall_status": "incomplete",
+            "requirements": [
+                  {
+                        "id": "req-43",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 17, 2026"
+                  },
+                  {
+                        "id": "req-44",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 18, 2026"
+                  },
+                  {
+                        "id": "req-45",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 19, 2026"
+                  },
+                  {
+                        "id": "req-46",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 20, 2026"
+                  },
+                  {
+                        "id": "req-47",
+                        "name": "Barangay Certificate",
+                        "status": "lacking",
+                        "remarks": "Valid Barangay Certificate/Clearance of residency required.",
+                        "document_url": null,
+                        "scanned_at": null
+                  },
+                  {
+                        "id": "req-48",
+                        "name": "Medical Certificate & Chest X-RAY for SMAW",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate & Chest X-RAY for SMAW verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 10, 2026"
+                  },
+                  {
+                        "id": "req-49",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "lacking",
+                        "remarks": "Physical filing materials required.",
+                        "document_url": null,
+                        "scanned_at": null
+                  }
+            ]
+      },
+      {
+            "id": "intern-b3-2",
+            "full_name": "Melchora Aquino",
+            "batch_number": "Batch 3",
+            "student_id": "2026-B3-002",
+            "email": "melchora.aquino@school.edu",
+            "department": "BPP (Bread & Pastry Production)",
+            "overall_status": "pending",
+            "requirements": [
+                  {
+                        "id": "req-50",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 12, 2026"
+                  },
+                  {
+                        "id": "req-51",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 13, 2026"
+                  },
+                  {
+                        "id": "req-52",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "pending",
+                        "remarks": "Under registrar verification.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 14, 2026"
+                  },
+                  {
+                        "id": "req-53",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 15, 2026"
+                  },
+                  {
+                        "id": "req-54",
+                        "name": "Barangay Certificate",
+                        "status": "submitted",
+                        "remarks": "Barangay Certificate verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+                        "scanned_at": "Nov 16, 2026"
+                  },
+                  {
+                        "id": "req-55",
+                        "name": "Medical Certificate for BPP, Driving & CSS NCII",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate for BPP, Driving & CSS NCII verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 17, 2026"
+                  },
+                  {
+                        "id": "req-56",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "submitted",
+                        "remarks": "Archived in registrar.",
+                        "document_url": null,
+                        "scanned_at": "Nov 18, 2026"
+                  }
+            ]
+      },
+      {
+            "id": "intern-b3-3",
+            "full_name": "Marcelo Del Pilar",
+            "batch_number": "Batch 3",
+            "student_id": "2026-B3-003",
+            "email": "marcelo.del.pilar@school.edu",
+            "department": "Driving & CSS NCII",
+            "overall_status": "complete",
+            "requirements": [
+                  {
+                        "id": "req-57",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 19, 2026"
+                  },
+                  {
+                        "id": "req-58",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 20, 2026"
+                  },
+                  {
+                        "id": "req-59",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 21, 2026"
+                  },
+                  {
+                        "id": "req-60",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 10, 2026"
+                  },
+                  {
+                        "id": "req-61",
+                        "name": "Barangay Certificate",
+                        "status": "submitted",
+                        "remarks": "Barangay Certificate verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+                        "scanned_at": "Nov 11, 2026"
+                  },
+                  {
+                        "id": "req-62",
+                        "name": "Medical Certificate for BPP, Driving & CSS NCII",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate for BPP, Driving & CSS NCII verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 12, 2026"
+                  },
+                  {
+                        "id": "req-63",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "submitted",
+                        "remarks": "Long Brown Envelope (1pc) & Long White Folder (1pc) verified and authenticated on record.",
+                        "document_url": null,
+                        "scanned_at": "Nov 13, 2026"
+                  }
+            ]
+      },
+      {
+            "id": "intern-b4-1",
+            "full_name": "Jose Rizal",
+            "batch_number": "Batch 4",
+            "student_id": "2026-B4-001",
+            "email": "jose.rizal@school.edu",
+            "department": "Driving & CSS NCII",
+            "overall_status": "incomplete",
+            "requirements": [
+                  {
+                        "id": "req-64",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 14, 2026"
+                  },
+                  {
+                        "id": "req-65",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 15, 2026"
+                  },
+                  {
+                        "id": "req-66",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 16, 2026"
+                  },
+                  {
+                        "id": "req-67",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 17, 2026"
+                  },
+                  {
+                        "id": "req-68",
+                        "name": "Barangay Certificate",
+                        "status": "lacking",
+                        "remarks": "Valid Barangay Certificate/Clearance of residency required.",
+                        "document_url": null,
+                        "scanned_at": null
+                  },
+                  {
+                        "id": "req-69",
+                        "name": "Medical Certificate for BPP, Driving & CSS NCII",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate for BPP, Driving & CSS NCII verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 19, 2026"
+                  },
+                  {
+                        "id": "req-70",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "lacking",
+                        "remarks": "Physical filing materials required.",
+                        "document_url": null,
+                        "scanned_at": null
+                  }
+            ]
+      },
+      {
+            "id": "intern-b4-2",
+            "full_name": "Gabriela Silang",
+            "batch_number": "Batch 4",
+            "student_id": "2026-B4-002",
+            "email": "gabriela.silang@school.edu",
+            "department": "SMAW",
+            "overall_status": "pending",
+            "requirements": [
+                  {
+                        "id": "req-71",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 21, 2026"
+                  },
+                  {
+                        "id": "req-72",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 10, 2026"
+                  },
+                  {
+                        "id": "req-73",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "pending",
+                        "remarks": "Under registrar verification.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 11, 2026"
+                  },
+                  {
+                        "id": "req-74",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 12, 2026"
+                  },
+                  {
+                        "id": "req-75",
+                        "name": "Barangay Certificate",
+                        "status": "submitted",
+                        "remarks": "Barangay Certificate verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+                        "scanned_at": "Nov 13, 2026"
+                  },
+                  {
+                        "id": "req-76",
+                        "name": "Medical Certificate & Chest X-RAY for SMAW",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate & Chest X-RAY for SMAW verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 14, 2026"
+                  },
+                  {
+                        "id": "req-77",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "submitted",
+                        "remarks": "Archived in registrar.",
+                        "document_url": null,
+                        "scanned_at": "Nov 15, 2026"
+                  }
+            ]
+      },
+      {
+            "id": "intern-b4-3",
+            "full_name": "Apolinario Mabini",
+            "batch_number": "Batch 4",
+            "student_id": "2026-B4-003",
+            "email": "apolinario.mabini@school.edu",
+            "department": "CSS NC II",
+            "overall_status": "complete",
+            "requirements": [
+                  {
+                        "id": "req-78",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 16, 2026"
+                  },
+                  {
+                        "id": "req-79",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 17, 2026"
+                  },
+                  {
+                        "id": "req-80",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 18, 2026"
+                  },
+                  {
+                        "id": "req-81",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 19, 2026"
+                  },
+                  {
+                        "id": "req-82",
+                        "name": "Barangay Certificate",
+                        "status": "submitted",
+                        "remarks": "Barangay Certificate verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+                        "scanned_at": "Nov 20, 2026"
+                  },
+                  {
+                        "id": "req-83",
+                        "name": "Medical Certificate for BPP, Driving & CSS NCII",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate for BPP, Driving & CSS NCII verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 21, 2026"
+                  },
+                  {
+                        "id": "req-84",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "submitted",
+                        "remarks": "Long Brown Envelope (1pc) & Long White Folder (1pc) verified and authenticated on record.",
+                        "document_url": null,
+                        "scanned_at": "Nov 10, 2026"
+                  }
+            ]
+      },
+      {
+            "id": "intern-b5-1",
+            "full_name": "Diego Silang",
+            "batch_number": "Batch 5",
+            "student_id": "2026-B5-001",
+            "email": "diego.silang@school.edu",
+            "department": "SMAW",
+            "overall_status": "incomplete",
+            "requirements": [
+                  {
+                        "id": "req-85",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 11, 2026"
+                  },
+                  {
+                        "id": "req-86",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 12, 2026"
+                  },
+                  {
+                        "id": "req-87",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 13, 2026"
+                  },
+                  {
+                        "id": "req-88",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 14, 2026"
+                  },
+                  {
+                        "id": "req-89",
+                        "name": "Barangay Certificate",
+                        "status": "lacking",
+                        "remarks": "Valid Barangay Certificate/Clearance of residency required.",
+                        "document_url": null,
+                        "scanned_at": null
+                  },
+                  {
+                        "id": "req-90",
+                        "name": "Medical Certificate & Chest X-RAY for SMAW",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate & Chest X-RAY for SMAW verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 16, 2026"
+                  },
+                  {
+                        "id": "req-91",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "lacking",
+                        "remarks": "Physical filing materials required.",
+                        "document_url": null,
+                        "scanned_at": null
+                  }
+            ]
+      },
+      {
+            "id": "intern-b5-2",
+            "full_name": "Teresa Magbanua",
+            "batch_number": "Batch 5",
+            "student_id": "2026-B5-002",
+            "email": "teresa.magbanua@school.edu",
+            "department": "BPP (Bread & Pastry Production)",
+            "overall_status": "pending",
+            "requirements": [
+                  {
+                        "id": "req-92",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 18, 2026"
+                  },
+                  {
+                        "id": "req-93",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 19, 2026"
+                  },
+                  {
+                        "id": "req-94",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "pending",
+                        "remarks": "Under registrar verification.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 20, 2026"
+                  },
+                  {
+                        "id": "req-95",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 21, 2026"
+                  },
+                  {
+                        "id": "req-96",
+                        "name": "Barangay Certificate",
+                        "status": "submitted",
+                        "remarks": "Barangay Certificate verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+                        "scanned_at": "Nov 10, 2026"
+                  },
+                  {
+                        "id": "req-97",
+                        "name": "Medical Certificate for BPP, Driving & CSS NCII",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate for BPP, Driving & CSS NCII verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 11, 2026"
+                  },
+                  {
+                        "id": "req-98",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "submitted",
+                        "remarks": "Archived in registrar.",
+                        "document_url": null,
+                        "scanned_at": "Nov 12, 2026"
+                  }
+            ]
+      },
+      {
+            "id": "intern-b5-3",
+            "full_name": "Gregorio Del Pilar",
+            "batch_number": "Batch 5",
+            "student_id": "2026-B5-003",
+            "email": "gregorio.del.pilar@school.edu",
+            "department": "Driving & CSS NCII",
+            "overall_status": "complete",
+            "requirements": [
+                  {
+                        "id": "req-99",
+                        "name": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate)",
+                        "status": "submitted",
+                        "remarks": "Birth Certificate NSO/PSA (For Married women bring Marriage Certificate) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80",
+                        "scanned_at": "Nov 13, 2026"
+                  },
+                  {
+                        "id": "req-100",
+                        "name": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137",
+                        "status": "submitted",
+                        "remarks": "Either of the ff: T.O.R / Diploma / ALS Certificate / FORM 138 / FORM 137 verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+                        "scanned_at": "Nov 14, 2026"
+                  },
+                  {
+                        "id": "req-101",
+                        "name": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): Passport size - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+                        "scanned_at": "Nov 15, 2026"
+                  },
+                  {
+                        "id": "req-102",
+                        "name": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature)",
+                        "status": "submitted",
+                        "remarks": "Picture (White Background w/Collar: Acid base): 1x1 picture - 4pcs (w/nametag & signature) verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80",
+                        "scanned_at": "Nov 16, 2026"
+                  },
+                  {
+                        "id": "req-103",
+                        "name": "Barangay Certificate",
+                        "status": "submitted",
+                        "remarks": "Barangay Certificate verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+                        "scanned_at": "Nov 17, 2026"
+                  },
+                  {
+                        "id": "req-104",
+                        "name": "Medical Certificate for BPP, Driving & CSS NCII",
+                        "status": "submitted",
+                        "remarks": "Medical Certificate for BPP, Driving & CSS NCII verified and authenticated on record.",
+                        "document_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+                        "scanned_at": "Nov 18, 2026"
+                  },
+                  {
+                        "id": "req-105",
+                        "name": "Long Brown Envelope (1pc) & Long White Folder (1pc)",
+                        "status": "submitted",
+                        "remarks": "Long Brown Envelope (1pc) & Long White Folder (1pc) verified and authenticated on record.",
+                        "document_url": null,
+                        "scanned_at": "Nov 19, 2026"
+                  }
+            ]
       }
-    ];
+];
 
     // THEME TOGGLE: Removed (System operates permanently in Light Mode)
     function ThemeToggle() {
@@ -1974,6 +2886,7 @@
       }, []);
 
       // Form Credentials & Roles
+      const [authPortalTab, setAuthPortalTab] = useState('user'); // 'user' (Student/Trainee) or 'admin' (Administrator)
       const [authEmail, setAuthEmail] = useState('');
       const [authPassword, setAuthPassword] = useState('');
       const [authError, setAuthError] = useState('');
@@ -2011,7 +2924,7 @@
         return saved ? JSON.parse(saved) : INITIAL_AUTH_USERS;
       });
 
-      const REQUIREMENTS_VERSION = 'KM100_REQUIREMENTS_V2026_OFFICIAL_8';
+      const REQUIREMENTS_VERSION = 'KM100_REQUIREMENTS_V2026_5_BATCHES_V1';
       const [internDatabase, setInternDatabase] = useState(() => {
         try {
           const savedVer = localStorage.getItem('km100_requirements_version');
@@ -3152,6 +4065,8 @@
       // 2. DEDICATED SIGN UP PAGE (SHOWN BEFORE REDIRECTING TO MAIN PAGE)
       // =====================================================================
       if (currentView === 'signup') {
+        const isAdminSignup = (authPortalTab === 'admin');
+
         return (
           <div className="auth-hero-scope min-h-screen bg-slate-950 flex flex-col justify-center items-center p-3 sm:p-4 md:p-6 relative overflow-y-auto">
             {/* Top Navigation: Logo + Back Button */}
@@ -3176,7 +4091,11 @@
               </div>
               <button
                 type="button"
-                onClick={() => navigateTo('login')}
+                onClick={() => {
+                  setAuthError('');
+                  setAuthSuccess('');
+                  navigateTo('login');
+                }}
                 className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/90 border border-stone-200/90 text-stone-800 hover:bg-white backdrop-blur-sm transition flex items-center gap-1.5 shadow-sm active:scale-95"
               >
                 <Icons.ArrowLeft className="w-3.5 h-3.5" /> Back to Sign In
@@ -3196,30 +4115,83 @@
 
             {/* Centered Auth Container */}
             <div className="w-full max-w-lg my-auto flex flex-col items-center relative z-10">
-              {/* Portal Branding - Compact (logo in top-left) */}
+              {/* Portal Header */}
               <div className="text-center mb-3 w-full mt-14 sm:mt-16">
                 <h1 className="text-lg sm:text-xl font-black text-stone-900 tracking-tight animate-heading">
-                  Sign Up for Portal Access
+                  {isAdminSignup ? 'Staff & Administrator Registration' : 'Student & Trainee Registration'}
                 </h1>
                 <p className="text-xs text-stone-600 font-medium mt-0.5 animate-subtitle">
-                  PQF Level 5 Diploma &amp; NC II Trainee Registration
+                  {isAdminSignup
+                    ? 'OJT Coordinators, Instructors & System Management'
+                    : 'Diploma, NC II & Short Course Trainee Portal'}
                 </p>
                 <p className="text-[10px] text-stone-500 font-medium mt-0.5">
                   KM Building, Jamoral Ville, Purok 13, Brgy. Cogon, Bogo City, Cebu 6010
                 </p>
               </div>
 
+              {/* SEPARATED PORTAL SELECTOR TABS */}
+              <div className="w-full max-w-lg mb-2.5 bg-slate-900/40 p-1 rounded-2xl backdrop-blur-md border border-white/20 shadow-lg flex gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAuthPortalTab('user');
+                    setSignupRole('user');
+                    setAuthError('');
+                    setAuthSuccess('');
+                  }}
+                  className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center gap-2 ${
+                    !isAdminSignup
+                      ? 'bg-orange-600 text-white shadow-md shadow-orange-600/30 ring-1 ring-orange-400'
+                      : 'text-slate-200 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <Icons.User className="w-3.5 h-3.5" />
+                  <span>Student / Trainee Portal</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAuthPortalTab('admin');
+                    setSignupRole('admin');
+                    setAuthError('');
+                    setAuthSuccess('');
+                  }}
+                  className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center gap-2 ${
+                    isAdminSignup
+                      ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 ring-1 ring-emerald-400'
+                      : 'text-slate-200 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <Icons.Shield className="w-3.5 h-3.5" />
+                  <span>Administrator Portal</span>
+                </button>
+              </div>
+
               {/* SIGN UP CARD */}
               <div
-                className={`bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-3 sm:p-4 w-full auth-card-glow space-y-2 transition-all duration-200 ${shakeError ? 'shake-error' : ''}`}
+                className={`bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl p-4 sm:p-5 w-full auth-card-glow space-y-3 transition-all duration-200 ${shakeError ? 'shake-error' : ''}`}
               >
                 {/* Header Switcher */}
-                <div className="flex items-center justify-between pb-1.5 border-b border-slate-200 dark:border-slate-800">
-                  <span className="text-xs font-bold text-slate-900 dark:text-white">Create New Account</span>
+                <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
+                  <div className="flex items-center gap-2">
+                    <span className={`w-2 h-2 rounded-full ${isAdminSignup ? 'bg-emerald-500' : 'bg-orange-500'}`}></span>
+                    <span className="text-xs font-bold text-slate-900 dark:text-white">
+                      {isAdminSignup ? 'Create Administrator Account' : 'Create Trainee Account'}
+                    </span>
+                  </div>
                   <button
                     type="button"
-                    onClick={() => navigateTo('login')}
-                    className="text-xs font-semibold text-orange-600 dark:text-orange-400 hover:text-orange-500 dark:hover:text-orange-300 flex items-center gap-1 transition"
+                    onClick={() => {
+                      setAuthError('');
+                      setAuthSuccess('');
+                      navigateTo('login');
+                    }}
+                    className={`text-xs font-semibold flex items-center gap-1 transition ${
+                      isAdminSignup
+                        ? 'text-emerald-700 dark:text-emerald-400 hover:text-emerald-600'
+                        : 'text-orange-600 dark:text-orange-400 hover:text-orange-500'
+                    }`}
                   >
                     <span>Sign In</span>
                     <Icons.ArrowRight className="w-3.5 h-3.5" />
@@ -3240,45 +4212,17 @@
                   </div>
                 )}
 
-                <form onSubmit={handleSignUp} className="space-y-1.5" key="signup-page-form">
-                  <div className="stagger-1">
-                    <label className="block text-[10px] font-semibold text-slate-600 dark:text-slate-300 mb-0.5">
-                      Select Account Type
-                    </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setSignupRole('user')}
-                        className={`py-1 px-3 rounded-lg text-xs font-semibold border transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm active:scale-95 ${signupRole === 'user'
-                          ? 'bg-orange-600 text-white border-orange-500 shadow-md shadow-orange-600/20'
-                          : 'bg-slate-100 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700'
-                          }`}
-                      >
-                        <Icons.User className="w-3 h-3" /> Student / Trainee
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setSignupRole('admin')}
-                        className={`py-1 px-3 rounded-lg text-xs font-semibold border transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm active:scale-95 ${signupRole === 'admin'
-                          ? 'bg-emerald-600 text-white border-emerald-500 shadow-md shadow-emerald-600/20'
-                          : 'bg-slate-100 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700'
-                          }`}
-                      >
-                        <Icons.Shield className="w-3 h-3" /> Administrator
-                      </button>
-                    </div>
-                  </div>
-
+                <form onSubmit={handleSignUp} className="space-y-2.5" key={isAdminSignup ? 'signup-admin-form' : 'signup-user-form'}>
                   {/* 2-Column Grid: Full Name & Email Address */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 stagger-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 stagger-1">
                     <div>
                       <label htmlFor="signup-name" className="block text-[10px] font-semibold text-slate-600 dark:text-slate-300 mb-0.5">
-                        Full Name
+                        {isAdminSignup ? 'Administrator / Staff Name' : 'Trainee Full Name'}
                       </label>
                       <input
                         id="signup-name"
                         type="text"
-                        placeholder="e.g. Sarah Jenkins"
+                        placeholder={isAdminSignup ? 'e.g. Dr. Roberto Tan' : 'e.g. Juan Dela Cruz'}
                         value={signupName}
                         onChange={(e) => setSignupName(e.target.value)}
                         className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 bg-white dark:bg-transparent focus:outline-none shadow-sm transition-all"
@@ -3286,11 +4230,13 @@
                       />
                     </div>
                     <div>
-                      <label htmlFor="signup-email" className="block text-[10px] font-bold text-slate-600 dark:text-slate-300 mb-0.5">Email Address</label>
+                      <label htmlFor="signup-email" className="block text-[10px] font-bold text-slate-600 dark:text-slate-300 mb-0.5">
+                        {isAdminSignup ? 'Official Admin Email' : 'Student Email Address'}
+                      </label>
                       <input
                         id="signup-email"
                         type="email"
-                        placeholder="e.g. sarah.jenkins@school.edu"
+                        placeholder={isAdminSignup ? 'admin@system.local' : 'trainee@school.edu'}
                         value={authEmail}
                         onChange={(e) => setAuthEmail(e.target.value)}
                         className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 bg-white dark:bg-transparent focus:outline-none shadow-sm transition-all"
@@ -3299,9 +4245,9 @@
                     </div>
                   </div>
 
-                  {/* Role Specific Fields */}
-                  {signupRole === 'user' ? (
-                    <div className="grid grid-cols-2 gap-2 stagger-3">
+                  {/* USER SPECIFIC FIELDS: BATCH & STUDENT ID */}
+                  {!isAdminSignup ? (
+                    <div className="grid grid-cols-2 gap-2 stagger-2">
                       <div>
                         <label htmlFor="signup-batch" className="block text-[10px] font-bold text-slate-600 dark:text-slate-300 mb-0.5 flex items-center gap-1">
                           <Icons.FileText className="w-3 h-3 text-orange-400" />
@@ -3310,7 +4256,7 @@
                         <input
                           id="signup-batch"
                           type="text"
-                          placeholder="e.g. Batch 2026-A"
+                          placeholder="e.g. Batch 1"
                           value={signupBatch}
                           onChange={(e) => setSignupBatch(e.target.value)}
                           className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 bg-white dark:bg-transparent focus:outline-none shadow-sm transition-all"
@@ -3325,7 +4271,7 @@
                         <input
                           id="signup-id"
                           type="text"
-                          placeholder="e.g. 2026-004"
+                          placeholder="e.g. 2026-B1-004"
                           value={signupStudentId}
                           onChange={(e) => setSignupStudentId(e.target.value)}
                           className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 bg-white dark:bg-transparent focus:outline-none shadow-sm transition-all"
@@ -3333,26 +4279,32 @@
                       </div>
                     </div>
                   ) : (
-                    <div className="stagger-3">
-                      <label htmlFor="signup-admin-passcode" className="block text-[10px] font-bold text-emerald-700 dark:text-emerald-300 mb-0.5 flex items-center gap-1">
-                        <Icons.Lock className="w-3 h-3 text-emerald-400" />
-                        <span>Administrator Verification Passcode</span>
+                    /* ADMIN SPECIFIC FIELDS: PASSCODE VERIFICATION */
+                    <div className="stagger-2 bg-emerald-50/80 dark:bg-emerald-950/20 p-2.5 rounded-xl border border-emerald-300 dark:border-emerald-500/30">
+                      <label htmlFor="signup-admin-passcode" className="block text-[10px] font-bold text-emerald-800 dark:text-emerald-300 mb-0.5 flex items-center gap-1">
+                        <Icons.Shield className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                        <span>Administrator Authorization Passcode</span>
                       </label>
                       <input
                         id="signup-admin-passcode"
                         type="password"
-                        placeholder="Enter admin passcode (demo: admin123)"
+                        placeholder="Enter master admin passcode (demo: admin123)"
                         value={adminPasscode}
                         onChange={(e) => setAdminPasscode(e.target.value)}
-                        className="w-full input-animated border border-emerald-400/60 dark:border-emerald-500/50 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 bg-white dark:bg-transparent focus:outline-none focus:border-emerald-500 shadow-sm transition-all"
+                        className="w-full input-animated border border-emerald-400 dark:border-emerald-500/50 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 bg-white dark:bg-transparent focus:outline-none focus:border-emerald-600 shadow-sm transition-all"
                         required
                       />
+                      <p className="text-[10px] text-emerald-700 dark:text-emerald-400 mt-1">
+                        Requires coordinator key to unlock administrative document verification permissions.
+                      </p>
                     </div>
                   )}
 
                   {/* Password Field */}
-                  <div className="stagger-4">
-                    <label htmlFor="signup-password" className="block text-[10px] font-bold text-slate-600 dark:text-slate-300 mb-0.5">Create Password</label>
+                  <div className="stagger-3">
+                    <label htmlFor="signup-password" className="block text-[10px] font-bold text-slate-600 dark:text-slate-300 mb-0.5">
+                      Create Password
+                    </label>
                     <div className="relative">
                       <input
                         id="signup-password"
@@ -3375,11 +4327,15 @@
                     </div>
                   </div>
 
-                  <div className="stagger-5 pt-0.5 space-y-1.5">
+                  <div className="stagger-4 pt-1 space-y-1.5">
                     <button
                       type="submit"
                       disabled={isAuthenticating}
-                      className="w-full py-2 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 bg-[length:200%_auto] hover:bg-[position:right_center] text-white font-bold text-xs shadow-lg shadow-emerald-600/30 btn-shimmer flex items-center justify-center gap-2 disabled:opacity-75 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
+                      className={`w-full py-2.5 rounded-xl font-bold text-xs shadow-lg btn-shimmer flex items-center justify-center gap-2 disabled:opacity-75 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] ${
+                        isAdminSignup
+                          ? 'bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 text-white shadow-emerald-600/30'
+                          : 'bg-gradient-to-r from-orange-600 via-amber-600 to-orange-600 text-white shadow-orange-600/30'
+                      }`}
                     >
                       {isAuthenticating ? (
                         <>
@@ -3390,7 +4346,7 @@
                           <span>Creating Account & Syncing...</span>
                         </>
                       ) : (
-                        <span>Complete Registration & Enter Portal →</span>
+                        <span>{isAdminSignup ? 'Complete Administrator Registration â†’' : 'Complete Trainee Registration â†’'}</span>
                       )}
                     </button>
 
@@ -3399,10 +4355,18 @@
                         Already have an account?{' '}
                         <button
                           type="button"
-                          onClick={() => navigateTo('login')}
-                          className="text-orange-600 dark:text-orange-400 hover:text-orange-500 dark:hover:text-orange-300 font-bold transition hover:underline"
+                          onClick={() => {
+                            setAuthError('');
+                            setAuthSuccess('');
+                            navigateTo('login');
+                          }}
+                          className={`font-bold transition hover:underline ${
+                            isAdminSignup
+                              ? 'text-emerald-700 dark:text-emerald-400 hover:text-emerald-600'
+                              : 'text-orange-600 dark:text-orange-400 hover:text-orange-500'
+                          }`}
                         >
-                          Sign In here →
+                          Sign In here â†’
                         </button>
                       </p>
                     </div>
@@ -3422,6 +4386,8 @@
       // 3. DEDICATED LOGIN PAGE (SHOWN BEFORE REDIRECTING TO MAIN PAGE)
       // =====================================================================
       if (currentView === 'login' || !currentUser) {
+        const isAdminLogin = (authPortalTab === 'admin');
+
         return (
           <div className="auth-hero-scope min-h-screen bg-slate-950 flex flex-col justify-center items-center p-3 sm:p-4 md:p-6 relative overflow-y-auto">
             {/* Top-Left Logo + Company Name */}
@@ -3460,8 +4426,8 @@
               className="w-full max-w-md my-auto py-2 sm:py-4 flex flex-col items-center relative z-10 -translate-y-[25px]"
               style={{ transform: 'translateY(-25px)' }}
             >
-              {/* Portal Branding - Logo moved to top-left */}
-              <div className="text-center mb-3.5 w-full mt-14 sm:mt-16">
+              {/* Portal Branding */}
+              <div className="text-center mb-3 w-full mt-14 sm:mt-16">
                 <div className="flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-wider text-stone-600 my-1">
                   <span>Practical Skills</span>
                   <span className="w-1 h-1 rounded-full bg-orange-500"></span>
@@ -3469,14 +4435,52 @@
                 </div>
 
                 <h1 className="text-lg sm:text-xl font-black text-stone-900 tracking-tight flex items-center justify-center gap-2 flex-wrap mt-1">
-                  PQF LEVEL 5 DIPLOMA PROGRAMS
+                  {isAdminLogin ? 'ADMINISTRATOR GATEWAY' : 'KM100 REQUIREMENTS PORTAL'}
                 </h1>
-                <p className="text-xs italic text-stone-600 font-medium mt-0.5 animate-subtitle">
-                  Five programs. More opportunities. A brighter future.
+                <p className="text-xs text-stone-600 font-medium mt-0.5 animate-subtitle">
+                  {isAdminLogin
+                    ? 'Staff, Instructors & Document Coordinators Only'
+                    : 'Diploma & Technical-Vocational Trainee Portal'}
                 </p>
                 <p className="text-[10px] text-stone-500 font-medium mt-1">
                   KM Building, Jamoral Ville, Purok 13, Brgy. Cogon, Bogo City, Cebu 6010
                 </p>
+              </div>
+
+              {/* SEPARATED PORTAL SELECTOR TABS */}
+              <div className="w-full mb-3 bg-slate-900/40 p-1 rounded-2xl backdrop-blur-md border border-white/20 shadow-lg flex gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAuthPortalTab('user');
+                    setAuthError('');
+                    setAuthSuccess('');
+                  }}
+                  className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center gap-2 ${
+                    !isAdminLogin
+                      ? 'bg-orange-600 text-white shadow-md shadow-orange-600/30 ring-1 ring-orange-400'
+                      : 'text-slate-200 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <Icons.User className="w-3.5 h-3.5" />
+                  <span>Student / Trainee Portal</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAuthPortalTab('admin');
+                    setAuthError('');
+                    setAuthSuccess('');
+                  }}
+                  className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center gap-2 ${
+                    isAdminLogin
+                      ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 ring-1 ring-emerald-400'
+                      : 'text-slate-200 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <Icons.Shield className="w-3.5 h-3.5" />
+                  <span>Administrator Portal</span>
+                </button>
               </div>
 
               {/* Optional: Resume previous session card if found */}
@@ -3508,9 +4512,16 @@
               >
                 {/* Header Switcher */}
                 <div className="flex items-center justify-between pb-2.5 border-b border-slate-200 dark:border-slate-800">
-                  <div>
-                    <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Sign In</h2>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400">Enter your credentials to enter the portal</p>
+                  <div className="flex items-center gap-2">
+                    <span className={`w-2 h-2 rounded-full ${isAdminLogin ? 'bg-emerald-500' : 'bg-orange-500'}`}></span>
+                    <div>
+                      <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+                        {isAdminLogin ? 'Administrator Sign In' : 'Student / Trainee Sign In'}
+                      </h2>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                        {isAdminLogin ? 'Staff authentication & access clearance' : 'Access your trainee requirements & scan records'}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
@@ -3530,15 +4541,17 @@
                   </div>
                 )}
 
-                <form onSubmit={handleLogin} className="space-y-3 animate-form-enter" key="login-form">
+                <form onSubmit={handleLogin} className="space-y-3 animate-form-enter" key={isAdminLogin ? 'login-admin-form' : 'login-user-form'}>
                   <div className="stagger-3">
-                    <label htmlFor="login-email" className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
+                    <label htmlFor="login-email" className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      {isAdminLogin ? 'Admin Email Address' : 'Student Email Address'}
+                    </label>
                     <input
                       id="login-email"
                       type="email"
                       value={authEmail}
                       onChange={(e) => setAuthEmail(e.target.value)}
-                      placeholder="e.g. admin@system.local or juan.delacruz@school.edu"
+                      placeholder={isAdminLogin ? 'admin@system.local' : 'e.g. juan.dela.cruz@school.edu'}
                       className="w-full input-animated border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 bg-white dark:bg-transparent focus:outline-none shadow-sm transition-all"
                       required
                     />
@@ -3572,7 +4585,11 @@
                     <button
                       type="submit"
                       disabled={isAuthenticating}
-                      className="w-full py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-orange-600 via-amber-600 to-orange-600 bg-[length:200%_auto] hover:bg-[position:right_center] text-white font-bold text-xs shadow-xl shadow-orange-600/30 btn-shimmer flex items-center justify-center gap-2 disabled:opacity-75 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
+                      className={`w-full py-2.5 sm:py-3 rounded-xl font-bold text-xs shadow-xl btn-shimmer flex items-center justify-center gap-2 disabled:opacity-75 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] ${
+                        isAdminLogin
+                          ? 'bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 text-white shadow-emerald-600/30'
+                          : 'bg-gradient-to-r from-orange-600 via-amber-600 to-orange-600 text-white shadow-orange-600/30'
+                      }`}
                     >
                       {isAuthenticating ? (
                         <>
@@ -3583,19 +4600,50 @@
                           <span>Verifying & Redirecting...</span>
                         </>
                       ) : (
-                        <span>Sign In & Redirect to Portal →</span>
+                        <span>{isAdminLogin ? 'Sign In as Administrator â†’' : 'Sign In as Trainee â†’'}</span>
                       )}
                     </button>
+
+                    {/* Quick Demo Access Bar */}
+                    <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px]">
+                      <span className="text-slate-500 font-medium">Quick Demo:</span>
+                      {isAdminLogin ? (
+                        <button
+                          type="button"
+                          onClick={() => handleQuickLogin('admin@system.local', 'admin123')}
+                          className="font-bold text-emerald-700 hover:text-emerald-800 hover:underline"
+                        >
+                          Auto-fill Coordinator (admin@system.local)
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => handleQuickLogin('juan.dela.cruz@school.edu', 'user123')}
+                          className="font-bold text-orange-600 hover:text-orange-700 hover:underline"
+                        >
+                          Auto-fill Trainee (juan.dela.cruz@school.edu)
+                        </button>
+                      )}
+                    </div>
 
                     <div className="text-center pt-2 border-t border-slate-200 dark:border-slate-800">
                       <p className="text-xs text-slate-500 dark:text-slate-400">
                         Don't have an account yet?{' '}
                         <button
                           type="button"
-                          onClick={() => navigateTo('signup')}
-                          className="text-orange-600 dark:text-orange-400 hover:text-orange-500 dark:hover:text-orange-300 font-bold transition hover:underline"
+                          onClick={() => {
+                            setAuthError('');
+                            setAuthSuccess('');
+                            setSignupRole(isAdminLogin ? 'admin' : 'user');
+                            navigateTo('signup');
+                          }}
+                          className={`font-bold transition hover:underline ${
+                            isAdminLogin
+                              ? 'text-emerald-700 dark:text-emerald-400 hover:text-emerald-600'
+                              : 'text-orange-600 dark:text-orange-400 hover:text-orange-500'
+                          }`}
                         >
-                          Create Account (Sign Up) →
+                          {isAdminLogin ? 'Register Admin Account â†’' : 'Register Trainee Account â†’'}
                         </button>
                       </p>
                     </div>
@@ -3651,11 +4699,11 @@
                     </span>
                     <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-orange-800 bg-orange-100 border border-orange-300 px-2.5 py-0.5 rounded-full shadow-sm transition-colors">
                       <span className="w-1.5 h-1.5 rounded-full bg-orange-600"></span>
-                      PQF Level 5
+
                     </span>
                   </div>
                   <p className="text-[11px] text-stone-600 font-medium mt-0.5">
-                    PQF Level 5 Diploma &amp; NC II Trainee Clearance Portal • Bogo City, Cebu
+                    &amp; NC II Trainee Clearance Portal • Bogo City, Cebu
                   </p>
                 </div>
               </div>
@@ -3666,8 +4714,8 @@
                   {/* User Identity */}
                   <div className="flex items-center gap-2.5">
                     <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${currentUser?.is_admin
-                        ? 'bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25'
-                        : 'bg-orange-500/10 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 border border-orange-500/25'
+                      ? 'bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25'
+                      : 'bg-orange-500/10 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 border border-orange-500/25'
                       }`}>
                       {currentUser?.is_admin ? (
                         <Icons.Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -3786,7 +4834,7 @@
                         <input
                           id="search-batch"
                           type="text"
-                          placeholder="e.g. Batch 2026-A"
+                          placeholder="e.g. Batch 1"
                           value={batchNumber}
                           onChange={(e) => {
                             setBatchNumber(e.target.value);
@@ -3896,8 +4944,8 @@
                           Status:
                         </span>
                         <span className={`text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border flex items-center gap-1.5 ${isCleared
-                            ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/30'
-                            : 'bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-500/30'
+                          ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/30'
+                          : 'bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-500/30'
                           }`}>
                           {isCleared ? (
                             <Icons.CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
@@ -3982,8 +5030,8 @@
                         <div className="w-full h-2.5 bg-slate-100 dark:bg-slate-950 rounded-full overflow-hidden border border-slate-200 dark:border-slate-800">
                           <div
                             className={`h-full rounded-full transition-all duration-500 ${percentComplete === 100
-                                ? 'bg-emerald-500'
-                                : 'bg-gradient-to-r from-orange-500 to-amber-500'
+                              ? 'bg-emerald-500'
+                              : 'bg-gradient-to-r from-orange-500 to-amber-500'
                               }`}
                             style={{ width: `${percentComplete}%` }}
                           ></div>
@@ -4095,8 +5143,8 @@
                                 key={tab.id}
                                 onClick={() => setActiveFilter(tab.id)}
                                 className={`px-2.5 py-1 rounded-md text-xs font-semibold transition ${activeFilter === tab.id
-                                    ? 'bg-orange-600 text-white shadow-sm'
-                                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800/60'
+                                  ? 'bg-orange-600 text-white shadow-sm'
+                                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800/60'
                                   }`}
                               >
                                 {tab.label}
@@ -4133,10 +5181,10 @@
                                       {req.name}
                                     </h5>
                                     <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${isLacking
-                                        ? 'bg-red-50 dark:bg-red-500/15 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-500/30'
-                                        : isPending
-                                          ? 'bg-amber-50 dark:bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-500/30'
-                                          : 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30'
+                                      ? 'bg-red-50 dark:bg-red-500/15 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-500/30'
+                                      : isPending
+                                        ? 'bg-amber-50 dark:bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-500/30'
+                                        : 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30'
                                       }`}>
                                       {req.status}
                                     </span>
